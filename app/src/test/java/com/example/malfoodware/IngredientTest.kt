@@ -13,8 +13,8 @@ class IngredientTest {
 
     @Test
     fun testGetPerUnit() {
-        var a:Ingredient = Ingredient("1", "PopCorn", 135f, 6.3f, 16f,
-            2.8f, 2.5f, 0.72f, 30f)
+//        var a:Ingredient = Ingredient("1", "PopCorn", 135f, 6.3f, 16f,
+//            2.8f, 2.5f, 0.72f, 30f)
 //        assertEquals(a.toUnit(Nutritions.ENERGY), 135 / 30f)
 //        assertEquals(a.toUnit(Nutritions.CARBS), 16 / 30f)
     }

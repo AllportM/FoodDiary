@@ -19,13 +19,57 @@
     <!--            app:layout_constraintStart_toStartOf="parent" android:id="@+id/linearLayout">-->
     <!--    </LinearLayout>-->
 
+    <TextView
+            android:id="@+id/textView"
+            android:layout_width="262dp"
+            android:layout_height="52dp"
+            android:layout_marginTop="56dp"
+            android:autofillHints=""
+            android:background="@drawable/button_purple"
+            android:clickable="true"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:gravity="center"
+            android:maxLength="20"
+            android:singleLine="true"
+            android:text="Login"
+            android:textColor="#FFFFFF"
+            android:textIsSelectable="false"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@+id/unameInput"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/unameInput"
+            app:layout_constraintTop_toBottomOf="@+id/unameInput" />
+
+    <TextView
+            android:id="@+id/createUser"
+            android:layout_width="262dp"
+            android:layout_height="52dp"
+            android:layout_marginTop="56dp"
+            android:autofillHints=""
+            android:background="@drawable/button_purple"
+            android:clickable="true"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:gravity="center"
+            android:maxLength="20"
+            android:singleLine="true"
+            android:text="Create User"
+            android:textColor="#FFFFFF"
+            android:textIsSelectable="false"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@+id/unameInput"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="@+id/unameInput"
+            app:layout_constraintTop_toBottomOf="@+id/textView" />
+
     <EditText
             android:id="@+id/unameInput"
             style="@style/Widget.AppCompat.EditText"
             android:layout_width="262dp"
             android:layout_height="52dp"
-            android:layout_marginStart="48dp"
-            android:layout_marginTop="152dp"
+            android:layout_marginStart="72dp"
+            android:layout_marginTop="236dp"
             android:autofillHints=""
             android:background="@drawable/text_field_border"
             android:focusableInTouchMode="true"
@@ -36,47 +80,6 @@
             android:singleLine="true"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-
-    <EditText
-            android:id="@+id/unameInput2"
-            style="@style/Widget.AppCompat.EditText"
-            android:layout_width="262dp"
-            android:layout_height="52dp"
-            android:layout_marginTop="44dp"
-            android:autofillHints=""
-            android:background="@drawable/text_field_border"
-            android:focusableInTouchMode="true"
-            android:gravity="center"
-            android:hint="Password"
-            android:inputType="textPassword"
-            android:maxLength="20"
-            android:singleLine="true"
-            app:layout_constraintEnd_toEndOf="@+id/unameInput"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="@+id/unameInput"
-            app:layout_constraintTop_toBottomOf="@+id/unameInput" />
-
-    <TextView
-            android:focusable="true"
-            android:id="@+id/textView"
-            android:layout_width="262dp"
-            android:layout_height="52dp"
-            android:layout_marginTop="48dp"
-            android:autofillHints=""
-            android:background="@drawable/button_purple"
-            android:clickable="true"
-            android:focusableInTouchMode="true"
-            android:gravity="center"
-            android:maxLength="20"
-            android:singleLine="true"
-            android:text="Login"
-            android:textColor="#FFFFFF"
-            android:textIsSelectable="false"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="@+id/unameInput2"
-            app:layout_constraintHorizontal_bias="0.8"
-            app:layout_constraintStart_toStartOf="@+id/unameInput2"
-            app:layout_constraintTop_toBottomOf="@+id/unameInput2" />
 
     <!--- android:backgroundTint="#00868383" -->
 

@@ -1,7 +1,8 @@
 package com.example.malfoodware
 
-class Ingredient(var id:String, var name:String, energy:Float, fat:Float, carbs:Float,
-                 fibre:Float, protein: Float, salt:Float, serving:Float) {
+class Ingredient(var name:String, energy:Float, fat:Float, carbs:Float,
+                 fibre:Float, protein: Float, salt:Float, serving:Float):
+    Comparable<Ingredient>{
     val nut: Nutrition
 
     init
@@ -25,8 +26,14 @@ class Ingredient(var id:String, var name:String, energy:Float, fat:Float, carbs:
     }
 
     fun toCSVString(): String {
-        var output = ""
-        output += "$id,$name," + nut.toCSVString()
-        return output
+        return ""
+    }
+
+    override fun toString(): String {
+        return "Ingredient[name: $name, nut: $nut]"
+    }
+
+    override fun compareTo(other: Ingredient): Int {
+        if (this.name > other.name) return 1 else return -1
     }
 }

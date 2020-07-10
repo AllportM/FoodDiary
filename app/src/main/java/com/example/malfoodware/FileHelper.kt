@@ -104,7 +104,9 @@ class FileHelper
 
         private fun checkNewLine(toCheck: String): Boolean
         {
-            return toCheck.get(toCheck.length-1) != '\n' && toCheck.get(toCheck.length-2) != '\n'
+            if (toCheck.length > 0)
+                return toCheck.get(toCheck.length-1) != '\n' && toCheck.get(toCheck.length-2) != '\n'
+            return true
         }
 
         private fun checkExists(filename: String)

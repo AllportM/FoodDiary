@@ -73,4 +73,9 @@ data class Nutrition(var energy: Float = 0f, var fat:Float = 0f, var carbs:Float
     fun toCSVString(): String {
         return "$energy,$fat,$carbs,$fibre,$protein,$salt,$serving"
     }
+
+    override fun toString(): String {
+        return "Nutrition[energy: $energy, fat: $fat, carbs: $carbs, fibre: $fibre," +
+                " protein: $protein, salt: $salt, serving: $serving g ]"
+    }
 }

@@ -1,53 +1,49 @@
 package com.example.malfoodware
 
-class Recipe (val recID: String, val recName:String): Comparable<Recipe>{
-    val ingList: MutableMap<String, Float> = mutableMapOf()
+class Recipe (var recName:String): Comparable<Recipe>{
+    val ingList: MutableMap<Ingredient, Float> = mutableMapOf()
 
-    fun addIngredient(ingId: String, qty: Float)
+    fun addIngredient(ing: Ingredient, qty: Float)
     {
-        ingList[ingId] = qty
+        ingList[ing] = qty
     }
 
-//    fun getNutritionalValue(ingredients: MutableMap<String, Ingredient>): Nutrition
-//    {
-//        var nutrition: Nutrition? = null
-//        for (id in ingList)
-//        {
-//            if(ingredients[id] != null)
-//            {
-//                if (nutrition == null)
-//                {
-//                    nutrition = ingredients[id]!!.nut.copy()
-//                    continue
-//                }
-//                nutrition.plusAssign(ingredients[id]!!.nut)
-//            }
-//        }
-//        return if (nutrition != null) nutrition
-//        else Nutrition(0f,0f,0f,0f,0f,0f,0.01f)
-//    }
 
     override fun equals(other: Any?): Boolean {
-        return other is Recipe && other.recID.equals(recID)
+        return other is Recipe && other.recName == (recName)
     }
 
     override fun hashCode(): Int {
-        return recID.hashCode()
+        return recName.hashCode()
     }
 
     override fun compareTo(other: Recipe): Int {
-        if (other.equals(this)) return 1 else return -1
+        if (this.recName > other.recName) return 1 else return -1
     }
 
     fun toCSVString(): String
     {
         var output = ""
-        output += "$recID,$recName,"
+        output += "$recName,"
         for (ing in ingList)
         {
-            output += ing.key + "," + ing.value
+            output += ing.key.toString() + "," + ing.value
         }
         output = output.substring(0, output.length-1)
+        return output
+    }
+
+    override fun toString(): String {
+        var output: String= "Recipe[name: $recName, Ingredients: ["
+        for (i in ingList)
+        {
+            output += "(ing: ${i.key}, qty: ${i.value}), "
+        }
+        if (ingList.size > 0)
+        {
+            output = output.substring(0, output.length - 2)
+        }
+        output += "]"
         return output
     }
 }
