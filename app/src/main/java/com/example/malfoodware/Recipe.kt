@@ -8,6 +8,20 @@ class Recipe (var recName:String): Comparable<Recipe>{
         ingList[ing] = qty
     }
 
+    fun getNutrition(): Nutrition?
+    {
+        var nutrition: Nutrition? = null
+        for (ingredient in ingList)
+        {
+            if (nutrition == null)
+            {
+                nutrition = ingredient.key.nut / ingredient.value
+            }
+            else
+                nutrition.plusAssign(ingredient.key.nut / ingredient.value)
+        }
+        return nutrition
+    }
 
     override fun equals(other: Any?): Boolean {
         return other is Recipe && other.recName == (recName)

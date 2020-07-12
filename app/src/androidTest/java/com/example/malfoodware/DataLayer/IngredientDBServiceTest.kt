@@ -20,7 +20,7 @@ class IngredientDBServiceTest {
         lateinit var dbHelper: FoodDBHelper
         val ING1_NAME = "Test Ingredient 1"
         val ING1 = Ingredient(
-            ING1_NAME, 0f, 0f, 0f, 0f, 0f, 0f,
+            ING1_NAME, 10f, 10f, 10f, 10f, 10f, 10f,
             1f
         )
         val ING2_NAME = "Test Ingredient 2"

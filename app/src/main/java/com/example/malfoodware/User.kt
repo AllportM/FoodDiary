@@ -19,4 +19,12 @@ class User (var uid: String){
                 "${nutritionPerDay.fibre}, protein: ${nutritionPerDay.protein}, salt: " +
                 "${nutritionPerDay.salt}]"
     }
+
+    fun copy(): User
+    {
+        val user = User(uid)
+        user.INSULIN_PER10G = INSULIN_PER10G
+        user.nutritionPerDay = nutritionPerDay.copy()
+        return user
+    }
 }

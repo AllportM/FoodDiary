@@ -73,7 +73,7 @@ class DiaryDBServiceTest                 {
     @Test
     fun testGetDiaryEntriesDate1Success()
     {
-        var set = DiaryDBService.getDiaryEntriesDate(dbHelper, ENTRY2.dateString)
+        var set = DiaryDBService.getDiaryEntriesDate(dbHelper, USER.uid, ENTRY1.dateString)
         println("--------getTest------\n$set")
         Logger.last()
         assertTrue(set.size == 1)
@@ -82,7 +82,7 @@ class DiaryDBServiceTest                 {
     @Test
     fun testGetDiaryEntriesDate1Fail()
     {
-        var set = DiaryDBService.getDiaryEntriesDate(dbHelper, "1/7/2020")
+        var set = DiaryDBService.getDiaryEntriesDate(dbHelper, USER.uid,"1/7/2020")
         println("--------getTest------\n$set")
         Logger.last()
         assertTrue(set.size == 0)
@@ -91,7 +91,7 @@ class DiaryDBServiceTest                 {
     @Test
     fun testGetDiaryRange1Success()
     {
-        var set = DiaryDBService.getDiaryEntriesDateRange(dbHelper, ENTRY1.dateString, "2/7/2020")
+        var set = DiaryDBService.getDiaryEntriesDateRange(dbHelper, USER.uid, ENTRY1.dateString, "2/7/2020")
         println("--------getTest------\n$set")
         Logger.last()
         assertTrue(set.size == 1)
@@ -100,7 +100,7 @@ class DiaryDBServiceTest                 {
     @Test
     fun testGetDiaryRange2Success()
     {
-        var set = DiaryDBService.getDiaryEntriesDateRange(dbHelper, ENTRY1.dateString, ENTRY2.dateString)
+        var set = DiaryDBService.getDiaryEntriesDateRange(dbHelper, USER.uid, ENTRY1.dateString, ENTRY2.dateString)
         println("--------getTest------\n$set")
         Logger.last()
         assertTrue(set.size == 2)

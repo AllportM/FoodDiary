@@ -72,9 +72,10 @@ class FoodDBHelper(context: Context): SQLiteOpenHelper(context, DATABASE_NAME, n
      *          the date
      */
     fun getDiaryEntriesDate(
+        uid: String,
         date: String
     ): SortedSet<FoodDiaryEntry> {
-        return DiaryDBService.getDiaryEntriesDate(this, date)
+        return DiaryDBService.getDiaryEntriesDate(this, uid, date)
     }
 
     /**
@@ -90,10 +91,11 @@ class FoodDBHelper(context: Context): SQLiteOpenHelper(context, DATABASE_NAME, n
      *           the date
      */
     fun getDiaryEntriesDateRange(
+        uid: String,
         from: String,
         to: String
     ): SortedSet<FoodDiaryEntry> {
-        return DiaryDBService.getDiaryEntriesDateRange(this, from, to)
+        return DiaryDBService.getDiaryEntriesDateRange(this, uid,  from, to)
     }
 
     /**
@@ -272,5 +274,19 @@ class FoodDBHelper(context: Context): SQLiteOpenHelper(context, DATABASE_NAME, n
      */
     fun ammendUser(user: User): Boolean {
         return UserDBService.ammendUser(this, user)
+    }
+
+    /**
+     * getLoggedInUser retrieves the last user logged in during the app's lifecycle
+     */
+    fun getLoggedInUser(): String? {
+        return AppDBService.getLoggedInUser(this)
+    }
+
+    /**
+     * setLoggedInUser updates the last user logged in
+     */
+    fun setLoggedInUser(name: String?) {
+        return AppDBService.setLoggedInUser(this, name)
     }
 }

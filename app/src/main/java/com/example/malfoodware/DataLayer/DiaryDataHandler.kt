@@ -29,7 +29,7 @@ interface DiaryDataHandler {
      *      SortedSet<FoodDiaryEntry>: a set either empty or full dependant upon entries matching
      *          the date
      */
-    fun getDiaryEntriesDate(dbHelper: FoodDBHelper, date: String): SortedSet<FoodDiaryEntry>
+    fun getDiaryEntriesDate(dbHelper: FoodDBHelper, uid:String, date: String): SortedSet<FoodDiaryEntry>
 
     /**
      * getDiaryEntriesDateRange returns a set of FoodDiaryEntry's for a given date range
@@ -44,5 +44,5 @@ interface DiaryDataHandler {
      *      SortedSet<FoodDiaryEntry>: a set either empty or full dependant upon entries matching
      *           the date
      */
-    fun getDiaryEntriesDateRange(dbHelper: FoodDBHelper, from: String, to: String): SortedSet<FoodDiaryEntry>
+    fun getDiaryEntriesDateRange(dbHelper: FoodDBHelper, uid:String, from: String, to: String): SortedSet<FoodDiaryEntry>
 }

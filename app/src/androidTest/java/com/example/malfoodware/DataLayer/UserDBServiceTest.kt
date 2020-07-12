@@ -65,12 +65,14 @@ class UserDBServiceTest {
     @Test
     fun ammendUserSuccess()
     {
+        val USER2 = USER1.copy()
         val nut = Nutrition(10f, 10f, 10f, 10f, 10f, 10f,
         10f)
-        USER1.nutritionPerDay = nut
-        assertTrue(dbHelper.ammendUser(USER1))
+        USER2.nutritionPerDay = nut
+        assertTrue(dbHelper.ammendUser(USER2))
         val newUser = dbHelper.getUser(USER1.uid)
         assertTrue(newUser!!.nutritionPerDay.energy == 10f)
+        assertTrue(dbHelper.ammendUser(USER1))
     }
 
 }

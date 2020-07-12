@@ -187,9 +187,9 @@ class DiaryDBService {
             return result
         }
 
-        override fun getDiaryEntriesDate(dbHelper: FoodDBHelper, date: String): SortedSet<FoodDiaryEntry> {
+        override fun getDiaryEntriesDate(dbHelper: FoodDBHelper, uid: String, date: String): SortedSet<FoodDiaryEntry> {
             val db = dbHelper.readableDatabase
-            val query = "SELECT * FROM $TABLE_DIARY_ENTRY WHERE $KEY_DATE='$date'"
+            val query = "SELECT * FROM $TABLE_DIARY_ENTRY WHERE $KEY_DATE='$date' AND $KEY_UID='$uid'"
             var cursor = db.rawQuery(query, null)
             var result: SortedSet<FoodDiaryEntry> = sortedSetOf()
             if (cursor.moveToFirst())
@@ -215,18 +215,19 @@ class DiaryDBService {
             return result
         }
 
-        override fun getDiaryEntriesDateRange(dbHelper: FoodDBHelper, from: String, to: String): SortedSet<FoodDiaryEntry> {
+        override fun getDiaryEntriesDateRange(dbHelper: FoodDBHelper, uid: String, from: String, to: String): SortedSet<FoodDiaryEntry> {
             val db = dbHelper.readableDatabase
             var result: SortedSet<FoodDiaryEntry> = sortedSetOf()
-            val query = "SELECT * FROM $TABLE_DIARY_ENTRY WHERE $KEY_DATE>='$from' AND $KEY_DATE<='$to'"
+            val query = "SELECT * FROM $TABLE_DIARY_ENTRY WHERE $KEY_DATE>='$from' AND $KEY_DATE<='$to' " +
+                    "AND $KEY_UID='$uid'"
             var cursor = db.rawQuery(query, null)
             if (cursor.moveToFirst()) {
-                val entryID = cursor.getInt(cursor.getColumnIndex(KEY_DIARY_ID))
-                val timeMillis = cursor.getLong(cursor.getColumnIndex(KEY_TIME_MILLIS))
-                val insulin = cursor.getInt(cursor.getColumnIndex(KEY_INSULIN))
-                val bloodSugar = cursor.getFloat(cursor.getColumnIndex(KEY_BLOOD_SUGAR))
-                val notes = cursor.getString(cursor.getColumnIndex(KEY_NOTES))
                 do {
+                    val entryID = cursor.getInt(cursor.getColumnIndex(KEY_DIARY_ID))
+                    val timeMillis = cursor.getLong(cursor.getColumnIndex(KEY_TIME_MILLIS))
+                    val insulin = cursor.getInt(cursor.getColumnIndex(KEY_INSULIN))
+                    val bloodSugar = cursor.getFloat(cursor.getColumnIndex(KEY_BLOOD_SUGAR))
+                    val notes = cursor.getString(cursor.getColumnIndex(KEY_NOTES))
                     val entry = FoodDiaryEntry(timeMillis)
                     if (!cursor.isNull(cursor.getColumnIndex(KEY_INSULIN)))
                         entry.insulinTaken = insulin

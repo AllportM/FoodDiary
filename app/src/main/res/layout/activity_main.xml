@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:focusableInTouchMode="true"
         android:clickable="true"
         android:focusable="true"
+        android:focusableInTouchMode="true"
         android:windowSoftInputMode="stateHidden"
         tools:context=".MainActivity">
     <!--    <LinearLayout-->
@@ -19,57 +18,12 @@
     <!--            app:layout_constraintStart_toStartOf="parent" android:id="@+id/linearLayout">-->
     <!--    </LinearLayout>-->
 
-    <TextView
-            android:id="@+id/textView"
-            android:layout_width="262dp"
-            android:layout_height="52dp"
-            android:layout_marginTop="56dp"
-            android:autofillHints=""
-            android:background="@drawable/button_purple"
-            android:clickable="true"
-            android:focusable="true"
-            android:focusableInTouchMode="true"
-            android:gravity="center"
-            android:maxLength="20"
-            android:singleLine="true"
-            android:text="Login"
-            android:textColor="#FFFFFF"
-            android:textIsSelectable="false"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="@+id/unameInput"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/unameInput"
-            app:layout_constraintTop_toBottomOf="@+id/unameInput" />
-
-    <TextView
-            android:id="@+id/createUser"
-            android:layout_width="262dp"
-            android:layout_height="52dp"
-            android:layout_marginTop="56dp"
-            android:autofillHints=""
-            android:background="@drawable/button_purple"
-            android:clickable="true"
-            android:focusable="true"
-            android:focusableInTouchMode="true"
-            android:gravity="center"
-            android:maxLength="20"
-            android:singleLine="true"
-            android:text="Create User"
-            android:textColor="#FFFFFF"
-            android:textIsSelectable="false"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="@+id/unameInput"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="@+id/unameInput"
-            app:layout_constraintTop_toBottomOf="@+id/textView" />
-
     <EditText
             android:id="@+id/unameInput"
             style="@style/Widget.AppCompat.EditText"
             android:layout_width="262dp"
             android:layout_height="52dp"
-            android:layout_marginStart="72dp"
-            android:layout_marginTop="236dp"
+            android:layout_marginBottom="32dp"
             android:autofillHints=""
             android:background="@drawable/text_field_border"
             android:focusableInTouchMode="true"
@@ -78,51 +32,73 @@
             android:inputType="text"
             android:maxLength="20"
             android:singleLine="true"
+            app:layout_constraintBottom_toTopOf="@+id/loginBut"
+            app:layout_constraintEnd_toEndOf="@+id/loginBut"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/loginBut" />
+
+    <!--    <TextView-->
+    <!--            android:id="@+id/loginBut"-->
+    <!--            android:layout_width="262dp"-->
+    <!--            android:layout_height="52dp"-->
+    <!--            android:autofillHints=""-->
+    <!--            android:background="@drawable/button_purple"-->
+    <!--            android:clickable="true"-->
+    <!--            android:focusable="true"-->
+    <!--            android:focusableInTouchMode="true"-->
+    <!--            android:gravity="center"-->
+    <!--            android:maxLength="20"-->
+    <!--            android:singleLine="true"-->
+    <!--            android:text="Login"-->
+    <!--            android:textColor="#FFFFFF"-->
+    <!--            android:textIsSelectable="false"-->
+    <!--            android:textStyle="bold"-->
+    <!--            app:layout_constraintBottom_toBottomOf="parent"-->
+    <!--            app:layout_constraintEnd_toEndOf="parent"-->
+    <!--            app:layout_constraintStart_toStartOf="parent"-->
+    <!--            app:layout_constraintTop_toTopOf="parent" />-->
+    <Button
+            android:id="@+id/loginBut"
+            android:layout_width="262dp"
+            android:layout_height="52dp"
+            android:autofillHints=""
+            android:background="@drawable/button_purple"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center"
+            android:maxLength="20"
+            android:singleLine="true"
+            android:text="Login"
+            android:textColor="#FFFFFF"
+            android:textIsSelectable="false"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+    <Button
+            android:id="@+id/createUser"
+            android:layout_width="262dp"
+            android:layout_height="52dp"
+            android:layout_marginTop="32dp"
+            android:autofillHints=""
+            android:background="@drawable/button_purple"
+            android:clickable="true"
+            android:focusable="false"
+            android:gravity="center"
+            android:maxLength="20"
+            android:singleLine="true"
+            android:text="Create User"
+            android:textColor="#FFFFFF"
+            android:textIsSelectable="false"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@+id/loginBut"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/loginBut"
+            app:layout_constraintTop_toBottomOf="@+id/loginBut" />
+
     <!--- android:backgroundTint="#00868383" -->
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
