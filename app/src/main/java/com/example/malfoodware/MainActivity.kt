@@ -1,16 +1,18 @@
 package com.example.malfoodware
 
+import FoodEntriesAdapter
 import android.annotation.SuppressLint
-import android.app.ActionBar
 import android.content.Context
-import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Gravity
 import android.view.View
+import android.view.Window
 import android.view.inputmethod.InputMethodManager
 import android.widget.*
 import androidx.core.view.setPadding
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import java.util.*
 
 class MainActivity : AppCompatActivity() {
@@ -22,6 +24,7 @@ class MainActivity : AppCompatActivity() {
         ACTIVITY_MANAGER = ViewManager(this)
         app = App(applicationContext)
         ACTIVITY_MANAGER.setView(Views.MAIN_VIEW)
+        setSupportActionBar(findViewById(R.id.toolbar2))
 
         var uidText = findViewById<TextView>(R.id.unameInput)
         // sets to hide keyboard when focus lost
@@ -54,55 +57,13 @@ class MainActivity : AppCompatActivity() {
     @SuppressLint("ResourceAsColor")
     fun setDiaryViewList(entries: SortedSet<FoodDiaryEntry>)
     {
-        val table = findViewById<TableLayout>(R.id.tableFoodEntries)
-        table.isStretchAllColumns = true
-        table.setBackgroundColor(R.color.purple_hover)
-
-        for (entry in entries)
-        {
-            for (i in 0 until 5) {
-                val row = TableRow(this)
-                row.setBackgroundColor(R.color.deep_purple)
-                row.gravity = Gravity.CENTER
-                row.setPadding(50)
-                val bloodSugar = TextView(this)
-                bloodSugar.text = "${entry.bloodSugar}"
-                val foods = TextView(this)
-                var foodsText = ""
-                for (recipe in entry.recipes) {
-                    foodsText += recipe.key.recName + "\n"
-                }
-                for (ingredient in entry.ingredients) {
-                    foodsText += ingredient.key.name + "\n"
-                }
-                if (foodsText[foodsText.length - 1] == '\n')
-                    foodsText = foodsText.substring(0, foodsText.length - 1)
-                foods.text = foodsText
-                val time = TextView(this)
-                val cal = Calendar.getInstance()
-                cal.timeInMillis = entry.timeMillis
-                val hourString =
-                    if (cal.get(Calendar.HOUR) < 10) "0" + cal.get(Calendar.HOUR).toString()
-                    else cal.get(Calendar.HOUR).toString()
-                val minuteString =
-                    if (cal.get(Calendar.MINUTE) < 10) "0" + cal.get(Calendar.MINUTE).toString()
-                    else cal.get(Calendar.MINUTE).toString()
-                val timeString = hourString + ":" + minuteString
-                time.text = timeString
-                bloodSugar.textAlignment = TextView.TEXT_ALIGNMENT_CENTER
-                foods.textAlignment = TextView.TEXT_ALIGNMENT_TEXT_START
-                time.textAlignment = TextView.TEXT_ALIGNMENT_CENTER
-//            bloodSugar.gravity = Gravity.CENTER
-//            foods.gravity = Gravity.LEFT
-//            time.gravity = Gravity.CENTER
-                row.addView(bloodSugar)
-                row.addView(foods)
-                row.addView(time)
-                row.isClickable = true
-                row.setOnClickListener { println("HEY") }
-                table.addView(row)
-            }
-        }
+        val rvEntries = findViewById<View>(R.id.rvEntries) as RecyclerView
+        var date = "2/7/2020"
+        val list = app.getListOfEntries(date)
+        for (i in 0 until 6)
+            list.addAll(app.getListOfEntries(date))
+        rvEntries.adapter = FoodEntriesAdapter(list)
+        rvEntries.layoutManager = LinearLayoutManager(this)
     }
 
     fun setDiaryViewWheels(entries: SortedSet<FoodDiaryEntry>)
@@ -181,9 +142,9 @@ class MainActivity : AppCompatActivity() {
             app.login(uid)
             ACTIVITY_MANAGER.setView(Views.ENTRY_VIEW)
             initDiaryEntry("2/7/2020")
+            setSupportActionBar(findViewById(R.id.toolbar2))
         }
     }
-
 }
 
 enum class Views

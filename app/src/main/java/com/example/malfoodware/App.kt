@@ -3,6 +3,7 @@ package com.example.malfoodware
 import android.content.Context
 import com.example.malfoodware.DataLayer.FoodDBHelper
 import java.util.*
+import kotlin.collections.ArrayList
 import kotlin.math.ln
 
 
@@ -26,5 +27,12 @@ class App (val context:Context){
     {
         user = dbHelper.getUser(uname)
         return user != null
+    }
+    fun getListOfEntries(date: String): MutableList<FoodDiaryEntry>
+    {
+        var result: MutableList<FoodDiaryEntry> = mutableListOf()
+        val entries = dbHelper.getDiaryEntriesDate(user!!.uid!!, date)
+        result.addAll(entries)
+        return result
     }
 }
