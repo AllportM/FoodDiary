@@ -13,7 +13,7 @@ class FoodDiaryEntry(var timeMillis: Long = Calendar.getInstance().timeInMillis)
     init {
         val date = Calendar.getInstance()
         date.timeInMillis = timeMillis
-        val month = date.get(Calendar.MONTH)
+        val month = date.get(Calendar.MONTH) + 1
         val day = date.get(Calendar.DAY_OF_MONTH)
         val year = date.get(Calendar.YEAR)
         dateString = "$day/$month/$year"

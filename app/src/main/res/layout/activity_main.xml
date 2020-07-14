@@ -10,6 +10,7 @@
         android:windowSoftInputMode="stateHidden"
         tools:context=".MainActivity">
 
+
     <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/appBarLayout"
             android:layout_width="match_parent"
@@ -29,6 +30,7 @@
             android:theme="?attr/actionBarTheme"
             app:layout_anchor="@+id/appBarLayout"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/appBarLayout" />
 
@@ -111,12 +113,6 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/loginBut"
             app:layout_constraintTop_toBottomOf="@+id/loginBut" />
-
-    <Button
-            android:id="@+id/button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Button" />
 
     <!--- android:backgroundTint="#00868383" -->
 

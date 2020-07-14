@@ -29,6 +29,7 @@ class FoodDBHelper(context: Context): SQLiteOpenHelper(context, DATABASE_NAME, n
         RecipeDBService.onCreate(db)
         UserDBService.onCreate(db)
         DiaryDBService.onCreate(db)
+        AppDBService.onCreate(db)
     }
 
     fun deleteAll(){
@@ -37,6 +38,7 @@ class FoodDBHelper(context: Context): SQLiteOpenHelper(context, DATABASE_NAME, n
         RecipeDBService.deleteTable(db)
         UserDBService.deleteTable(db)
         DiaryDBService.deleteTable(db)
+        AppDBService.deleteTable(db)
         onCreate(db)
     }
 
@@ -286,7 +288,11 @@ class FoodDBHelper(context: Context): SQLiteOpenHelper(context, DATABASE_NAME, n
     /**
      * setLoggedInUser updates the last user logged in
      */
-    fun setLoggedInUser(name: String?) {
-        return AppDBService.setLoggedInUser(this, name)
+    fun setLoggedInUser(name: String, date: String) {
+        return AppDBService.setLoggedInUser(this, name, date)
+    }
+
+    fun getLoggedInSelectedDate(): String? {
+        return AppDBService.getLoggedInSelectedDate(this)
     }
 }

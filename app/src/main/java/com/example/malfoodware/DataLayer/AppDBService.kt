@@ -12,6 +12,7 @@ class AppDBService {
     {
         val TABLE_APPSTATE = "AppState"
         val KEY_USER = "uidLoggedIn"
+        val KEY_DATE = "dateSelected"
 
         /**
          * getLoggedInUser retrieves the last user logged in during the app's lifecycle
@@ -33,20 +34,37 @@ class AppDBService {
             return result
         }
 
+        override fun getLoggedInSelectedDate(dbHelper: FoodDBHelper): String? {
+            var result: String? = null
+            val db = dbHelper.readableDatabase
+            val query = "SELECT * FROM $TABLE_APPSTATE"
+            val cursor: Cursor
+            try {
+                cursor = db.rawQuery(query, null)
+                if (cursor.moveToFirst())
+                    result = cursor.getString(cursor.getColumnIndex(KEY_DATE))
+            }
+            catch (e: SQLiteException)
+            {
+
+            }
+            return result
+        }
+
         /**
          * setLoggedInUser updates the last user logged in
          */
-        override fun setLoggedInUser(dbHelper: FoodDBHelper, name: String?) {
+        override fun setLoggedInUser(dbHelper: FoodDBHelper, name: String, date: String) {
             val db = dbHelper.writableDatabase
             deleteTable(dbHelper.writableDatabase)
             onCreate(dbHelper.writableDatabase)
             val contentValues = ContentValues()
             contentValues.put(KEY_USER, name)
+            contentValues.put(KEY_DATE, date)
             try {
                 db.insertOrThrow(TABLE_APPSTATE, null, contentValues)
             }
             catch(e: SQLiteException) {
-                db.endTransaction()
                 Logger.add(
                     "SQL insertDiaryEntry insertion error whilst setting active user"
                 )
@@ -55,7 +73,8 @@ class AppDBService {
 
         override fun onCreate(db: SQLiteDatabase?) {
             var CREATE_CONTENTS_TABLE = ("CREATE TABLE $TABLE_APPSTATE(" +
-                    "$KEY_USER TEXT PRIMARY KEY" +
+                    "$KEY_USER TEXT PRIMARY KEY," +
+                    "$KEY_DATE TEXT" +
                     ")")
             db?.execSQL(CREATE_CONTENTS_TABLE)
         }

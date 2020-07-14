@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/nav_graph"
+        app:startDestination="@id/diary_entry_view">
+    <fragment
+            android:id="@+id/diary_entry_view"
+            android:name="com.example.malfoodware.FoodEntryFragmentMain"
+            android:label="@string/EntryMainFragment"
+            tools:layout="@layout/diary_entry_view">
+        <action
+                android:id="@+id/action_diary_entry_view_to_calendarViewFragment"
+                app:destination="@id/calendarViewFragment" />
+        <action
+                android:id="@+id/action_diary_entry_view_to_foodEntryFocussedFragment"
+                app:destination="@id/foodEntryFocussedFragment" />
+    </fragment>
+    <fragment
+            android:id="@+id/calendarViewFragment"
+            android:name="com.example.malfoodware.CalendarViewFragment"
+            android:label="CalendarViewFragment" >
+        <action
+                android:id="@+id/action_calendarViewFragment_to_diary_entry_view2"
+                app:destination="@id/diary_entry_view" />
+    </fragment>
+    <dialog
+            android:id="@+id/foodEntryFocussedFragment"
+            android:name="com.example.malfoodware.FoodEntryFocussedFragment"
+            android:label="diary_entry_view_focussed"
+            tools:layout="@layout/diary_entry_view_focussed" >
+        <action
+                android:id="@+id/action_foodEntryFocussedFragment_to_diary_entry_view"
+                app:destination="@id/diary_entry_view" />
+    </dialog>
+
+</navigation>

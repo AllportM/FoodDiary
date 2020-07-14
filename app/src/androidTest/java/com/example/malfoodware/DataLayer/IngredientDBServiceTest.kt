@@ -26,7 +26,7 @@ class IngredientDBServiceTest {
         val ING2_NAME = "Test Ingredient 2"
         val ING2 = Ingredient(
             ING2_NAME, 0f, 0f, 0f, 0f, 0f, 0f,
-            1f
+            3f
         )
     }
 

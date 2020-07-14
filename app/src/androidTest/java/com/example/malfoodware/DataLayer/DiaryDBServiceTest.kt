@@ -28,9 +28,9 @@ class DiaryDBServiceTest                 {
 
         init {
             val date = Calendar.getInstance()
-            date.set(2020, 7, 2, 12, 0, 0)
+            date.set(2020, 6, 2, 12, 0, 0)
             TIME1 = date.timeInMillis
-            date.set(2020, 7, 20, 12, 0, 0)
+            date.set(2020, 6, 20, 12, 0, 0)
             TIME2 = date.timeInMillis
         }
     }
@@ -52,7 +52,7 @@ class DiaryDBServiceTest                 {
             ING2
         )
         REC1.addIngredient(ING1, 1f)
-        REC1.addIngredient(ING2, 1f)
+        REC1.addIngredient(ING2, 3f)
         REC2.addIngredient(ING2, 10f)
         RecipeDBService.insertRecipe(dbHelper, REC1)
         RecipeDBService.insertRecipe(dbHelper, REC2)

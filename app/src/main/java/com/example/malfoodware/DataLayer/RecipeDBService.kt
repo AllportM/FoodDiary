@@ -100,11 +100,12 @@ class RecipeDBService {
                 db.insertOrThrow(TABLE_RECIPE_NAMES, null, contentValues)
             } catch (e: SQLiteException)
             {
+
+                db.endTransaction()
                 Logger.add(
                     "SQL Insertion Errror during recipe insertion.\nrecipe: $recipe" +
                             "\nDuplicate Recipe Found\nSQLError Message:\n${e.toString()}"
                 )
-                db.endTransaction()
                 return false
             }
             try {

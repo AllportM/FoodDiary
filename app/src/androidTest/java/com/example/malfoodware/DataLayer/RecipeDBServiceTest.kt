@@ -40,7 +40,7 @@ class RecipeDBServiceTest {
             IngredientDBServiceTest.ING2
         )
         REC1.addIngredient(IngredientDBServiceTest.ING1, 1f)
-        REC1.addIngredient(IngredientDBServiceTest.ING2, 1f)
+        REC1.addIngredient(IngredientDBServiceTest.ING2, 3f)
         REC2.addIngredient(IngredientDBServiceTest.ING2, 10f)
         RecipeDBService.insertRecipe(dbHelper, REC1)
         RecipeDBService.insertRecipe(dbHelper, REC2)

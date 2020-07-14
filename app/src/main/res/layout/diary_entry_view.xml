@@ -3,13 +3,24 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent" android:layout_height="match_parent">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".FoodEntryFragmentMain">
+
+    <include
+            android:id="@+id/include4"
+            layout="@layout/my_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:layout_editor_absoluteX="0dp"
+            tools:layout_editor_absoluteY="0dp" />
 
     <LinearLayout
             android:id="@+id/linearLayout"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:orientation="horizontal"
+            android:background="#ede9e9"
             app:layout_constraintBottom_toBottomOf="parent">
 
         <LinearLayout
@@ -20,9 +31,16 @@
 
             <Button
                     android:id="@+id/viewIngredients"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginTop="2dp"
+                    android:layout_marginBottom="2dp"
+                    android:layout_marginLeft="2dp"
+                    android:layout_marginRight="1dp"
                     android:text="Ingredients"
+                    android:textColor="#FFFFFF"
+                    android:background="@drawable/entries_bottom_button"
                     android:textAllCaps="false" />
         </LinearLayout>
 
@@ -37,7 +55,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:layout_marginTop="2dp"
+                    android:layout_marginBottom="2dp"
+                    android:layout_marginRight="1dp"
+                    android:layout_marginLeft="1dp"
                     android:text="Add Entry"
+                    android:textColor="#FFFFFF"
+                    android:background="@drawable/entries_bottom_button"
                     android:textAllCaps="false" />
         </LinearLayout>
 
@@ -52,7 +76,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:textColor="#FFFFFF"
+                    android:layout_marginTop="2dp"
+                    android:layout_marginBottom="2dp"
+                    android:layout_marginRight="2dp"
+                    android:layout_marginLeft="1dp"
                     android:text="View Recipes"
+                    android:background="@drawable/entries_bottom_button"
                     android:textAllCaps="false" />
         </LinearLayout>
     </LinearLayout>
@@ -124,7 +154,6 @@
             android:layout_width="75dp"
             android:layout_height="76dp"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="38dp"
             android:background="@drawable/progress_wheel_inner_daily"
             android:indeterminate="false"
             android:max="100"
@@ -228,28 +257,27 @@
             android:layout_width="75dp"
             android:layout_height="76dp"
             android:layout_marginStart="36dp"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="36dp"
             android:background="@drawable/progress_wheel_inner_daily"
             android:indeterminate="false"
             android:max="100"
             android:progress="65"
             android:progressDrawable="@drawable/progress_wheel_outer_total"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/include4" />
 
     <ProgressBar
             android:id="@+id/progressBarEnergyInner"
             style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="75dp"
             android:layout_height="76dp"
-            android:layout_marginStart="36dp"
-            android:layout_marginTop="32dp"
             android:indeterminate="false"
             android:max="100"
             android:progress="65"
             android:progressDrawable="@drawable/progress_wheel_inner_prog"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintEnd_toEndOf="@+id/progressBarEnergy"
+            app:layout_constraintStart_toStartOf="@+id/progressBarEnergy"
+            app:layout_constraintTop_toTopOf="@+id/progressBarEnergy" />
 
     <TextView
             android:id="@+id/textViewEnergyQty"
@@ -291,13 +319,67 @@
             app:layout_constraintEnd_toEndOf="@+id/progressBarFat"
             app:layout_constraintStart_toStartOf="@+id/progressBarFat" />
 
+    <View
+            android:id="@+id/view"
+            android:layout_width="match_parent"
+            android:layout_height="1.5dp"
+            android:layout_marginTop="20dp"
+            android:background="@android:color/darker_gray"
+            app:layout_constraintTop_toBottomOf="@+id/textViewSaltQty" />
+
+    <View
+            android:id="@+id/view2"
+            android:layout_width="match_parent"
+            android:layout_height="2.5dp"
+            android:background="@android:color/darker_gray"
+            app:layout_constraintBottom_toBottomOf="@+id/linearLayout2"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
+
     <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvEntries"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:background="#ede9e9"
             app:layout_constraintBottom_toTopOf="@+id/linearLayout"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textViewSaltQty" />
+            app:layout_constraintTop_toBottomOf="@+id/view2" />
+
+    <LinearLayout
+            android:id="@+id/linearLayout2"
+            android:layout_width="409dp"
+            android:layout_height="20dp"
+            android:orientation="horizontal"
+            android:background="#ede9e9"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/view">
+
+        <TextView
+                android:id="@+id/textView2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="        Blood Sugar"
+                android:textAlignment="center" />
+
+        <TextView
+                android:id="@+id/textView3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="  Food Eaten"
+                android:textAlignment="textStart" />
+
+        <TextView
+                android:id="@+id/textView4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="          Time"
+                android:textAlignment="textStart" />
+
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

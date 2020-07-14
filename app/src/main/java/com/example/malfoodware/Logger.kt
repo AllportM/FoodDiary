@@ -7,7 +7,7 @@ class Logger {
 
         init {
             FileHelper.loadFile(LOGGER_FILE, "res/")
-//            logs = FileHelper.getFileContentsArr(LOGGER_FILE)
+            logs = FileHelper.getFileContentsArr(LOGGER_FILE)
         }
 
         fun add(message: String) {
