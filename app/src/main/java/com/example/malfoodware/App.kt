@@ -1,6 +1,7 @@
 package com.example.malfoodware
 
 import android.content.Context
+import android.util.Log
 import com.example.malfoodware.DataLayer.FoodDBHelper
 import java.util.*
 import kotlin.collections.ArrayList

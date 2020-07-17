@@ -9,6 +9,6 @@
     <color name="purple_hover">#9600e0</color>
     <color name="green_theme_dark">#00574a</color>
     <color name="green_theme_light">#008577</color>
-    <color name="list_light_grey">#ede9e9</color>
-    <color name="list_dark_grey">#b3b3b3</color>
+    <color name="list_light_grey">#cff1ed</color>
+    <color name="list_dark_grey">#6bc2b9</color>
 </resources>

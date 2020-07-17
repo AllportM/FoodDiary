@@ -19,10 +19,6 @@ class DiaryDBServiceTest                 {
         var TIME1: Long
         var TIME2: Long
         val USER = UserDBServiceTest.USER1
-        val ING1 = IngredientDBServiceTest.ING1
-        val ING2 = IngredientDBServiceTest.ING2
-        val REC1 = RecipeDBServiceTest.REC1
-        val REC2 = RecipeDBServiceTest.REC2
         lateinit var ENTRY1: FoodDiaryEntry
         lateinit var ENTRY2: FoodDiaryEntry
 
@@ -43,6 +39,24 @@ class DiaryDBServiceTest                 {
         FileHelper.context = context1
         dbHelper.deleteAll()
         UserDBService.insertUser(dbHelper, USER)
+        var ING1: Ingredient
+        var ING2: Ingredient
+        var ING3: Ingredient
+        var ING4: Ingredient
+        var ING5: Ingredient
+        var ING6: Ingredient
+        ING1 = Ingredient("Totilla", 30f, 2f, 64f, 1f, 0f,
+        0f, 124f)
+        ING2 = Ingredient("Mayonaise", 80f, 0.5f, 0.924f, 1f, 0f,
+        0f, 66f)
+        ING3 = Ingredient("Tomatoe Sauce", 80f, 0f, 7.08f, 0f, 0f,
+        0f, 59f)
+        ING4 = Ingredient("Cheese", 58f, 0.5f, 0.152f, 0f, 0f,
+        0f, 152f)
+        ING5 = Ingredient("Red Onion", 75f, 0f, 4.95f, 0f, 0f,
+        0f, 55f)
+        ING6 = Ingredient("Red Pepper", 20f, 0f, 2.16f, 0f, 0f,
+        0f, 45f)
         IngredientDBService.insertIngredient(
             dbHelper,
             ING1
@@ -51,32 +65,65 @@ class DiaryDBServiceTest                 {
             dbHelper,
             ING2
         )
-        REC1.addIngredient(ING1, 1f)
-        REC1.addIngredient(ING2, 3f)
-        REC2.addIngredient(ING2, 10f)
+        IngredientDBService.insertIngredient(dbHelper, ING3)
+        IngredientDBService.insertIngredient(dbHelper, ING4)
+        IngredientDBService.insertIngredient(dbHelper, ING5)
+        IngredientDBService.insertIngredient(dbHelper, ING6)
+        var REC1: Recipe
+        REC1 = Recipe("Fajita Pizza")
+        REC1.addIngredient(ING1, 124f)
+        REC1.addIngredient(ING2, 66f)
+        REC1.addIngredient(ING3, 59f)
+        REC1.addIngredient(ING4, 152f)
+        REC1.addIngredient(ING5, 55f)
+        REC1.addIngredient(ING6, 45f)
+
+        ING1 = Ingredient("Bread", 70f, 0f, 19f, 0f, 0f,
+        0f, 47f)
+        ING2 = Ingredient("Honey Ham", 69f, 2f, 0.8f, 0f, 0f,
+        0f, 25f)
+        ING3 = Ingredient("Lettuce", 5f, 0f, 0.87f, 0f, 0f,
+        0f, 30f)
+        IngredientDBService.insertIngredient(dbHelper, ING1)
+        IngredientDBService.insertIngredient(dbHelper, ING2)
+        IngredientDBService.insertIngredient(dbHelper, ING3)
+
+        var REC2: Recipe
+        REC2 = Recipe("Ham, cheese, and lettuce sammich")
+        REC2.addIngredient(ING1, 94f)
+        REC2.addIngredient(ING2, 130f)
+        REC2.addIngredient(ING3, 50f)
+        REC2.addIngredient(ING4, 130f)
         RecipeDBService.insertRecipe(dbHelper, REC1)
         RecipeDBService.insertRecipe(dbHelper, REC2)
+
+        // entries
         ENTRY1 = FoodDiaryEntry(TIME1)
+        ENTRY1.addRecipe(REC1, 501f)
+        DiaryDBService.insertDiaryEntry(dbHelper, ENTRY1, USER.uid)
+
+        var newEntry = FoodDiaryEntry(TIME1 + (3600 * 2))
+        newEntry.addRecipe(REC2, 100f)
+        DiaryDBService.insertDiaryEntry(dbHelper, newEntry, USER.uid)
+
         ENTRY2 = FoodDiaryEntry(TIME2)
-        ENTRY1.addIngredient(ING1, 10f)
-        ENTRY1.addRecipe(REC1, 10f)
-        ENTRY2.addIngredient(ING2, 10f)
         ENTRY2.addIngredient(ING1, 10f)
         ENTRY2.addRecipe(REC1, 10f)
         ENTRY2.addRecipe(REC2, 10f)
-        var x = DiaryDBService.insertDiaryEntry(dbHelper, ENTRY1, USER.uid)
-        var y = DiaryDBService.insertDiaryEntry(dbHelper, ENTRY2, USER.uid)
-        println("--------Insertions---------\nx:$x\ny:$y")
-        Logger.last()
+        DiaryDBService.insertDiaryEntry(dbHelper, ENTRY2, USER.uid)
     }
 
     @Test
     fun testGetDiaryEntriesDate1Success()
     {
         var set = DiaryDBService.getDiaryEntriesDate(dbHelper, USER.uid, ENTRY1.dateString)
-        println("--------getTest------\n$set")
-        Logger.last()
-        assertTrue(set.size == 1)
+        println("--------getTestDate1------\n$set")
+        for (entry in set)
+        {
+            for (recipe in entry.recipes)
+                println(recipe)
+        }
+        assertTrue(set.size == 2)
     }
 
     @Test
@@ -84,7 +131,6 @@ class DiaryDBServiceTest                 {
     {
         var set = DiaryDBService.getDiaryEntriesDate(dbHelper, USER.uid,"1/7/2020")
         println("--------getTest------\n$set")
-        Logger.last()
         assertTrue(set.size == 0)
     }
 
@@ -92,8 +138,7 @@ class DiaryDBServiceTest                 {
     fun testGetDiaryRange1Success()
     {
         var set = DiaryDBService.getDiaryEntriesDateRange(dbHelper, USER.uid, ENTRY1.dateString, "2/7/2020")
-        println("--------getTest------\n$set")
-        Logger.last()
+        println("--------getTestRange1------\n$set")
         assertTrue(set.size == 1)
     }
 
@@ -102,8 +147,7 @@ class DiaryDBServiceTest                 {
     {
         var set = DiaryDBService.getDiaryEntriesDateRange(dbHelper, USER.uid, ENTRY1.dateString, ENTRY2.dateString)
         println("--------getTest------\n$set")
-        Logger.last()
-        assertTrue(set.size == 2)
+        assertTrue(set.size == 3)
     }
 
     @Test

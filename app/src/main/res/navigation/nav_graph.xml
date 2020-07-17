@@ -3,35 +3,57 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/nav_graph"
-        app:startDestination="@id/diary_entry_view">
+        app:startDestination="@id/mainActivity">
+    <activity
+            android:id="@+id/mainActivity"
+            android:name="com.example.malfoodware.MainActivity"
+            android:label="content_main"
+            tools:layout="@layout/content_main" >
+        <action
+                android:id="@+id/action_mainActivity_to_loginFragment"
+                app:destination="@id/loginFragment" />
+        <action
+                android:id="@+id/action_mainActivity_to_foodEntryFragmentMain"
+                app:destination="@id/foodEntryFragmentMain"
+                app:enterAnim="@anim/fragment_fade_enter" />
+    </activity>
     <fragment
-            android:id="@+id/diary_entry_view"
-            android:name="com.example.malfoodware.FoodEntryFragmentMain"
-            android:label="@string/EntryMainFragment"
-            tools:layout="@layout/diary_entry_view">
+            android:id="@+id/loginFragment"
+            android:name="com.example.malfoodware.LoginFragment"
+            android:label="login_fragment"
+            tools:layout="@layout/login_fragment" />
+    <fragment
+            android:id="@+id/foodEntryFragmentMain"
+            android:name="com.example.malfoodware.EntryFragmentMain"
+            android:label="diary_entry_view"
+            tools:layout="@layout/diary_entry_view" >
         <action
-                android:id="@+id/action_diary_entry_view_to_calendarViewFragment"
-                app:destination="@id/calendarViewFragment" />
-        <action
-                android:id="@+id/action_diary_entry_view_to_foodEntryFocussedFragment"
+                android:id="@+id/action_foodEntryFragmentMain_to_foodEntryFocussedFragment"
                 app:destination="@id/foodEntryFocussedFragment" />
+        <action
+                android:id="@+id/action_foodEntryFragmentMain_to_calendarViewFragment"
+                app:destination="@id/calendarViewFragment"
+                app:enterAnim="@anim/fragment_fade_enter" />
     </fragment>
     <fragment
-            android:id="@+id/calendarViewFragment"
-            android:name="com.example.malfoodware.CalendarViewFragment"
-            android:label="CalendarViewFragment" >
-        <action
-                android:id="@+id/action_calendarViewFragment_to_diary_entry_view2"
-                app:destination="@id/diary_entry_view" />
-    </fragment>
-    <dialog
             android:id="@+id/foodEntryFocussedFragment"
-            android:name="com.example.malfoodware.FoodEntryFocussedFragment"
+            android:name="com.example.malfoodware.EntryFocussedFragment"
             android:label="diary_entry_view_focussed"
             tools:layout="@layout/diary_entry_view_focussed" >
         <action
-                android:id="@+id/action_foodEntryFocussedFragment_to_diary_entry_view"
-                app:destination="@id/diary_entry_view" />
-    </dialog>
-
+                android:id="@+id/action_foodEntryFocussedFragment_to_foodEntryFocussedDetailsFragment2"
+                app:destination="@id/foodEntryFocussedDetailsFragment2"
+                app:enterAnim="@anim/fragment_open_enter"
+                app:exitAnim="@anim/fragment_open_exit" />
+    </fragment>
+    <dialog
+            android:id="@+id/calendarViewFragment"
+            android:name="com.example.malfoodware.CalendarViewFragment"
+            android:label="calendar_view_fragment"
+            tools:layout="@layout/calendar_view_fragment" />
+    <fragment
+            android:id="@+id/foodEntryFocussedDetailsFragment2"
+            android:name="com.example.malfoodware.EntryFocussedDetailsFragment"
+            android:label="diary_entry_view_focussed_details"
+            tools:layout="@layout/diary_entry_view_focussed_details" />
 </navigation>

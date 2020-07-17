@@ -68,6 +68,7 @@ class DiaryDBService {
         }
 
         override fun insertDiaryEntry(dbHelper: FoodDBHelper, entry: FoodDiaryEntry, uid: String): Boolean {
+            println(entry)
             val db = dbHelper.writableDatabase
             db.beginTransaction()
             var contentValues: ContentValues
@@ -194,12 +195,12 @@ class DiaryDBService {
             var result: SortedSet<FoodDiaryEntry> = sortedSetOf()
             if (cursor.moveToFirst())
             {
-                val entryID = cursor.getInt(cursor.getColumnIndex(KEY_DIARY_ID))
-                val timeMillis = cursor.getLong(cursor.getColumnIndex(KEY_TIME_MILLIS))
-                val insulin = cursor.getInt(cursor.getColumnIndex(KEY_INSULIN))
-                val bloodSugar = cursor.getFloat(cursor.getColumnIndex(KEY_BLOOD_SUGAR))
-                val notes = cursor.getString(cursor.getColumnIndex(KEY_NOTES))
                 do {
+                    val entryID = cursor.getInt(cursor.getColumnIndex(KEY_DIARY_ID))
+                    val timeMillis = cursor.getLong(cursor.getColumnIndex(KEY_TIME_MILLIS))
+                    val insulin = cursor.getInt(cursor.getColumnIndex(KEY_INSULIN))
+                    val bloodSugar = cursor.getFloat(cursor.getColumnIndex(KEY_BLOOD_SUGAR))
+                    val notes = cursor.getString(cursor.getColumnIndex(KEY_NOTES))
                     val entry = FoodDiaryEntry(timeMillis)
                     if (!cursor.isNull(cursor.getColumnIndex(KEY_INSULIN)))
                         entry.insulinTaken = insulin

@@ -5,7 +5,20 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@android:color/transparent"
-        tools:context=".FoodEntryFocussedFragment">
+        tools:context=".EntryFocussedFragment">
+
+    <Button
+            android:id="@+id/foodEntryMoreDetails"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:background="@drawable/ic_entry_more"
+            android:clickable="true"
+            app:layout_constraintBottom_toTopOf="@+id/progressBarProteinInner"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/progressBarFatInner"
+            app:layout_constraintVertical_bias="0.5" />
 
     <TextView
             android:id="@+id/textViewSaltFocussed"
@@ -13,10 +26,10 @@
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
             android:text="50%"
-            app:layout_constraintBottom_toBottomOf="@+id/progressBarEnergyInner5"
-            app:layout_constraintEnd_toEndOf="@+id/progressBarEnergyInner5"
-            app:layout_constraintStart_toStartOf="@+id/progressBarEnergyInner5"
-            app:layout_constraintTop_toTopOf="@+id/progressBarEnergyInner5" />
+            app:layout_constraintBottom_toBottomOf="@+id/progressBarSaltInner"
+            app:layout_constraintEnd_toEndOf="@+id/progressBarSaltInner"
+            app:layout_constraintStart_toStartOf="@+id/progressBarSaltInner"
+            app:layout_constraintTop_toTopOf="@+id/progressBarSaltInner" />
 
     <TextView
             android:id="@+id/textViewFibreFocussed"
@@ -24,90 +37,18 @@
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
             android:text="50%"
-            app:layout_constraintBottom_toBottomOf="@+id/progressBarEnergyInner5"
-            app:layout_constraintEnd_toEndOf="@+id/progressBarEnergyInner4"
-            app:layout_constraintStart_toStartOf="@+id/progressBarEnergyInner4"
-            app:layout_constraintTop_toTopOf="@+id/progressBarEnergyInner4" />
+            app:layout_constraintBottom_toBottomOf="@+id/progressBarSaltInner"
+            app:layout_constraintEnd_toEndOf="@+id/progressBarFibreInner"
+            app:layout_constraintStart_toStartOf="@+id/progressBarFibreInner"
+            app:layout_constraintTop_toTopOf="@+id/progressBarFibreInner" />
 
     <include
-            android:id="@+id/include4"
-            layout="@layout/my_toolbar"
+            layout="@layout/diary_entry_bottom_buttons"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            tools:layout_editor_absoluteX="0dp"
-            tools:layout_editor_absoluteY="0dp" />
-
-    <LinearLayout
-            android:id="@+id/linearLayout"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:background="@android:color/transparent"
-            android:orientation="horizontal"
-            app:layout_constraintBottom_toBottomOf="parent">
-
-        <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:orientation="horizontal">
-
-            <Button
-                    android:id="@+id/viewIngredients"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="2dp"
-                    android:layout_marginTop="2dp"
-                    android:layout_marginRight="1dp"
-                    android:layout_marginBottom="2dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/entries_bottom_button"
-                    android:text="Ingredients"
-                    android:textAllCaps="false"
-                    android:textColor="#FFFFFF" />
-        </LinearLayout>
-
-        <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:orientation="horizontal">
-
-            <Button
-                    android:id="@+id/addEntry"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="1dp"
-                    android:layout_marginTop="2dp"
-                    android:layout_marginRight="1dp"
-                    android:layout_marginBottom="2dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/entries_bottom_button"
-                    android:text="Add Entry"
-                    android:textAllCaps="false"
-                    android:textColor="#FFFFFF" />
-        </LinearLayout>
-
-        <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:orientation="horizontal">
-
-            <Button
-                    android:id="@+id/viewRecipe"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="1dp"
-                    android:layout_marginTop="2dp"
-                    android:layout_marginRight="2dp"
-                    android:layout_marginBottom="2dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/entries_bottom_button"
-                    android:text="View Recipes"
-                    android:textAllCaps="false"
-                    android:textColor="#FFFFFF" />
-        </LinearLayout>
-    </LinearLayout>
+            android:layout_height="40dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
     <ProgressBar
             android:id="@+id/progressBarEnergyInner"
@@ -122,14 +63,14 @@
             android:progress="65"
             android:progressDrawable="@drawable/progress_wheel_inner_prog"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/include4" />
+            app:layout_constraintTop_toTopOf="parent" />
 
     <ProgressBar
-            android:id="@+id/progressBarEnergyInner4"
+            android:id="@+id/progressBarFibreInner"
             style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="75dp"
             android:layout_height="76dp"
-            android:layout_marginTop="56dp"
+            android:layout_marginTop="70dp"
             android:background="@android:color/transparent"
             android:indeterminate="false"
             android:max="100"
@@ -141,7 +82,7 @@
             app:layout_constraintTop_toBottomOf="@+id/progressBarEnergyInner" />
 
     <ProgressBar
-            android:id="@+id/progressBarEnergyInner5"
+            android:id="@+id/progressBarSaltInner"
             style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="75dp"
             android:layout_height="76dp"
@@ -151,14 +92,14 @@
             android:max="100"
             android:progress="65"
             android:progressDrawable="@drawable/progress_wheel_inner_prog"
-            app:layout_constraintBottom_toBottomOf="@+id/progressBarEnergyInner4"
-            app:layout_constraintEnd_toEndOf="@+id/progressBarEnergyInner2"
+            app:layout_constraintBottom_toBottomOf="@+id/progressBarFibreInner"
+            app:layout_constraintEnd_toEndOf="@+id/progressBarCarbsInner"
             app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="@+id/progressBarEnergyInner2"
-            app:layout_constraintTop_toTopOf="@+id/progressBarEnergyInner4" />
+            app:layout_constraintStart_toStartOf="@+id/progressBarCarbsInner"
+            app:layout_constraintTop_toTopOf="@+id/progressBarFibreInner" />
 
     <ProgressBar
-            android:id="@+id/progressBarEnergyInner6"
+            android:id="@+id/progressBarProteinInner"
             style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="75dp"
             android:layout_height="76dp"
@@ -167,15 +108,15 @@
             android:max="100"
             android:progress="65"
             android:progressDrawable="@drawable/progress_wheel_inner_prog"
-            app:layout_constraintBottom_toBottomOf="@+id/progressBarEnergyInner5"
-            app:layout_constraintEnd_toEndOf="@+id/progressBarEnergyInner3"
+            app:layout_constraintBottom_toBottomOf="@+id/progressBarSaltInner"
+            app:layout_constraintEnd_toEndOf="@+id/progressBarFatInner"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/progressBarEnergyInner3"
-            app:layout_constraintTop_toTopOf="@+id/progressBarEnergyInner5"
+            app:layout_constraintStart_toStartOf="@+id/progressBarFatInner"
+            app:layout_constraintTop_toTopOf="@+id/progressBarSaltInner"
             app:layout_constraintVertical_bias="0.0" />
 
     <ProgressBar
-            android:id="@+id/progressBarEnergyInner2"
+            android:id="@+id/progressBarCarbsInner"
             style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="75dp"
             android:layout_height="76dp"
@@ -187,12 +128,12 @@
             android:progress="65"
             android:progressDrawable="@drawable/progress_wheel_inner_prog"
             app:layout_constraintBottom_toBottomOf="@+id/progressBarEnergyInner"
-            app:layout_constraintEnd_toStartOf="@+id/progressBarEnergyInner3"
+            app:layout_constraintEnd_toStartOf="@+id/progressBarFatInner"
             app:layout_constraintStart_toEndOf="@+id/progressBarEnergyInner"
             app:layout_constraintTop_toTopOf="@+id/progressBarEnergyInner" />
 
     <ProgressBar
-            android:id="@+id/progressBarEnergyInner3"
+            android:id="@+id/progressBarFatInner"
             style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="75dp"
             android:layout_height="76dp"
@@ -224,10 +165,10 @@
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
             android:text="50%"
-            app:layout_constraintBottom_toBottomOf="@+id/progressBarEnergyInner2"
-            app:layout_constraintEnd_toEndOf="@+id/progressBarEnergyInner2"
-            app:layout_constraintStart_toStartOf="@+id/progressBarEnergyInner2"
-            app:layout_constraintTop_toTopOf="@+id/progressBarEnergyInner2" />
+            app:layout_constraintBottom_toBottomOf="@+id/progressBarCarbsInner"
+            app:layout_constraintEnd_toEndOf="@+id/progressBarCarbsInner"
+            app:layout_constraintStart_toStartOf="@+id/progressBarCarbsInner"
+            app:layout_constraintTop_toTopOf="@+id/progressBarCarbsInner" />
 
     <TextView
             android:id="@+id/textViewFatFocussed"
@@ -235,10 +176,10 @@
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
             android:text="50%"
-            app:layout_constraintBottom_toBottomOf="@+id/progressBarEnergyInner3"
-            app:layout_constraintEnd_toEndOf="@+id/progressBarEnergyInner3"
-            app:layout_constraintStart_toStartOf="@+id/progressBarEnergyInner3"
-            app:layout_constraintTop_toTopOf="@+id/progressBarEnergyInner3" />
+            app:layout_constraintBottom_toBottomOf="@+id/progressBarFatInner"
+            app:layout_constraintEnd_toEndOf="@+id/progressBarFatInner"
+            app:layout_constraintStart_toStartOf="@+id/progressBarFatInner"
+            app:layout_constraintTop_toTopOf="@+id/progressBarFatInner" />
 
     <TextView
             android:id="@+id/textViewProteinFocussed"
@@ -246,22 +187,10 @@
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
             android:text="50%"
-            app:layout_constraintBottom_toBottomOf="@+id/progressBarEnergyInner6"
-            app:layout_constraintEnd_toEndOf="@+id/progressBarEnergyInner6"
-            app:layout_constraintStart_toStartOf="@+id/progressBarEnergyInner6"
-            app:layout_constraintTop_toTopOf="@+id/progressBarEnergyInner6" />
+            app:layout_constraintBottom_toBottomOf="@+id/progressBarProteinInner"
+            app:layout_constraintEnd_toEndOf="@+id/progressBarProteinInner"
+            app:layout_constraintStart_toStartOf="@+id/progressBarProteinInner"
+            app:layout_constraintTop_toTopOf="@+id/progressBarProteinInner" />
 
-    <Button
-            android:id="@+id/floatingActionButton2"
-            android:layout_width="57dp"
-            android:layout_height="44dp"
-            android:layout_marginStart="364dp"
-            android:background="@android:color/transparent"
-            android:clickable="true"
-            app:layout_constraintBottom_toTopOf="@+id/progressBarEnergyInner6"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/progressBarEnergyInner3"
-            app:layout_constraintVertical_bias="0.5"
-            tools:background="@drawable/ic_entry_more" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
