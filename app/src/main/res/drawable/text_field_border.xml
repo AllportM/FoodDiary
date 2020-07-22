@@ -22,7 +22,7 @@
         <corners android:radius="3dp" />
         <stroke
                 android:width="2dp"
-                android:color="@color/deep_purple"
+                android:color="@color/green_theme_light"
         />
         <padding
                 android:left="10dp"

@@ -11,4 +11,7 @@
     <color name="green_theme_light">#008577</color>
     <color name="list_light_grey">#cff1ed</color>
     <color name="list_dark_grey">#6bc2b9</color>
+    <color name="buttonPrimary">@color/green_theme_light</color>
+    <color name="buttonPressed">@color/green_theme_dark</color>
+    <color name="white">#FFFFFF</color>
 </resources>

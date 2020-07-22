@@ -39,7 +39,6 @@ class EntriesAdapter(private val mEntries: List<FoodDiaryEntry>) :
     private var clicked: View? = null
     lateinit var activityApp: FoodEntryListListener
 
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val context = parent.context
         val inflater = LayoutInflater.from(context)
@@ -89,11 +88,11 @@ class EntriesAdapter(private val mEntries: List<FoodDiaryEntry>) :
         // sets time and inserts to viewtext
         val cal = Calendar.getInstance()
         cal.timeInMillis = entry.timeMillis
-        val hour = cal.get(Calendar.HOUR)
+        val hour = if (cal.get(Calendar.HOUR) == 0) "12" else cal.get(Calendar.HOUR).toString()
         val min = cal.get(Calendar.MINUTE)
-        var timeString = "${hour%12}:"
+        var timeString = "$hour:"
         timeString += if (min < 10) "0$min" else min
-        timeString += if (hour/12 == 0) "am" else "pm"
+        timeString += if (cal.get(Calendar.AM_PM) == 0) " am" else " pm"
         timeText.setText(timeString)
 
         // attaches on click listeners to open focussed fragment
@@ -105,6 +104,10 @@ class EntriesAdapter(private val mEntries: List<FoodDiaryEntry>) :
         foods.setOnClickListener(EntryClickListener(entry))
         bloodSugar.setOnClickListener(EntryClickListener(entry))
         elementList[entry.timeMillis] = timeText.parent.parent as View
+        if (entry.timeMillis == EntryFocussedFragment.LAST_ENTRY.timeMillis)
+        {
+            (timeText.parent.parent as View).setBackgroundColor(MainActivity.COL_LIST_DARK)
+        }
     }
 
     inner class EntryClickListener(val entry: FoodDiaryEntry): View.OnClickListener
@@ -122,11 +125,10 @@ class EntriesAdapter(private val mEntries: List<FoodDiaryEntry>) :
             }
             else
             {
-
                 activityApp.hideFoodEntryFocussed()
                 Log.d("LOG", "Food entry clicked for first time, attaching")
                 clicked = view
-                view!!.setBackgroundColor(Color.parseColor("#6bc2b9"))
+                view!!.setBackgroundColor(MainActivity.COL_LIST_DARK)
                 activityApp.showFoodEntryFocussed(entry)
             }
         }
@@ -137,7 +139,7 @@ class EntriesAdapter(private val mEntries: List<FoodDiaryEntry>) :
     {
         for(element in elementList)
         {
-            element.value.setBackgroundColor(Color.parseColor("#cff1ed"))
+            element.value.setBackgroundColor(MainActivity.COL_LIST_LIGHT)
         }
     }
 }

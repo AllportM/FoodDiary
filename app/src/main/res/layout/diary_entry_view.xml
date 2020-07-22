@@ -49,7 +49,7 @@
 
     <TextView
             android:id="@+id/textViewSalt"
-            android:layout_width="75dp"
+            android:layout_width="wrap_content"
             android:layout_height="25dp"
             android:text="salt"
             android:textAlignment="center"
@@ -59,7 +59,7 @@
 
     <TextView
             android:id="@+id/textViewProtein"
-            android:layout_width="75dp"
+            android:layout_width="wrap_content"
             android:layout_height="25dp"
             android:text="protein"
             android:textAlignment="center"
@@ -69,12 +69,11 @@
 
     <TextView
             android:id="@+id/textViewSaltQty"
-            android:layout_width="75dp"
+            android:layout_width="wrap_content"
             android:layout_height="25dp"
             android:layout_marginTop="5dp"
             android:textAlignment="center"
             app:layout_constraintEnd_toEndOf="@+id/progressBarSalt"
-            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="@+id/progressBarSalt"
             app:layout_constraintTop_toBottomOf="@+id/progressBarSalt" />
 
@@ -98,7 +97,7 @@
 
     <TextView
             android:id="@+id/textViewProteinQty"
-            android:layout_width="75dp"
+            android:layout_width="wrap_content"
             android:layout_height="25dp"
             android:layout_marginTop="5dp"
             android:textAlignment="center"
@@ -124,23 +123,21 @@
 
     <TextView
             android:id="@+id/textViewFibre"
-            android:layout_width="75dp"
+            android:layout_width="wrap_content"
             android:layout_height="25dp"
             android:text="fibre"
             android:textAlignment="center"
             app:layout_constraintBottom_toTopOf="@+id/progressBarFibre"
             app:layout_constraintEnd_toEndOf="@+id/progressBarFibre"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/progressBarFibre" />
 
     <TextView
             android:id="@+id/textViewFibreQty"
-            android:layout_width="75dp"
+            android:layout_width="wrap_content"
             android:layout_height="25dp"
             android:layout_marginTop="5dp"
             android:textAlignment="center"
             app:layout_constraintEnd_toEndOf="@+id/progressBarFibre"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/progressBarFibre"
             app:layout_constraintTop_toBottomOf="@+id/progressBarFibre" />
 
@@ -164,7 +161,7 @@
 
     <TextView
             android:id="@+id/textViewCarbsQty"
-            android:layout_width="75dp"
+            android:layout_width="wrap_content"
             android:layout_height="25dp"
             android:layout_marginTop="5dp"
             android:textAlignment="center"
@@ -175,13 +172,12 @@
 
     <TextView
             android:id="@+id/textViewCarbs"
-            android:layout_width="75dp"
+            android:layout_width="wrap_content"
             android:layout_height="25dp"
             android:text="carbs"
             android:textAlignment="center"
             app:layout_constraintBottom_toTopOf="@+id/progressBarCarbs"
             app:layout_constraintEnd_toEndOf="@+id/progressBarCarbs"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/progressBarCarbs" />
 
     <ProgressBar
@@ -201,7 +197,7 @@
 
     <TextView
             android:id="@+id/textViewEnergyQty"
-            android:layout_width="110dp"
+            android:layout_width="wrap_content"
             android:layout_height="25dp"
             android:layout_marginTop="5dp"
             android:textAlignment="center"
@@ -211,18 +207,17 @@
 
     <TextView
             android:id="@+id/textViewEnergy"
-            android:layout_width="75dp"
+            android:layout_width="wrap_content"
             android:layout_height="25dp"
             android:text="kcal"
             android:textAlignment="center"
             app:layout_constraintBottom_toTopOf="@+id/progressBarEnergy"
             app:layout_constraintEnd_toEndOf="@+id/progressBarEnergy"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/progressBarEnergy" />
 
     <TextView
             android:id="@+id/textViewFatQty"
-            android:layout_width="75dp"
+            android:layout_width="wrap_content"
             android:layout_height="25dp"
             android:layout_marginTop="5dp"
             android:textAlignment="center"
@@ -232,7 +227,7 @@
 
     <TextView
             android:id="@+id/textViewFat"
-            android:layout_width="75dp"
+            android:layout_width="wrap_content"
             android:layout_height="25dp"
             android:text="fat"
             android:textAlignment="center"
@@ -245,14 +240,14 @@
             android:layout_width="match_parent"
             android:layout_height="1.5dp"
             android:layout_marginTop="20dp"
-            android:background="@color/list_dark_grey"
+            android:background="@color/green_theme_light"
             app:layout_constraintTop_toBottomOf="@+id/textViewSaltQty" />
 
     <View
             android:id="@+id/view2"
             android:layout_width="match_parent"
             android:layout_height="2.5dp"
-            android:background="@color/list_dark_grey"
+            android:background="@color/green_theme_light"
             app:layout_constraintBottom_toBottomOf="@+id/linearLayout2"
             app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
 
@@ -271,7 +266,7 @@
             android:id="@+id/linearLayout2"
             android:layout_width="409dp"
             android:layout_height="20dp"
-            android:background="@color/list_light_grey"
+            android:background="@color/list_dark_grey"
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -283,7 +278,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Blood Sugar"
-                android:textAlignment="center" />
+                android:textAlignment="center"
+                style="@style/textSmall"/>
 
         <TextView
                 android:id="@+id/textView3"
@@ -291,15 +287,17 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Food Eaten"
-                android:textAlignment="center" />
+                android:textAlignment="center"
+                style="@style/textSmall"/>
 
         <TextView
                 android:id="@+id/textView4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="              Time"
-                android:textAlignment="textStart" />
+                android:text="Time"
+                android:textAlignment="center"
+                style="@style/textSmall"/>
 
     </LinearLayout>
 

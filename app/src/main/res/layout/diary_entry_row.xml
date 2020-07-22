@@ -20,9 +20,7 @@
                 android:layout_gravity="center"
                 android:layout_weight="1"
                 android:textAlignment="center"
-
-                android:textColor="@android:color/black"
-                android:textSize="10sp" />
+                style="@style/textSmall"/>
 
         <TextView
                 android:id="@+id/foods"
@@ -30,8 +28,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_weight="1"
-                android:textColor="@android:color/black"
-                android:textSize="10sp" />
+                style="@style/textSmall"/>
 
         <TextView
                 android:id="@+id/time"
@@ -40,13 +37,12 @@
                 android:layout_gravity="center"
                 android:layout_weight="1"
                 android:textAlignment="center"
-                android:textColor="@android:color/black"
-                android:textSize="10sp" />
+                style="@style/textSmall"/>
     </LinearLayout>
 
     <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/list_dark_grey"/>
+            android:background="@color/green_theme_light"/>
 
 </LinearLayout>

@@ -9,7 +9,7 @@ import java.lang.NumberFormatException
  */
 class User (var uid: String){
     // settings
-    var INSULIN_PER10G: Float = 1f
+    var INSULIN_PER10G: Float = 10f
     var nutritionPerDay = Nutrition(2000f, 70f, 260f, 30f, 50f,
     6f, 1f)
 

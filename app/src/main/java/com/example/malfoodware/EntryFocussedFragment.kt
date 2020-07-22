@@ -1,21 +1,13 @@
 package com.example.malfoodware
 
-import android.app.Activity
 import android.content.Context
-import android.content.Intent
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
-import androidx.appcompat.app.AppCompatDialogFragment
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.RecyclerView
-import java.util.*
 
 
 class EntryFocussedFragment(val entry: FoodDiaryEntry, val user: User) : Fragment() {
@@ -41,7 +33,7 @@ class EntryFocussedFragment(val entry: FoodDiaryEntry, val user: User) : Fragmen
 
     lateinit var activityApp: EntryFocussedListener
     lateinit var progProtein: ProgressBar
-    lateinit var  progCarbs: ProgressBar
+    lateinit var progCarbs: ProgressBar
     lateinit var progEnergy: ProgressBar
     lateinit var progFat: ProgressBar
     lateinit var progSalt: ProgressBar
@@ -60,6 +52,11 @@ class EntryFocussedFragment(val entry: FoodDiaryEntry, val user: User) : Fragmen
     ): View? {
         val v = inflater.inflate(R.layout.diary_entry_view_focussed, container, false)
         return v
+    }
+
+    fun getLastEntry(): FoodDiaryEntry
+    {
+        return LAST_ENTRY
     }
 
     override fun onStart() {
@@ -125,6 +122,10 @@ class EntryFocussedFragment(val entry: FoodDiaryEntry, val user: User) : Fragmen
 
     override fun onResume() {
         super.onResume()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
     }
 
     override fun onAttach(context: Context) {

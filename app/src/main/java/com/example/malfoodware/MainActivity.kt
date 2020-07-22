@@ -6,11 +6,15 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.view.animation.Animation
 import android.view.inputmethod.InputMethodManager
 import android.widget.*
 import androidx.appcompat.widget.Toolbar
+import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
+import kotlinx.android.synthetic.main.diary_entry_view.*
+import java.security.KeyStore
 import java.util.*
 
 class MainActivity :
@@ -34,6 +38,8 @@ class MainActivity :
         val CALENDAR_TYPE_ENTRY = 1
         val CALENDAR_TYPE_FROM = 2
         val CALENDAR_TYPE_TO = 3
+        var COL_LIST_LIGHT = 0
+        var COL_LIST_DARK = 0
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -45,6 +51,8 @@ class MainActivity :
         loginfrag = LoginFragment()
         entryFrag = EntryFragmentMain()
         checkUserSignedIn()
+        COL_LIST_LIGHT = ResourcesCompat.getColor(resources, R.color.list_light_grey,null)
+        COL_LIST_DARK = ResourcesCompat.getColor(resources, R.color.list_dark_grey, null)
     }
 
     fun checkUserSignedIn()
@@ -63,7 +71,7 @@ class MainActivity :
 
     fun clearBackStack()
     {
-        entryFrag.clearSelection()
+        clearEntryFragSelection()
         for (fragment in supportFragmentManager.fragments)
         {
             Log.d("LOG", "Fragment popped")
@@ -101,12 +109,33 @@ class MainActivity :
     override fun onResume() {
         super.onResume()
         Log.d("LOG", "Main Activity resumed")
-//        checkUserSignedIn()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        Log.d("LOG", "Main Activity Destroyed")
+    }
+
+    override fun onBackPressed() {
+        val backStackCount = supportFragmentManager.backStackEntryCount
+        if (backStackCount > 0) {
+            var fragTopStackTag =
+                supportFragmentManager.getBackStackEntryAt(backStackCount - 1)
+                    .name
+            if (fragTopStackTag.equals(EntryFocussedDetailsFragment.FRAGMENT_TAG)) {
+                clearEntryFragSelection()
+            }
+            supportFragmentManager.popBackStack()
+        }
+        else
+            super.onBackPressed()
     }
 
     fun attachFragment(fragment: Fragment, tag: String)
     {
         var transaction = supportFragmentManager.beginTransaction()
+
+        transaction.setCustomAnimations(R.anim.fragment_fade_enter, R.anim.fragment_fade_exit)
         transaction.add(ENTRY_FRAGMENT_ENTRY, fragment, tag)
             .addToBackStack(tag)
         transaction.show(fragment)
@@ -118,11 +147,17 @@ class MainActivity :
         val fragment = supportFragmentManager.findFragmentByTag(tag)
         if (fragment != null) {
             val transaction = supportFragmentManager.beginTransaction()
-            transaction.hide(fragment)
+            transaction.setCustomAnimations(R.anim.fragment_fade_enter, R.anim.fragment_fade_exit)
             transaction.remove(fragment)
             transaction.commit()
-            supportFragmentManager.popBackStack(tag, FragmentManager.POP_BACK_STACK_INCLUSIVE)
+            supportFragmentManager.popBackStack()
         }
+    }
+
+    fun clearEntryFragSelection()
+    {
+        EntryFocussedFragment.LAST_ENTRY = FoodDiaryEntry(1)
+        entryFrag.clearSelection()
     }
 
     /**
@@ -134,14 +169,19 @@ class MainActivity :
                 Toast.LENGTH_SHORT)
         else
         {
-            val date = Calendar.getInstance()
-            val dayString = date.get(Calendar.DAY_OF_MONTH)
-            val monthString = date.get(Calendar.MONTH) - 1
-            val yearString = date.get(Calendar.YEAR)
-            val dateString = "$dayString/$monthString/$yearString"
-            app.dbHelper.setLoggedInUser(uid, dateString)
+            setUserClickedDateToday()
             checkUserSignedIn()
         }
+    }
+
+    fun setUserClickedDateToday()
+    {
+        val date = Calendar.getInstance()
+        val dayString = date.get(Calendar.DAY_OF_MONTH)
+        val monthString = date.get(Calendar.MONTH) + 1
+        val yearString = date.get(Calendar.YEAR)
+        val dateString = "$dayString/$monthString/$yearString"
+        app.dbHelper.setLoggedInUser(app.user!!.uid, dateString)
     }
 
 
@@ -171,10 +211,6 @@ class MainActivity :
         val userDate = app.dbHelper.getLoggedInSelectedDate()!!
         supportActionBar!!.setTitle(userDate)
         val list = app.getListOfEntries(userDate)
-        for (entry in list)
-        {
-            println(entry.recipes)
-        }
         entryFrag.initDiaryEntry(list, app.user!!)
     }
 
@@ -188,17 +224,18 @@ class MainActivity :
         setToolBar()
     }
 
-    //Fod entry detailed implementation
+    //entry detailed implementation
     override fun hideEntryDetailed() {
         detachFragment(EntryFocussedDetailsFragment.FRAGMENT_TAG)
     }
+
     override fun showEntryDetails(entry: FoodDiaryEntry) {
         val frag = EntryFocussedDetailsFragment(entry, app.user!!)
         val tag = EntryFocussedDetailsFragment.FRAGMENT_TAG
         attachFragment(frag, tag)
     }
 
-    //Food entry focussed implementation
+    //entry focussed implementation
     override fun showFoodEntryFocussed(entry: FoodDiaryEntry) {
         val focussedFrag = EntryFocussedFragment(entry, app.user!!)
         val tag = EntryFocussedDetailsFragment.FRAGMENT_TAG
@@ -207,6 +244,7 @@ class MainActivity :
 
     override fun hideFoodEntryFocussed() {
         detachFragment(EntryFocussedDetailsFragment.FRAGMENT_TAG)
+        clearEntryFragSelection()
     }
 
     /**
@@ -224,9 +262,11 @@ class MainActivity :
             CalendarViewFragment.CALENDAR_FRAGMENT_TAG).addToBackStack(CALENDAR_VIEW_TAG)
         transaction.commit()
     }
+
     override fun calDateClickedEntry(date: String) {
         app.dbHelper.setLoggedInUser(app.user!!.uid, date)
         setEntryViewDate()
+        clearEntryFragSelection()
         launchEntryView()
     }
 

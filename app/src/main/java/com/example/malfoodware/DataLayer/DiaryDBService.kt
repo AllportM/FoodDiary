@@ -68,7 +68,6 @@ class DiaryDBService {
         }
 
         override fun insertDiaryEntry(dbHelper: FoodDBHelper, entry: FoodDiaryEntry, uid: String): Boolean {
-            println(entry)
             val db = dbHelper.writableDatabase
             db.beginTransaction()
             var contentValues: ContentValues

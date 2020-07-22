@@ -102,7 +102,7 @@ class DiaryDBServiceTest                 {
         ENTRY1.addRecipe(REC1, 501f)
         DiaryDBService.insertDiaryEntry(dbHelper, ENTRY1, USER.uid)
 
-        var newEntry = FoodDiaryEntry(TIME1 + (3600 * 2))
+        var newEntry = FoodDiaryEntry(TIME1 + (3600000))
         newEntry.addRecipe(REC2, 100f)
         DiaryDBService.insertDiaryEntry(dbHelper, newEntry, USER.uid)
 
