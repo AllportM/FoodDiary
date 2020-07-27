@@ -1,6 +1,7 @@
 package com.example.malfoodware
 
 import android.content.Context
+import android.opengl.Visibility
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -52,11 +53,6 @@ class EntryFocussedFragment(val entry: FoodDiaryEntry, val user: User) : Fragmen
     ): View? {
         val v = inflater.inflate(R.layout.diary_entry_view_focussed, container, false)
         return v
-    }
-
-    fun getLastEntry(): FoodDiaryEntry
-    {
-        return LAST_ENTRY
     }
 
     override fun onStart() {
@@ -118,6 +114,8 @@ class EntryFocussedFragment(val entry: FoodDiaryEntry, val user: User) : Fragmen
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         view1 = view
+        if (activity is CreateEntryActivity)
+            hideButton()
     }
 
     override fun onResume() {
@@ -137,4 +135,9 @@ class EntryFocussedFragment(val entry: FoodDiaryEntry, val user: User) : Fragmen
                     "implement onLogin interface")
     }
 
+    fun hideButton()
+    {
+        var button = view1.findViewById<Button>(R.id.foodEntryMoreDetails)
+        button.visibility = View.INVISIBLE
+    }
 }

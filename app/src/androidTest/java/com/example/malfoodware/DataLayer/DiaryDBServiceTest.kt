@@ -70,7 +70,7 @@ class DiaryDBServiceTest                 {
         IngredientDBService.insertIngredient(dbHelper, ING5)
         IngredientDBService.insertIngredient(dbHelper, ING6)
         var REC1: Recipe
-        REC1 = Recipe("Fajita Pizza")
+        REC1 = Recipe("Fajita Pizza", 10)
         REC1.addIngredient(ING1, 124f)
         REC1.addIngredient(ING2, 66f)
         REC1.addIngredient(ING3, 59f)
@@ -89,7 +89,7 @@ class DiaryDBServiceTest                 {
         IngredientDBService.insertIngredient(dbHelper, ING3)
 
         var REC2: Recipe
-        REC2 = Recipe("Ham, cheese, and lettuce sammich")
+        REC2 = Recipe("Ham, cheese, and lettuce sammich", 10)
         REC2.addIngredient(ING1, 94f)
         REC2.addIngredient(ING2, 130f)
         REC2.addIngredient(ING3, 50f)

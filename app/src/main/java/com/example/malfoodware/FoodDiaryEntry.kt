@@ -26,6 +26,32 @@ class FoodDiaryEntry(var timeMillis: Long = Calendar.getInstance().timeInMillis)
         return true
     }
 
+    fun getNutrition(): Nutrition
+    {
+        var nutrition: Nutrition? = null
+        for (ingredient in ingredients)
+        {
+            if (nutrition == null)
+            {
+                nutrition = ingredient.key.nut / ingredient.value
+            }
+            else
+                nutrition.plusAssign(ingredient.key.nut / ingredient.value)
+        }
+        for (recipe in recipes)
+        {
+            if (nutrition == null)
+            {
+                nutrition = recipe.key.getNutrition()!! / recipe.value
+            }
+            else
+                nutrition.plusAssign(recipe.key.getNutrition()!! / recipe.value)
+        }
+        if (nutrition == null)
+            nutrition = Nutrition()
+        return nutrition
+    }
+
     fun addIngredient(ing: Ingredient, qty: Float): Boolean
     {
         if (ingredients.containsKey(ing)) return false

@@ -26,7 +26,6 @@ class EntriesAdapter(private val mEntries: List<FoodDiaryEntry>) :
         var bloodSugar = itemView.findViewById<TextView>(R.id.blood_sugar)
         var foods = itemView.findViewById<TextView>(R.id.foods)
         var time = itemView.findViewById<TextView>(R.id.time)
-
     }
 
     interface FoodEntryListListener
@@ -36,7 +35,7 @@ class EntriesAdapter(private val mEntries: List<FoodDiaryEntry>) :
     }
 
     private var elementList: MutableMap<Long, View> = mutableMapOf()
-    private var clicked: View? = null
+    var clicked: View? = null
     lateinit var activityApp: FoodEntryListListener
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -81,8 +80,9 @@ class EntriesAdapter(private val mEntries: List<FoodDiaryEntry>) :
         for (ingredient in entry.ingredients) {
             foodsText += ingredient.key.name + " (${ingredient.value.toInt()}g)\n"
         }
-        if (foodsText[foodsText.length - 1] == '\n')
+        if (foodsText.length > 0 && foodsText[foodsText.length - 1] == '\n')
             foodsText = foodsText.substring(0, foodsText.length - 1)
+        else if (foodsText.length == 0) foodsText = "N/A"
         foods.setText(foodsText)
 
         // sets time and inserts to viewtext

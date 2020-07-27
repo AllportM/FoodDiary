@@ -44,7 +44,7 @@ class RecipeDBServiceTest {
         REC2.addIngredient(IngredientDBServiceTest.ING2, 10f)
         RecipeDBService.insertRecipe(dbHelper, REC1)
         RecipeDBService.insertRecipe(dbHelper, REC2)
-//        Logger.last()
+        Logger.last()
     }
 
     @Test

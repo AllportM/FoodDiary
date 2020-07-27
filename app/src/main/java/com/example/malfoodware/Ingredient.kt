@@ -1,9 +1,16 @@
 package com.example.malfoodware
 
-class Ingredient(var name:String, energy:Float, fat:Float, carbs:Float,
-                 fibre:Float, protein: Float, salt:Float, serving:Float):
-    Comparable<Ingredient>{
+enum class FoodType
+{
+    INGREDIENT,
+    RECIPE
+}
+
+class Ingredient(var name:String, energy:Float = 0f, fat:Float = 0f, carbs:Float =0f,
+                 fibre:Float =0f, protein: Float = 0f, salt:Float = 0f, serving:Float = 0.01f):
+    Comparable<Ingredient>, FoodAccess{
     val nut: Nutrition
+    val type = FoodType.INGREDIENT
 
     init
     {
@@ -15,6 +22,18 @@ class Ingredient(var name:String, energy:Float, fat:Float, carbs:Float,
             throw InvalidInitializationRequest("Error initializing " + this::class + " due to invalid" +
                     " nutrition values of:\n" + e.message)
         }
+    }
+
+    override fun whatName(): String {
+        return name
+    }
+
+    override fun whatType(): FoodType {
+        return type
+    }
+
+    override fun whatServing(): Float {
+        return nut.serving
     }
 
     override fun equals(other: Any?): Boolean {

@@ -19,7 +19,8 @@ class RecipeDBService {
 
         override fun onCreate(db: SQLiteDatabase?) {
             var CREATE_CONTENTS_TABLE = ("CREATE TABLE IF NOT EXISTS $TABLE_RECIPE_NAMES(" +
-                    "$KEY_RECIP_NAME TEXT COLLATE NOCASE PRIMARY KEY)")
+                    "$KEY_RECIP_NAME TEXT COLLATE NOCASE PRIMARY KEY," +
+                    "$KEY_SERVING INT NOT NULL)")
             db?.execSQL(CREATE_CONTENTS_TABLE)
             CREATE_CONTENTS_TABLE = ("CREATE TABLE IF NOT EXISTS $TABLE_RECIPES(" +
                     "$KEY_RECIP_NAME TEXT COLLATE NOCASE, " +
@@ -70,12 +71,19 @@ class RecipeDBService {
             }
             var ingName: String
             var qty: Float
-            var query = "SELECT * FROM $TABLE_RECIPES WHERE $KEY_RECIP_NAME='$name'"
+            var query = "SELECT * FROM $TABLE_RECIPE_NAMES WHERE $KEY_RECIP_NAME='$name'"
             var cursor: Cursor = db.rawQuery(query, null)
             if (cursor.moveToFirst())
             {
-                rec = Recipe(name)
-                var recName: String
+                val recName = cursor.getString(cursor.getColumnIndex(KEY_RECIP_NAME))
+                val serving = cursor.getInt(cursor.getColumnIndex(KEY_SERVING))
+                rec = Recipe(recName, serving)
+            }
+            else return rec
+            query = "SELECT * FROM $TABLE_RECIPES WHERE $KEY_RECIP_NAME='$name'"
+            cursor = db.rawQuery(query, null)
+            if (cursor.moveToFirst())
+            {
                 var ing: Ingredient? = null
                 // creates and returns ingredient, or throws exception if failure
                 do
@@ -97,6 +105,7 @@ class RecipeDBService {
             try {
                 contentValues= ContentValues()
                 contentValues.put(KEY_RECIP_NAME, recipe.recName)
+                contentValues.put(KEY_SERVING, recipe.portion)
                 db.insertOrThrow(TABLE_RECIPE_NAMES, null, contentValues)
             } catch (e: SQLiteException)
             {

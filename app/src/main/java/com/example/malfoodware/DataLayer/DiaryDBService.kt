@@ -146,6 +146,7 @@ class DiaryDBService {
             var cursor = db.rawQuery(query, null)
             if (cursor.moveToFirst())
                 result = cursor.getInt(cursor.getColumnIndex(KEY_DIARY_ID))
+            cursor.close()
             return result
         }
 
@@ -165,6 +166,7 @@ class DiaryDBService {
                 }
                     while (cursor.moveToNext())
             }
+            cursor.close()
             return result
         }
 
@@ -184,6 +186,7 @@ class DiaryDBService {
                 }
                 while (cursor.moveToNext())
             }
+            cursor.close()
             return result
         }
 
@@ -212,6 +215,7 @@ class DiaryDBService {
                 }
                 while (cursor.moveToNext())
             }
+            cursor.close()
             return result
         }
 
@@ -243,6 +247,7 @@ class DiaryDBService {
             {
                 Logger.add("SQL No Results for Diary Entries between range $from - $to")
             }
+            cursor.close()
             return result
         }
 

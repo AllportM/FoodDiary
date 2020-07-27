@@ -17,29 +17,19 @@ import androidx.navigation.fragment.findNavController
 import java.util.*
 
 
-class CalendarViewFragment(val type: Int, val time: Long) : AppCompatDialogFragment() {
+class CalendarViewFragment(val time: Long) : AppCompatDialogFragment() {
 
     lateinit var calendar: Calendar
     lateinit var activityApp: DatePickerListener
 
-    init {
-        LAST_TYPE = type
-    }
-
-    constructor() : this(LAST_TYPE, TODAY)
-
     companion object
     {
         val CALENDAR_FRAGMENT_TAG = "calendarViewTag"
-        var LAST_TYPE = MainActivity.CALENDAR_TYPE_ENTRY
-        val TODAY = Calendar.getInstance().timeInMillis
     }
 
     interface DatePickerListener
     {
         fun calDateClickedEntry(date: String)
-        fun calDateClickedFrom(date: String)
-        fun calDateClickedTo(date: String)
         fun onCalDismiss()
     }
 
@@ -63,6 +53,7 @@ class CalendarViewFragment(val type: Int, val time: Long) : AppCompatDialogFragm
     }
 
     override fun onDismiss(dialog: DialogInterface) {
+        super.dismiss()
         activityApp.onCalDismiss()
     }
 
@@ -89,11 +80,6 @@ class CalendarViewFragment(val type: Int, val time: Long) : AppCompatDialogFragm
     fun onDateSet(year: Int, month: Int, day: Int) {
         val dateString = "$day/${month+1}/$year"
         // send date back to the target fragment
-        when(type)
-        {
-            MainActivity.CALENDAR_TYPE_ENTRY -> activityApp.calDateClickedEntry(dateString)
-            MainActivity.CALENDAR_TYPE_FROM -> activityApp.calDateClickedFrom(dateString)
-            MainActivity.CALENDAR_TYPE_TO -> activityApp.calDateClickedTo(dateString)
-        }
+        activityApp.calDateClickedEntry(dateString)
     }
 }

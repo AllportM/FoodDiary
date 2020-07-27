@@ -8,7 +8,7 @@
     <LinearLayout
             android:id="@+id/linearLayout"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="wrap_content"
             android:background="@android:color/transparent"
             android:orientation="horizontal"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -24,15 +24,12 @@
             <Button
                     android:id="@+id/viewIngredients"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
                     android:layout_marginStart="2dp"
                     android:layout_marginTop="2dp"
                     android:layout_marginEnd="1dp"
                     android:layout_marginBottom="2dp"
-                    android:background="@drawable/entries_bottom_button"
-                    android:text="Ingredients"
-                    android:textAllCaps="false"
-                    android:textColor="#FFFFFF" />
+                    style="@style/buttonMain"
+                    android:text="Ingredients" />
         </LinearLayout>
 
         <LinearLayout
@@ -44,15 +41,12 @@
             <Button
                     android:id="@+id/addEntry"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
                     android:layout_marginLeft="1dp"
                     android:layout_marginTop="2dp"
                     android:layout_marginRight="1dp"
                     android:layout_marginBottom="2dp"
-                    android:background="@drawable/entries_bottom_button"
-                    android:text="Add Entry"
-                    android:textAllCaps="false"
-                    android:textColor="#FFFFFF" />
+                    style="@style/buttonMain"
+                    android:text="Add Entry" />
         </LinearLayout>
 
         <LinearLayout
@@ -64,15 +58,12 @@
             <Button
                     android:id="@+id/viewRecipe"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
                     android:layout_marginStart="1dp"
                     android:layout_marginTop="2dp"
                     android:layout_marginEnd="2dp"
                     android:layout_marginBottom="2dp"
-                    android:background="@drawable/entries_bottom_button"
-                    android:text="View Recipes"
-                    android:textAllCaps="false"
-                    android:textColor="#FFFFFF" />
+                    style="@style/buttonMain"
+                    android:text="View Recipes" />
         </LinearLayout>
     </LinearLayout>
 

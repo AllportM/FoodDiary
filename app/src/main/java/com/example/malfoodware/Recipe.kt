@@ -1,14 +1,30 @@
 package com.example.malfoodware
 
-class Recipe (var recName:String): Comparable<Recipe>{
+class Recipe (var recName:String, val portion: Int = 1): Comparable<Recipe>, FoodAccess{
     val ingList: MutableMap<Ingredient, Float> = mutableMapOf()
+
+    val type = FoodType.RECIPE
+
+
+    override fun whatName(): String {
+        return recName
+    }
+
+    override fun whatType(): FoodType {
+        return type
+    }
+
+    override fun whatServing(): Float{
+        var nut = getNutrition()
+        return nut.serving / portion.toFloat()
+    }
 
     fun addIngredient(ing: Ingredient, qty: Float)
     {
         ingList[ing] = qty
     }
 
-    fun getNutrition(): Nutrition?
+    fun getNutrition(): Nutrition
     {
         var nutrition: Nutrition? = null
         for (ingredient in ingList)
@@ -20,6 +36,8 @@ class Recipe (var recName:String): Comparable<Recipe>{
             else
                 nutrition.plusAssign(ingredient.key.nut / ingredient.value)
         }
+        if (nutrition == null)
+            nutrition = Nutrition()
         return nutrition
     }
 

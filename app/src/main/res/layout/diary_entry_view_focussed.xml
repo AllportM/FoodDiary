@@ -42,13 +42,13 @@
             app:layout_constraintStart_toStartOf="@+id/progressBarFibreInner"
             app:layout_constraintTop_toTopOf="@+id/progressBarFibreInner" />
 
-    <include
-            layout="@layout/diary_entry_bottom_buttons"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+<!--    <include-->
+<!--            layout="@layout/diary_entry_bottom_buttons"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="40dp"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent" />-->
 
     <ProgressBar
             android:id="@+id/progressBarEnergyInner"

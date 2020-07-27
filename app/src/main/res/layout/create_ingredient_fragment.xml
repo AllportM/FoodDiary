@@ -1,0 +1,478 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent" android:layout_height="match_parent"
+        android:background="@color/list_dark_grey"
+        android:clickable="true"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:id="@+id/createIngCont">
+
+        <LinearLayout
+                android:id="@+id/linearLayout8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout9">
+
+            <TextView
+                    android:id="@+id/createIngServText"
+                    style="@style/textMain"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:text="Serving" />
+
+            <EditText
+                    android:id="@+id/createIngServingVal"
+                    style="@style/textMain"
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_weight="1"
+                    android:autofillHints=""
+                    android:background="@drawable/text_field_border"
+                    android:focusable="true"
+                    android:inputType="number"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="10dp" />
+
+            <TextView
+                    android:id="@+id/textView20"
+                    style="@style/textMain"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_weight="1"
+                    android:text="(g)" />
+
+        </LinearLayout>
+
+        <LinearLayout
+                android:id="@+id/linearLayout9"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                    android:id="@+id/createIngNameText"
+                    style="@style/textMain"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:text="Ingredient Name" />
+
+                <EditText
+                        android:id="@+id/createIngNameVal"
+                        style="@style/textMain"
+                        android:layout_width="150dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_weight="1"
+                        android:autofillHints=""
+                        android:background="@drawable/text_field_border"
+                        android:focusable="true"
+                        android:inputType="textNoSuggestions"
+                        android:paddingStart="10dp"
+                        android:paddingEnd="10dp"
+                        android:singleLine="true" />
+
+        </LinearLayout>
+
+        <TextView
+                android:id="@+id/createIngEnergyText"
+                style="@style/textMain"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_weight="1"
+                android:text="Energy"
+                app:layout_constraintBottom_toBottomOf="@+id/createIngEnergyVal"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/createIngEnergyVal" />
+
+        <TextView
+                android:id="@+id/createIngFatText"
+                style="@style/textMain"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:layout_weight="1"
+                android:text="Fat"
+                app:layout_constraintBottom_toBottomOf="@+id/createIngFatVal"
+                app:layout_constraintEnd_toEndOf="@+id/createIngEnergyText"
+                app:layout_constraintEnd_toStartOf="@+id/createIngFatVal"
+                app:layout_constraintTop_toTopOf="@+id/createIngFatVal" />
+
+        <TextView
+                android:id="@+id/createInProteinText"
+                style="@style/textMain"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Protein"
+                app:layout_constraintBottom_toBottomOf="@+id/createIngProteinVal"
+                app:layout_constraintEnd_toEndOf="@+id/createIngEnergyText"
+                app:layout_constraintEnd_toStartOf="@+id/createIngProteinVal"
+                app:layout_constraintTop_toTopOf="@+id/createIngProteinVal" />
+
+        <EditText
+                android:id="@+id/createIngEnergyVal"
+                style="@style/textMain"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="20dp"
+                android:layout_weight="1"
+                android:autofillHints=""
+                android:background="@drawable/text_field_border"
+                android:focusable="true"
+                android:inputType="numberDecimal"
+                app:layout_constraintStart_toEndOf="@+id/createIngEnergyText"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout8" />
+
+        <EditText
+                android:id="@+id/createIngFatVal"
+                style="@style/textMain"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:layout_weight="1"
+                android:autofillHints=""
+                android:background="@drawable/text_field_border"
+                android:focusable="true"
+                android:inputType="numberDecimal"
+                app:layout_constraintStart_toEndOf="@+id/createIngEnergyText"
+                app:layout_constraintStart_toStartOf="@+id/createIngEnergyVal"
+                app:layout_constraintTop_toBottomOf="@+id/createIngEnergyVal" />
+
+        <EditText
+                android:id="@+id/createIngProteinVal"
+                style="@style/textMain"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:layout_weight="1"
+                android:autofillHints=""
+                android:background="@drawable/text_field_border"
+                android:focusable="true"
+                android:inputType="numberDecimal"
+                app:layout_constraintEnd_toEndOf="@+id/createIngFatVal"
+                app:layout_constraintStart_toEndOf="@+id/createIngEnergyText"
+                app:layout_constraintStart_toStartOf="@+id/createIngFatVal"
+                app:layout_constraintTop_toBottomOf="@+id/createIngFatVal" />
+
+        <EditText
+                android:id="@+id/createIngFibreVal"
+                style="@style/textMain"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="5dp"
+                android:layout_weight="1"
+                android:autofillHints=""
+                android:background="@drawable/text_field_border"
+                android:focusable="true"
+                android:inputType="numberDecimal"
+                app:layout_constraintBottom_toBottomOf="@+id/createIngFatVal"
+                app:layout_constraintEnd_toEndOf="@+id/createIngCarbsVal"
+                app:layout_constraintEnd_toStartOf="@+id/textView26"
+                app:layout_constraintStart_toEndOf="@+id/createIngEnergyText"
+                app:layout_constraintStart_toStartOf="@+id/createIngCarbsVal"
+                app:layout_constraintTop_toTopOf="@+id/createIngFatVal" />
+
+        <EditText
+                android:id="@+id/createIngSaltVal"
+                style="@style/textMain"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:autofillHints=""
+                android:background="@drawable/text_field_border"
+                android:focusable="true"
+                android:inputType="numberDecimal"
+                app:layout_constraintBottom_toBottomOf="@+id/createIngProteinVal"
+                app:layout_constraintEnd_toEndOf="@+id/createIngCarbsVal"
+                app:layout_constraintEnd_toStartOf="@+id/textView26"
+                app:layout_constraintStart_toEndOf="@+id/createIngEnergyText"
+                app:layout_constraintStart_toStartOf="@+id/createIngCarbsVal"
+                app:layout_constraintTop_toTopOf="@+id/createIngProteinVal" />
+
+        <TextView
+                android:id="@+id/textView22"
+                style="@style/textMain"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_weight="1"
+                android:text="(kcal)"
+                app:layout_constraintBottom_toBottomOf="@+id/createIngEnergyVal"
+                app:layout_constraintStart_toEndOf="@+id/createIngEnergyVal"
+                app:layout_constraintTop_toTopOf="@+id/createIngEnergyVal" />
+
+        <TextView
+                android:id="@+id/textView25"
+                style="@style/textMain"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_weight="1"
+                android:text="(g)"
+                app:layout_constraintBottom_toBottomOf="@+id/createIngFatVal"
+                app:layout_constraintStart_toEndOf="@+id/createIngFatVal"
+                app:layout_constraintTop_toTopOf="@+id/createIngFatVal" />
+
+        <TextView
+                android:id="@+id/textView29"
+                style="@style/textMain"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_weight="1"
+                android:text="(g)"
+                app:layout_constraintBottom_toBottomOf="@+id/createIngProteinVal"
+                app:layout_constraintStart_toEndOf="@+id/createIngFatVal"
+                app:layout_constraintTop_toTopOf="@+id/createIngProteinVal" />
+
+        <TextView
+                android:id="@+id/createIngCarbText"
+                style="@style/textMain"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:layout_weight="1"
+                android:text="Carbs"
+                app:layout_constraintBottom_toBottomOf="@+id/createIngCarbsVal"
+                app:layout_constraintEnd_toStartOf="@+id/createIngCarbsVal"
+                app:layout_constraintTop_toTopOf="@+id/createIngCarbsVal" />
+
+        <TextView
+                android:id="@+id/createIngFibreText"
+                style="@style/textMain"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:layout_weight="1"
+                android:text="Fibre"
+                app:layout_constraintBottom_toBottomOf="@+id/createIngFibreVal"
+                app:layout_constraintEnd_toStartOf="@+id/createIngFibreVal"
+                app:layout_constraintTop_toTopOf="@+id/createIngFibreVal" />
+
+        <TextView
+                android:id="@+id/createIngSaltText"
+                style="@style/textMain"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:layout_weight="1"
+                android:text="Salt"
+                app:layout_constraintBottom_toBottomOf="@+id/createIngSaltVal"
+                app:layout_constraintEnd_toStartOf="@+id/createIngSaltVal"
+                app:layout_constraintTop_toTopOf="@+id/createIngSaltVal" />
+
+        <EditText
+                android:id="@+id/createIngCarbsVal"
+                style="@style/textMain"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="5dp"
+                android:layout_weight="1"
+                android:autofillHints=""
+                android:background="@drawable/text_field_border"
+                android:focusable="true"
+                android:inputType="numberDecimal"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                app:layout_constraintBottom_toBottomOf="@+id/createIngEnergyVal"
+                app:layout_constraintEnd_toStartOf="@+id/textView21"
+                app:layout_constraintTop_toTopOf="@+id/createIngEnergyVal" />
+
+        <TextView
+                android:id="@+id/textView21"
+                style="@style/textMain"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="20dp"
+                android:layout_weight="1"
+                android:text="(g)"
+                app:layout_constraintBottom_toBottomOf="@+id/createIngCarbsVal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/createIngCarbsVal" />
+
+        <TextView
+                android:id="@+id/textView26"
+                style="@style/textMain"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="20dp"
+                android:layout_weight="1"
+                android:text="(g)"
+                app:layout_constraintBottom_toBottomOf="@+id/createIngFibreVal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/createIngFibreVal" />
+
+        <TextView
+                android:id="@+id/textView30"
+                style="@style/textMain"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="20dp"
+                android:layout_weight="1"
+                android:text="(g)"
+                app:layout_constraintBottom_toBottomOf="@+id/createIngSaltVal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/createIngSaltVal" />
+
+        <LinearLayout
+                android:id="@+id/viewFinalFinish"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toBottomOf="parent"
+                tools:layout_editor_absoluteX="0dp">
+
+            <Button
+                    android:id="@+id/createIngBackBut"
+                    style="@style/buttonMain"
+                    android:layout_width="0dp"
+                    android:layout_marginStart="2dp"
+                    android:layout_marginTop="2dp"
+                    android:layout_marginEnd="1dp"
+                    android:layout_marginBottom="2dp"
+                    android:layout_weight="1"
+                    android:text="Back" />
+
+            <Button
+                    android:id="@+id/viewIngredientFinalize"
+                    style="@style/buttonMain"
+                    android:layout_width="0dp"
+                    android:layout_marginStart="1dp"
+                    android:layout_marginTop="2dp"
+                    android:layout_marginEnd="2dp"
+                    android:layout_marginBottom="2dp"
+                    android:layout_weight="1"
+                    android:text="Finish" />
+        </LinearLayout>
+
+        <TextView
+                android:id="@+id/createIngNameErrorDuplicate"
+                style="@style/error"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Ingredient with this name already exists!"
+                app:layout_constraintBottom_toTopOf="@+id/linearLayout8"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout9" />
+
+        <TextView
+                android:id="@+id/createIngNameErrorEmpty"
+                style="@style/error"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Must have value"
+                app:layout_constraintBottom_toTopOf="@+id/linearLayout9"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+                android:id="@+id/createIngEnergyErr"
+                style="@style/error"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Must have value"
+                app:layout_constraintBottom_toTopOf="@+id/createIngFatVal"
+                app:layout_constraintEnd_toEndOf="@+id/textView22"
+                app:layout_constraintStart_toStartOf="@+id/createIngEnergyText"
+                app:layout_constraintTop_toBottomOf="@+id/createIngEnergyVal" />
+
+        <TextView
+                android:id="@+id/createIngFatErr"
+                style="@style/error"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Must have value"
+                app:layout_constraintBottom_toTopOf="@+id/createIngProteinVal"
+                app:layout_constraintEnd_toEndOf="@+id/textView22"
+                app:layout_constraintStart_toStartOf="@+id/createIngEnergyText"
+                app:layout_constraintTop_toBottomOf="@+id/createIngFatVal" />
+
+        <TextView
+                android:id="@+id/createIngProteinErr"
+                style="@style/error"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Must have value"
+                app:layout_constraintEnd_toEndOf="@+id/textView22"
+                app:layout_constraintStart_toStartOf="@+id/createIngEnergyText"
+                app:layout_constraintTop_toBottomOf="@+id/createIngProteinVal" />
+
+        <TextView
+                android:id="@+id/createIngCarbError"
+                style="@style/error"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Must have value"
+                app:layout_constraintBottom_toTopOf="@+id/createIngFatVal"
+                app:layout_constraintEnd_toEndOf="@+id/textView21"
+                app:layout_constraintStart_toEndOf="@+id/createIngEnergyErr"
+                app:layout_constraintStart_toStartOf="@+id/createIngCarbText"
+                app:layout_constraintTop_toBottomOf="@+id/createIngEnergyVal" />
+
+        <TextView
+                android:id="@+id/createIngServingErr"
+                style="@style/error"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Must have value"
+                app:layout_constraintBottom_toTopOf="@+id/createIngCarbsVal"
+                app:layout_constraintEnd_toEndOf="@+id/linearLayout8"
+                app:layout_constraintStart_toEndOf="@+id/createIngEnergyErr"
+                app:layout_constraintStart_toStartOf="@+id/linearLayout8"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout8" />
+
+        <TextView
+                android:id="@+id/createIngServingErrZero"
+                style="@style/error"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Cannot be zero"
+                app:layout_constraintBottom_toTopOf="@+id/createIngCarbsVal"
+                app:layout_constraintEnd_toEndOf="@+id/linearLayout8"
+                app:layout_constraintStart_toEndOf="@+id/createIngEnergyErr"
+                app:layout_constraintStart_toStartOf="@+id/linearLayout8"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout8" />
+
+        <TextView
+                android:id="@+id/createIngFribreErr"
+                style="@style/error"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Must have value"
+                app:layout_constraintBottom_toTopOf="@+id/createIngSaltVal"
+                app:layout_constraintEnd_toEndOf="@+id/textView21"
+                app:layout_constraintStart_toEndOf="@+id/createIngEnergyErr"
+                app:layout_constraintStart_toStartOf="@+id/createIngCarbText"
+                app:layout_constraintTop_toBottomOf="@+id/createIngFibreVal" />
+
+        <TextView
+                android:id="@+id/createIngSaltErr"
+                style="@style/error"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Must have value"
+                app:layout_constraintEnd_toEndOf="@+id/textView21"
+                app:layout_constraintStart_toEndOf="@+id/createIngEnergyErr"
+                app:layout_constraintStart_toStartOf="@+id/createIngCarbText"
+                app:layout_constraintTop_toBottomOf="@+id/createIngSaltVal" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

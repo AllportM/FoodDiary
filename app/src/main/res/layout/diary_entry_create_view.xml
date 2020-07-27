@@ -2,20 +2,42 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/entryViewLayout"
+        android:id="@+id/entryCreateView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".EntryFragmentMain">
+        android:background="@color/white"
+        tools:context=".CreateEntryActivity">
 
-    <include
-            android:id="@+id/includeEntryBotButs"
-            layout="@layout/diary_entry_bottom_buttons"
+    <LinearLayout
+            android:id="@+id/diartyEntryCVButtonHold"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
+            android:orientation="horizontal"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent" />
+            tools:layout_editor_absoluteX="-161dp">
+
+        <Button
+                android:id="@+id/diaryEntryCreateViewBack"
+                style="@style/buttonMain"
+                android:layout_width="0dp"
+                android:layout_marginStart="2dp"
+                android:layout_marginTop="2dp"
+                android:layout_marginEnd="1dp"
+                android:layout_marginBottom="2dp"
+                android:layout_weight="1"
+                android:text="Back" />
+
+        <Button
+                android:id="@+id/createEntryViewNext"
+                style="@style/buttonMain"
+                android:layout_width="0dp"
+                android:layout_marginStart="1dp"
+                android:layout_marginTop="2dp"
+                android:layout_marginEnd="2dp"
+                android:layout_marginBottom="2dp"
+                android:layout_weight="1"
+                android:text="Next" />
+    </LinearLayout>
 
     <ProgressBar
             android:id="@+id/progressBarFat"
@@ -256,12 +278,12 @@
             android:id="@+id/rvEntries"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            style="@style/recyclerList"
-            app:layout_constraintBottom_toTopOf="@+id/includeEntryBotButs"
+            app:layout_constraintBottom_toTopOf="@+id/diartyEntryCVButtonHold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/view2" />
+            app:layout_constraintTop_toBottomOf="@+id/view2"
+            style="@style/recyclerList"/>
 
     <LinearLayout
             android:id="@+id/linearLayout2"
@@ -274,31 +296,13 @@
             app:layout_constraintTop_toBottomOf="@+id/view">
 
         <TextView
-                android:id="@+id/textView2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Blood Sugar"
-                android:textAlignment="center"
-                style="@style/textSmall"/>
-
-        <TextView
                 android:id="@+id/textView3"
+                style="@style/textSmall"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Food Eaten"
-                android:textAlignment="center"
-                style="@style/textSmall"/>
-
-        <TextView
-                android:id="@+id/textView4"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Time"
-                android:textAlignment="center"
-                style="@style/textSmall"/>
+                android:text="Food"
+                android:textAlignment="center" />
 
     </LinearLayout>
 

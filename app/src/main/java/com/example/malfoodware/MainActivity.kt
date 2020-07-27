@@ -2,6 +2,7 @@ package com.example.malfoodware
 
 import EntriesAdapter
 import android.content.Context
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -35,9 +36,6 @@ class MainActivity :
     lateinit var entryFrag: EntryFragmentMain
 
     companion object {
-        val CALENDAR_TYPE_ENTRY = 1
-        val CALENDAR_TYPE_FROM = 2
-        val CALENDAR_TYPE_TO = 3
         var COL_LIST_LIGHT = 0
         var COL_LIST_DARK = 0
     }
@@ -71,10 +69,8 @@ class MainActivity :
 
     fun clearBackStack()
     {
-        clearEntryFragSelection()
         for (fragment in supportFragmentManager.fragments)
         {
-            Log.d("LOG", "Fragment popped")
             supportFragmentManager.popBackStack()
         }
     }
@@ -122,7 +118,7 @@ class MainActivity :
             var fragTopStackTag =
                 supportFragmentManager.getBackStackEntryAt(backStackCount - 1)
                     .name
-            if (fragTopStackTag.equals(EntryFocussedDetailsFragment.FRAGMENT_TAG)) {
+            if (fragTopStackTag.equals(EntryFocussedFragment.FRAGMENT_TAG)) {
                 clearEntryFragSelection()
             }
             supportFragmentManager.popBackStack()
@@ -150,7 +146,7 @@ class MainActivity :
             transaction.setCustomAnimations(R.anim.fragment_fade_enter, R.anim.fragment_fade_exit)
             transaction.remove(fragment)
             transaction.commit()
-            supportFragmentManager.popBackStack()
+            supportFragmentManager.popBackStack(tag, FragmentManager.POP_BACK_STACK_INCLUSIVE)
         }
     }
 
@@ -158,17 +154,24 @@ class MainActivity :
     {
         EntryFocussedFragment.LAST_ENTRY = FoodDiaryEntry(1)
         entryFrag.clearSelection()
+        val adapter = entryFrag.rvEntries?.adapter as EntriesAdapter
+        adapter.clicked = null
     }
 
     /**
      * Login Stuffs
      */
     override fun onLogin(uid: String) {
-        if (!app.login(uid))
-            Toast.makeText(this, "Failed to login with $uid, user already exists",
-                Toast.LENGTH_SHORT)
+        if (!app.login(uid)) {
+            Log.d("LOG", "${this::class} failed to login with uid: $uid")
+            Toast.makeText(
+                this, "Failed to login with $uid, user already exists",
+                Toast.LENGTH_SHORT
+            )
+        }
         else
         {
+            Log.d("LOG", "${this::class} logging in with uid: $uid")
             setUserClickedDateToday()
             checkUserSignedIn()
         }
@@ -200,8 +203,14 @@ class MainActivity :
      * Food Entry stuffs
      */
     override fun onEntryCreated() {
-        setEntryViewDate()
         setToolBar()
+        setEntryViewDate()
+        val createEntryBut = findViewById<Button>(R.id.addEntry)
+        createEntryBut.setOnClickListener {
+            val intent = Intent(this, CreateEntryActivity::class.java)
+            intent.putExtra("UNAME", app.user!!.uid)
+            startActivity(intent)
+        }
     }
 
     fun setEntryViewDate()
@@ -221,7 +230,6 @@ class MainActivity :
         val transaction = supportFragmentManager.beginTransaction()
         transaction.replace(ENTRY_FRAGMENT_ENTRY, entryFrag)
         transaction.commit()
-        setToolBar()
     }
 
     //entry detailed implementation
@@ -238,12 +246,12 @@ class MainActivity :
     //entry focussed implementation
     override fun showFoodEntryFocussed(entry: FoodDiaryEntry) {
         val focussedFrag = EntryFocussedFragment(entry, app.user!!)
-        val tag = EntryFocussedDetailsFragment.FRAGMENT_TAG
+        val tag = EntryFocussedFragment.FRAGMENT_TAG
         attachFragment(focussedFrag, tag)
     }
 
     override fun hideFoodEntryFocussed() {
-        detachFragment(EntryFocussedDetailsFragment.FRAGMENT_TAG)
+        detachFragment(EntryFocussedFragment.FRAGMENT_TAG)
         clearEntryFragSelection()
     }
 
@@ -258,7 +266,7 @@ class MainActivity :
         calDate.set(date.get(2).toInt(), date.get(1).toInt()-1, date.get(0).toInt())
         val timMilli = calDate.timeInMillis
         val transaction = supportFragmentManager.beginTransaction()
-        transaction.add(CalendarViewFragment(CALENDAR_TYPE_ENTRY, timMilli),
+        transaction.add(CalendarViewFragment(timMilli),
             CalendarViewFragment.CALENDAR_FRAGMENT_TAG).addToBackStack(CALENDAR_VIEW_TAG)
         transaction.commit()
     }
@@ -268,14 +276,6 @@ class MainActivity :
         setEntryViewDate()
         clearEntryFragSelection()
         launchEntryView()
-    }
-
-    override fun calDateClickedFrom(date: String) {
-        TODO("Not yet implemented")
-    }
-
-    override fun calDateClickedTo(date: String) {
-        TODO("Not yet implemented")
     }
 
     override fun onCalDismiss() {
