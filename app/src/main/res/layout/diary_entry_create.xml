@@ -4,26 +4,16 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@android:color/transparent"
-        tools:context=".CreateEntryActivity" >
-
-    <androidx.appcompat.widget.Toolbar
-            android:id="@+id/createEntryTolbar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="?attr/colorPrimary"
-            android:minHeight="?attr/actionBarSize"
-            android:theme="?attr/actionBarTheme"
-            app:layout_constraintTop_toTopOf="parent" />
+        android:background="@color/list_light_grey">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/createEntryFragmentEntry"
             android:layout_width="0dp"
             android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/createEntryTolbar"
-            android:id="@+id/createEntryFragmentEntry">
+            app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
                 android:id="@+id/linearLayout6"
@@ -84,12 +74,23 @@
                     android:layout_height="0dp"
                     android:layout_weight="1"
                     android:orientation="horizontal">
+                <Button
+                        android:id="@+id/createEntryBackButton"
+                        style="@style/buttonMain"
+                        android:layout_width="match_parent"
+                        android:layout_marginStart="2dp"
+                        android:layout_marginTop="1dp"
+                        android:layout_marginEnd="1dp"
+                        android:layout_marginBottom="2dp"
+                        android:layout_weight="1"
+                        android:text="Back"
+                        android:textAllCaps="false" />
 
                 <Button
                         android:id="@+id/nextToNutsEntry"
                         style="@style/buttonMain"
                         android:layout_width="match_parent"
-                        android:layout_marginStart="2dp"
+                        android:layout_marginStart="1dp"
                         android:layout_marginTop="1dp"
                         android:layout_marginEnd="2dp"
                         android:layout_marginBottom="2dp"
@@ -102,9 +103,9 @@
 
         <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/foodItemsEntry"
+                style="@style/recyclerList"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                style="@style/recyclerList"
                 app:layout_constraintBottom_toTopOf="@+id/linearLayout6"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

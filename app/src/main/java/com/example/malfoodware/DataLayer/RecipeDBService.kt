@@ -4,6 +4,7 @@ import android.content.ContentValues
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteException
+import android.util.Log
 import com.example.malfoodware.Ingredient
 import com.example.malfoodware.Logger
 import com.example.malfoodware.Recipe
@@ -28,9 +29,9 @@ class RecipeDBService {
                     "$KEY_SERVING REAL NOT NULL, " +
                     "CONSTRAINT fk_ingredient FOREIGN KEY(${IngredientDBService.KEY_INGREDIENT_NAME}) " +
                         "REFERENCES ${IngredientDBService.TABLE_INGREDIENTS}(${IngredientDBService.KEY_INGREDIENT_NAME}) " +
-                        "ON DELETE CASCADE, " +
+                        "ON DELETE CASCADE ON UPDATE CASCADE, " +
                     "CONSTRAINT fk_recipe FOREIGN KEY($KEY_RECIP_NAME) REFERENCES $TABLE_RECIPE_NAMES" +
-                        "($KEY_RECIP_NAME) ON DELETE CASCADE," +
+                        "($KEY_RECIP_NAME) ON DELETE CASCADE ON UPDATE CASCADE," +
                     "PRIMARY KEY($KEY_RECIP_NAME, ${IngredientDBService.KEY_INGREDIENT_NAME}))")
             db?.execSQL(CREATE_CONTENTS_TABLE)
         }
@@ -94,6 +95,16 @@ class RecipeDBService {
                     rec.addIngredient(ing, qty)
                 } while(cursor.moveToNext())
             }
+            // tries to find any deleted ingredients
+            val recWithDeleted = IngredientDBService.getDeletedRecipeIngredients(dbHelper, name)
+            if (recWithDeleted != null)
+            {
+                rec.hasDeleteIng = true
+                for (ingredient in recWithDeleted.ingList)
+                {
+                    rec.ingList[ingredient.key] = ingredient.value
+                }
+            }
             cursor.close()
             return rec
         }
@@ -138,12 +149,100 @@ class RecipeDBService {
             return true
         }
 
-        override fun ammendRecipe(dbHelper: FoodDBHelper, recipe: Recipe): Boolean {
-            TODO("Not yet implemented")
+        fun findRecipeWithIngredient(dbHelper: FoodDBHelper, ing: Ingredient): MutableList<Recipe>
+        {
+            val result = mutableListOf<Recipe>()
+            val query = "SELECT * FROM $TABLE_RECIPES WHERE ${IngredientDBService.KEY_INGREDIENT_NAME}=" +
+                    "'${ing.name}'"
+            val db = dbHelper.readableDatabase
+            val cursor = db.rawQuery(query, null)
+            if (cursor.moveToFirst())
+            {
+                do {
+                    val recipeName = cursor.getString(cursor.getColumnIndex(KEY_RECIP_NAME))
+                    val recipe = getRecipe(dbHelper, recipeName)!!
+                    result.add(recipe)
+                } while (cursor.moveToNext())
+            }
+            return result
+        }
+
+        override fun ammendRecipe(dbHelper: FoodDBHelper, oldRecipe: Recipe, newRecipe: Recipe): Boolean {
+            val db = dbHelper.writableDatabase
+            var contentValues: ContentValues
+            var updated: Boolean = true
+            var whereClause = "$KEY_RECIP_NAME='${oldRecipe.recName}'"
+            db.beginTransaction()
+            contentValues= ContentValues()
+            contentValues.put(KEY_RECIP_NAME, newRecipe.recName)
+            contentValues.put(KEY_SERVING, newRecipe.portion)
+            if(db.update(TABLE_RECIPE_NAMES, contentValues, whereClause, null) <= 0)
+                updated = false
+            else {
+                whereClause = "$KEY_RECIP_NAME='${newRecipe.recName}'"
+                db.delete(TABLE_RECIPES, whereClause, null)
+                val oldIngredients = mutableListOf<String>()
+                for (i in oldRecipe.ingList)
+                {
+                    oldIngredients.add(i.key.name)
+                }
+                for (i in newRecipe.ingList)
+                {
+                    oldIngredients.remove(i.key.name)
+                    if (!i.key.hasBeenDeleted)
+                    {
+                        contentValues = ContentValues()
+                        contentValues.put(KEY_RECIP_NAME, newRecipe.recName)
+                        contentValues.put(IngredientDBService.KEY_INGREDIENT_NAME, i.key.name)
+                        contentValues.put(KEY_SERVING, i.value)
+                        // adds new ingredient
+                        try {
+                            db.insertOrThrow(TABLE_RECIPES, null, contentValues)
+                        } catch (e: SQLiteException) {
+                            Log.d(
+                                "LOG", "${this::class.java} SQL error, tried adding" +
+                                        " new ingredient during recipe insertion\nold recipe: $oldRecipe" +
+                                        "\nnew recipe: $newRecipe\ning: ${i.key}\n${e.message}"
+                            )
+                            updated = false
+                        }
+                    } else if (!IngredientDBService.ammendRecDeleted(
+                            db, oldRecipe.recName,
+                            newRecipe.recName, i.value, i.key.name
+                        )
+                    )
+                    {
+                        Log.d("LOG", "${this::class.java} SQL error, could not insert " +
+                                "deleted ingredient\nold recipe: $oldRecipe" +
+                                "\nnew recipe: $newRecipe\ning: ${i.key}\n")
+                        updated = false
+                    }
+                }
+                // deletes entries of old ingredient names that were deleted
+                for (i in oldRecipe.ingList) {
+                    if (oldIngredients.contains(i.key.name))
+                    {
+                        if (i.key.hasBeenDeleted)
+                        {
+                            if (!IngredientDBService.delRecDelIng(db, i.key.name))
+                            {
+                                Log.d("LOG", "${this::class.java} SQL error, could not delete")
+                                updated = false
+                            }
+                        }
+                    }
+                }
+            }
+            if (updated)
+                db.setTransactionSuccessful()
+            db.endTransaction()
+            return updated
         }
 
         override fun deleteRecipe(dbHelper: FoodDBHelper, recipe: Recipe): Boolean {
-            TODO("Not yet implemented")
+            val db = dbHelper.writableDatabase
+            val where = "$KEY_RECIP_NAME='${recipe.recName}'"
+            return db.delete(TABLE_RECIPE_NAMES, where, null) > 0
         }
 
     }

@@ -10,6 +10,7 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import kotlinx.android.synthetic.main.diary_entry_bottom_buttons.*
 
 
 class EntryFragmentMain: Fragment() {
@@ -42,6 +43,7 @@ class EntryFragmentMain: Fragment() {
 
     interface EntryViewListener
     {
+        fun addViewIngredientsFragFromMainEntry(type: FoodType)
         fun onEntryCreated()
     }
 
@@ -82,6 +84,12 @@ class EntryFragmentMain: Fragment() {
         qtySalt = view.findViewById<TextView>(R.id.textViewSaltQty)
         qtyFibre = view.findViewById<TextView>(R.id.textViewFibreQty)
         rvEntries = view.findViewById<View>(R.id.rvEntries) as RecyclerView
+        viewIngredientsME.setOnClickListener {
+            activityApp.addViewIngredientsFragFromMainEntry(FoodType.INGREDIENT)
+        }
+        viewRecipeME.setOnClickListener {
+            activityApp.addViewIngredientsFragFromMainEntry(FoodType.RECIPE)
+        }
         activityApp.onEntryCreated()
     }
 
@@ -127,6 +135,8 @@ class EntryFragmentMain: Fragment() {
         if (rvEntries != null) {
             val rv = rvEntries?.adapter as EntriesAdapter
             rv?.clearSelection()
+            rv.clicked = null
+            EntryFocussedFragment.LAST_ENTRY = FoodDiaryEntry(1)
         }
     }
 

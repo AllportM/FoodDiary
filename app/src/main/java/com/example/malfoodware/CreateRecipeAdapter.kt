@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
-class CreateRecipeAdapter(val mEntries: MutableList<Pair<Ingredient, Float>>, val ingFrag: CreateRecipeFragment):
+class CreateRecipeAdapter(val mEntries: MutableList<Pair<FoodAccess, Float>>, val ingFrag: CreateRecipeFragment):
     RecyclerView.Adapter<CreateRecipeAdapter.ViewHolder>()
 {
     private lateinit var view1: View
@@ -37,13 +37,19 @@ class CreateRecipeAdapter(val mEntries: MutableList<Pair<Ingredient, Float>>, va
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val ingName = mEntries.elementAt(position).first.name
+        val ingName = mEntries.elementAt(position).first.whatName()
         val qty = mEntries.elementAt(position).second
         holder.ingredient_name.setText(ingName)
         holder.qty.setText(Math.round(qty).toString())
         holder.delete.setOnClickListener {
             ingFrag.removeIngredient(ingName)
             notifyDataSetChanged()
+        }
+        val ing = mEntries.elementAt(position).first
+        if (ing.hasDeleted())
+        {
+            val view = holder.ingredient_name.parent.parent as View
+            view.setBackgroundResource(R.color.deleted)
         }
     }
 }

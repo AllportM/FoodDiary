@@ -97,6 +97,13 @@ class DiaryDBServiceTest                 {
         RecipeDBService.insertRecipe(dbHelper, REC1)
         RecipeDBService.insertRecipe(dbHelper, REC2)
 
+        REC2 = Recipe("Test recipe 100gcarbs 10portions", 10)
+        ING1 = Ingredient("Test Ingredient 1gcarbs 1gport", 0f, 0f, 1f,
+        0f, 0f, 0f, 1f)
+        IngredientDBService.insertIngredient(dbHelper, ING1)
+        REC2.addIngredient(ING1, 100f)
+        RecipeDBService.insertRecipe(dbHelper, REC2)
+
         // entries
         ENTRY1 = FoodDiaryEntry(TIME1)
         ENTRY1.addRecipe(REC1, 501f)

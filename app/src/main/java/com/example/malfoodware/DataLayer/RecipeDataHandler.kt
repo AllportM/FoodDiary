@@ -51,7 +51,7 @@ interface RecipeDataHandler {
      *      Boolean: True if successful, false if any errors, errors are logged via the Logger
      *          class
      */
-    fun ammendRecipe(dbHelper: FoodDBHelper, recipe: Recipe): Boolean
+    fun ammendRecipe(dbHelper: FoodDBHelper, oldRecipe: Recipe, newRecipe: Recipe): Boolean
 
     /**
      * deleteRecipe attempts to delete an recipe within the database, returning a boolean

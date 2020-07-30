@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.diary_entry_create_view.*
 
 
-class CreateEntryViewFragment: Fragment() {
+class CreateEntryViewFragment(val list: List<Pair<FoodAccess, Float>>): Fragment() {
     lateinit var  activityApp: EntryViewListener
     lateinit var progProtein: ProgressBar
     lateinit var  progCarbs: ProgressBar
@@ -37,7 +37,7 @@ class CreateEntryViewFragment: Fragment() {
     interface EntryViewListener
     {
         fun onEntryCreated(frag: CreateEntryViewFragment)
-        fun onEntryViewFinish()
+        fun onEntryViewFinish(list: List<Pair<FoodAccess, Float>>)
     }
 
     override fun onCreateView(
@@ -81,7 +81,7 @@ class CreateEntryViewFragment: Fragment() {
             activity?.onBackPressed()
         }
         createEntryViewNext.setOnClickListener {
-            activityApp.onEntryViewFinish()
+            activityApp.onEntryViewFinish(list)
         }
     }
 
@@ -97,23 +97,23 @@ class CreateEntryViewFragment: Fragment() {
         super.onViewCreated(view, savedInstanceState)
         view1 = view
     }
-
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.menu_main, menu)
-        super.onCreateOptionsMenu(menu, inflater)
-    }
+//
+//    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+//        inflater.inflate(R.menu.menu_main, menu)
+//        super.onCreateOptionsMenu(menu, inflater)
+//    }
 
     override fun onResume() {
         super.onResume()
     }
 
-    fun initDiaryEntry(list: List<Pair<FoodAccess, Float>>, user: User)
+    fun initDiaryEntry(user: User)
     {
         setDiaryViewWheels(list, user)
-        setDiaryViewList(list)
+        setDiaryViewList()
     }
 
-    fun setDiaryViewList(list: List<Pair<FoodAccess, Float>>)
+    fun setDiaryViewList()
     {
         rvEntries?.adapter = CreateEntryViewAdapter(list, this)
         rvEntries?.layoutManager = LinearLayoutManager(requireActivity())

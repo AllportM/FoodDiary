@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
-class CreateEntryListAdapter(private val mEntries: List<Pair<FoodAccess, Float>>) :
+class CreateEntryListAdapter(private val mEntries: List<Pair<FoodAccess, Float>>, private val frag: CreateEntryFragment) :
     RecyclerView.Adapter<CreateEntryListAdapter.ViewHolder>() {
 
     // Provide a direct reference to each of the views within a data item
@@ -20,25 +20,11 @@ class CreateEntryListAdapter(private val mEntries: List<Pair<FoodAccess, Float>>
         var delete = itemView.findViewById<TextView>(R.id.createEntryItemRemove)
     }
 
-    lateinit var activityApp: CreateEntryListAdapterListener
-
-    interface CreateEntryListAdapterListener
-    {
-        fun onItemRemove(name: String)
-    }
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val context = parent.context
         val inflater = LayoutInflater.from(context)
-        if (parent.context is CreateEntryListAdapterListener)
-        {
-            activityApp = parent.context as CreateEntryListAdapterListener
-        }
-        else
-        {
-            Log.d("LOG", "Could not convert context to FoodEntryListener")
-        }
         // Inflate the custom layout
         val contactView = inflater.inflate(R.layout.diary_entry_create_row, parent, false)
         // Return a new holder instance
@@ -56,7 +42,7 @@ class CreateEntryListAdapter(private val mEntries: List<Pair<FoodAccess, Float>>
         holder.itemName.setText(foodName)
         holder.qty.setText("${foodQty.toInt()} g ")
         holder.delete.setOnClickListener {
-            activityApp.onItemRemove(foodName)
+            frag.onItemRemove(foodName)
         }
     }
 

@@ -15,4 +15,5 @@
     <color name="buttonPressed">@color/green_theme_dark</color>
     <color name="white">#FFFFFF</color>
     <color name="error">#fc3526</color>
+    <color name="deleted">#fc7272</color>
 </resources>

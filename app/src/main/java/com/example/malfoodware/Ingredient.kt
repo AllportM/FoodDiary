@@ -7,7 +7,8 @@ enum class FoodType
 }
 
 class Ingredient(var name:String, energy:Float = 0f, fat:Float = 0f, carbs:Float =0f,
-                 fibre:Float =0f, protein: Float = 0f, salt:Float = 0f, serving:Float = 0.01f):
+                 fibre:Float =0f, protein: Float = 0f, salt:Float = 0f, serving:Float = 0.01f,
+                    var hasBeenDeleted: Boolean = false):
     Comparable<Ingredient>, FoodAccess{
     val nut: Nutrition
     val type = FoodType.INGREDIENT
@@ -36,6 +37,14 @@ class Ingredient(var name:String, energy:Float = 0f, fat:Float = 0f, carbs:Float
         return nut.serving
     }
 
+    override fun whatNutirion(): Nutrition {
+        return nut
+    }
+
+    override fun hasDeleted(): Boolean {
+        return hasBeenDeleted
+    }
+
     override fun equals(other: Any?): Boolean {
         return other is Ingredient && other.name.equals(name)
     }
@@ -46,6 +55,12 @@ class Ingredient(var name:String, energy:Float = 0f, fat:Float = 0f, carbs:Float
 
     fun toCSVString(): String {
         return ""
+    }
+
+    fun copy(): Ingredient
+    {
+        return Ingredient(name, nut.energy, nut.fat, nut.carbs, nut.fibre, nut.protein,
+        nut.salt, nut.serving, hasBeenDeleted)
     }
 
     override fun toString(): String {

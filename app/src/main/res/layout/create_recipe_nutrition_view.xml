@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/entryViewLayout"
+        android:layout_width="match_parent"
+        android:layout_height="270dp"
+        android:background="@color/white"
+        tools:context=".EntryFragmentMain">
+
+    <Button
+            android:id="@+id/createRecLessDetails"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/more_button_left"
+            android:clickable="true"
+            app:layout_constraintBottom_toTopOf="@+id/createRecipeProgressBarFibre"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/createRecipeProgressBarEnergy" />
+
+    <ProgressBar
+            android:id="@+id/createRecProgressBarFat"
+            style="@style/progress_wheel_main"
+            android:layout_marginEnd="36dp"
+            app:layout_constraintBottom_toBottomOf="@+id/progressBarCarbs"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/createRecipeProgressBarCarbs" />
+
+    <ProgressBar
+            android:id="@+id/createRecipeProgressBarProtein"
+            style="@style/progress_wheel_main"
+            app:layout_constraintBottom_toBottomOf="@+id/createRecipeProgressBarSalt"
+            app:layout_constraintEnd_toEndOf="@+id/createRecProgressBarFat"
+            app:layout_constraintStart_toStartOf="@+id/createRecProgressBarFat"
+            app:layout_constraintTop_toTopOf="@+id/createRecipeProgressBarSalt" />
+
+    <TextView
+            android:id="@+id/textViewSalt"
+            style="@style/textSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="25dp"
+            android:text="salt"
+            android:textAlignment="center"
+            app:layout_constraintBottom_toTopOf="@+id/createRecipeProgressBarSalt"
+            app:layout_constraintEnd_toEndOf="@+id/createRecipeProgressBarSalt"
+            app:layout_constraintStart_toStartOf="@+id/createRecipeProgressBarSalt" />
+
+    <TextView
+            android:id="@+id/textViewProtein"
+            style="@style/textSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="25dp"
+            android:text="protein"
+            android:textAlignment="center"
+            app:layout_constraintBottom_toTopOf="@+id/createRecipeProgressBarProtein"
+            app:layout_constraintEnd_toEndOf="@+id/createRecipeProgressBarProtein"
+            app:layout_constraintStart_toStartOf="@+id/createRecipeProgressBarProtein" />
+
+    <TextView
+            android:id="@+id/createRecipeTextViewSaltQty"
+            style="@style/textSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="25dp"
+            android:layout_marginTop="5dp"
+            android:textAlignment="center"
+            app:layout_constraintEnd_toEndOf="@+id/createRecipeProgressBarSalt"
+            app:layout_constraintStart_toStartOf="@+id/createRecipeProgressBarSalt"
+            app:layout_constraintTop_toBottomOf="@+id/createRecipeProgressBarSalt" />
+
+    <ProgressBar
+            android:id="@+id/createRecipeProgressBarSalt"
+            style="@style/progress_wheel_main"
+            android:layout_marginStart="16dp"
+            app:layout_constraintBottom_toBottomOf="@+id/createRecipeProgressBarFibre"
+            app:layout_constraintEnd_toEndOf="@+id/createRecipeProgressBarCarbs"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="@+id/createRecipeProgressBarCarbs"
+            app:layout_constraintTop_toTopOf="@+id/createRecipeProgressBarFibre"
+            app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+            android:id="@+id/createRecipeTextViewProteinQty"
+            style="@style/textSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="25dp"
+            android:layout_marginTop="5dp"
+            android:textAlignment="center"
+            app:layout_constraintEnd_toEndOf="@+id/createRecipeProgressBarProtein"
+            app:layout_constraintStart_toStartOf="@+id/createRecipeProgressBarProtein"
+            app:layout_constraintTop_toBottomOf="@+id/createRecipeProgressBarProtein" />
+
+    <ProgressBar
+            android:id="@+id/createRecipeProgressBarFibre"
+            style="@style/progress_wheel_main"
+            android:layout_marginTop="60dp"
+            app:layout_constraintEnd_toEndOf="@+id/createRecipeProgressBarEnergy"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/createRecipeProgressBarEnergy"
+            app:layout_constraintTop_toBottomOf="@+id/createRecipeProgressBarEnergy" />
+
+    <TextView
+            android:id="@+id/textViewFibre"
+            style="@style/textSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="25dp"
+            android:text="fibre"
+            android:textAlignment="center"
+            app:layout_constraintBottom_toTopOf="@+id/createRecipeProgressBarFibre"
+            app:layout_constraintEnd_toEndOf="@+id/createRecipeProgressBarFibre"
+            app:layout_constraintStart_toStartOf="@+id/createRecipeProgressBarFibre" />
+
+    <TextView
+            android:id="@+id/createRecipeTextViewFibreQty"
+            style="@style/textSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="25dp"
+            android:layout_marginTop="5dp"
+            android:textAlignment="center"
+            app:layout_constraintEnd_toEndOf="@+id/createRecipeProgressBarFibre"
+            app:layout_constraintStart_toStartOf="@+id/createRecipeProgressBarFibre"
+            app:layout_constraintTop_toBottomOf="@+id/createRecipeProgressBarFibre" />
+
+    <ProgressBar
+            android:id="@+id/createRecipeProgressBarCarbs"
+            style="@style/progress_wheel_main"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintBottom_toBottomOf="@+id/createRecipeProgressBarEnergy"
+            app:layout_constraintEnd_toStartOf="@+id/createRecProgressBarFat"
+            app:layout_constraintStart_toEndOf="@+id/createRecipeProgressBarEnergy"
+            app:layout_constraintTop_toTopOf="@+id/createRecipeProgressBarEnergy"
+            app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+            android:id="@+id/createRecipeTextViewCarbsQty"
+            style="@style/textSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="25dp"
+            android:layout_marginTop="5dp"
+            android:textAlignment="center"
+            app:layout_constraintEnd_toEndOf="@+id/createRecipeProgressBarCarbs"
+            app:layout_constraintStart_toStartOf="@+id/createRecipeProgressBarCarbs"
+            app:layout_constraintTop_toBottomOf="@+id/createRecipeProgressBarCarbs" />
+
+    <TextView
+            android:id="@+id/textViewCarbs"
+            style="@style/textSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="25dp"
+            android:text="carbs"
+            android:textAlignment="center"
+            app:layout_constraintBottom_toTopOf="@+id/createRecipeProgressBarCarbs"
+            app:layout_constraintEnd_toEndOf="@+id/createRecipeProgressBarCarbs"
+            app:layout_constraintStart_toStartOf="@+id/createRecipeProgressBarCarbs" />
+
+    <ProgressBar
+            android:id="@+id/createRecipeProgressBarEnergy"
+            style="@style/progress_wheel_main"
+            android:layout_marginStart="36dp"
+            android:layout_marginTop="30dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+            android:id="@+id/createRecipeTextViewEnergyQty"
+            style="@style/textSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="25dp"
+            android:layout_marginTop="5dp"
+            android:textAlignment="center"
+            app:layout_constraintEnd_toEndOf="@+id/createRecipeProgressBarEnergy"
+            app:layout_constraintStart_toStartOf="@+id/createRecipeProgressBarEnergy"
+            app:layout_constraintTop_toBottomOf="@+id/createRecipeProgressBarEnergy" />
+
+    <TextView
+            android:id="@+id/textViewEnergy"
+            style="@style/textSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="25dp"
+            android:text="kcal"
+            android:textAlignment="center"
+            app:layout_constraintBottom_toTopOf="@+id/createRecipeProgressBarEnergy"
+            app:layout_constraintEnd_toEndOf="@+id/createRecipeProgressBarEnergy"
+            app:layout_constraintStart_toStartOf="@+id/createRecipeProgressBarEnergy" />
+
+    <TextView
+            android:id="@+id/createRecipeTextViewFatQty"
+            style="@style/textSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="25dp"
+            android:layout_marginTop="5dp"
+            android:textAlignment="center"
+            app:layout_constraintEnd_toEndOf="@+id/createRecProgressBarFat"
+            app:layout_constraintStart_toStartOf="@+id/createRecProgressBarFat"
+            app:layout_constraintTop_toBottomOf="@+id/createRecProgressBarFat" />
+
+    <TextView
+            android:id="@+id/textViewFat"
+            style="@style/textSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="25dp"
+            android:text="fat"
+            android:textAlignment="center"
+            app:layout_constraintBottom_toTopOf="@+id/createRecProgressBarFat"
+            app:layout_constraintEnd_toEndOf="@+id/createRecProgressBarFat"
+            app:layout_constraintStart_toStartOf="@+id/createRecProgressBarFat" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

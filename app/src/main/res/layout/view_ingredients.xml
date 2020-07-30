@@ -6,7 +6,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:background="@color/list_light_grey">
+        android:background="@color/list_light_grey"
+        android:clickable="true"
+        android:focusable="true"
+        android:focusableInTouchMode="true">
 
     <LinearLayout
             android:id="@+id/viewFinalFinish"

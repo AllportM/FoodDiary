@@ -55,7 +55,7 @@ interface IngredientDataHandler {
      *      Boolean: True if successful, false if any errors, errors are logged via the Logger
      *          class
      */
-    fun ammendIngredient(dbHelper: FoodDBHelper, ingredient: Ingredient): Boolean
+    fun ammendIngredient(dbHelper: FoodDBHelper, oldIngredient: Ingredient, newIngredient: Ingredient): Boolean
 
     /**
      * deleteIngredient attempts to delete an ingredient within the database, returning a boolean

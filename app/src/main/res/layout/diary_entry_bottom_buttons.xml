@@ -22,7 +22,7 @@
                 android:orientation="horizontal">
 
             <Button
-                    android:id="@+id/viewIngredients"
+                    android:id="@+id/viewIngredientsME"
                     android:layout_width="match_parent"
                     android:layout_marginStart="2dp"
                     android:layout_marginTop="2dp"
@@ -56,7 +56,7 @@
                 android:orientation="horizontal">
 
             <Button
-                    android:id="@+id/viewRecipe"
+                    android:id="@+id/viewRecipeME"
                     android:layout_width="match_parent"
                     android:layout_marginStart="1dp"
                     android:layout_marginTop="2dp"

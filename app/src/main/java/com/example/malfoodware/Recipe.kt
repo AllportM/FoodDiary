@@ -1,6 +1,6 @@
 package com.example.malfoodware
 
-class Recipe (var recName:String, val portion: Int = 1): Comparable<Recipe>, FoodAccess{
+class Recipe (var recName:String, val portion: Int = 1, var hasDeleteIng: Boolean = false): Comparable<Recipe>, FoodAccess{
     val ingList: MutableMap<Ingredient, Float> = mutableMapOf()
 
     val type = FoodType.RECIPE
@@ -17,6 +17,14 @@ class Recipe (var recName:String, val portion: Int = 1): Comparable<Recipe>, Foo
     override fun whatServing(): Float{
         var nut = getNutrition()
         return nut.serving / portion.toFloat()
+    }
+
+    override fun whatNutirion(): Nutrition {
+        return getNutrition()
+    }
+
+    override fun hasDeleted(): Boolean {
+        return hasDeleteIng
     }
 
     fun addIngredient(ing: Ingredient, qty: Float)

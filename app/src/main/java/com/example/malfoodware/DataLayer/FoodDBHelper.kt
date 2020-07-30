@@ -149,8 +149,8 @@ class FoodDBHelper(context: Context): SQLiteOpenHelper(context, DATABASE_NAME, n
      *      Boolean: True if successful, false if any errors, errors are logged via the Logger
      *          class
      */
-    fun ammendIngredient(ingredient: Ingredient): Boolean {
-        return IngredientDBService.ammendIngredient(this, ingredient)
+    fun ammendIngredient(old: Ingredient, newIngredient: Ingredient): Boolean {
+        return IngredientDBService.ammendIngredient(this, old, newIngredient)
     }
 
     /**
@@ -217,8 +217,8 @@ class FoodDBHelper(context: Context): SQLiteOpenHelper(context, DATABASE_NAME, n
      *      Boolean: True if successful, false if any errors, errors are logged via the Logger
      *          class
      */
-    fun ammendRecipe(recipe: Recipe): Boolean {
-        return RecipeDBService.ammendRecipe(this, recipe)
+    fun ammendRecipe(oldRecipe: Recipe, newRecipe: Recipe): Boolean {
+        return RecipeDBService.ammendRecipe(this, oldRecipe, newRecipe)
     }
 
     /**

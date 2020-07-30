@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.view_ingredients.*
 import java.util.*
 
-class ViewInredientsFragment: Fragment() {
+class ViewInredientsFragment(val ingListIF: ViewIngredientsListInterface): Fragment() {
 
     lateinit var set: SortedSet<String>
     lateinit var type: FoodType
@@ -27,8 +27,6 @@ class ViewInredientsFragment: Fragment() {
 
     interface ViewIngredientsFragmentListener
     {
-        fun onInsertFullIng(name: String, qty: Float)
-        fun updateSet(ingFrag: ViewInredientsFragment)
         fun onCreateIngredient()
         fun onCreateRecipe()
     }
@@ -86,20 +84,39 @@ class ViewInredientsFragment: Fragment() {
 
     override fun onResume() {
         super.onResume()
-        activityApp.updateSet(this)
+        ingListIF.updateSet(this)
     }
 
     // override fragment response
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        Log.d("LOG", "${this::class.java} Received response from qty popup, sending data to fragment ${ingListIF::class.java}")
         super.onActivityResult(requestCode, resultCode, data)
+        val activity = requireActivity() as MainActivity
+        when(ingListIF)
+        {
+            is CreateEntryFragment -> activity.setTitleFragmentTag(ingListIF, CreateEntryFragment.FRAGMENT_TAG)
+            is CreateRecipeFragment -> activity.setTitleFragmentTag(ingListIF, CreateRecipeFragment.FRAGMENT_ID)
+            is ViewIngredientEntryMiddleman -> activity.setTitleFragmentTag(ingListIF, ViewIngredientEntryMiddleman.FRAGMENT_TAG)
+        }
         // check for the results
-        if (requestCode == CreateEntryActivity.INREDIENT_REQ_CODE && resultCode == Activity.RESULT_OK) {
+        if (requestCode == 1 && resultCode == Activity.RESULT_OK && (ingListIF is CreateEntryFragment || ingListIF is CreateRecipeFragment)) {
             // get values from data
             val qty = data!!.getFloatExtra("qty", 0f)
             val name = data.getStringExtra("name")!!
-            activityApp.onInsertFullIng(name, qty)
+            ingListIF.onInsertFullIng(name, qty)
+        }
+        else if (requestCode == 1 && resultCode == Activity.RESULT_OK && ingListIF is ViewIngredientEntryMiddleman)
+        {
+            val name = data!!.getStringExtra("name")!!
+            ingListIF.onInsertFullIng(name, 1f)
+            ingListIF.updateSet(this)
+        }
+        else if (requestCode == 1 && resultCode == Activity.RESULT_CANCELED && ingListIF is ViewIngredientEntryMiddleman)
+        {
+            ingListIF.updateSet(this)
         }
     }
+    
 
     // filters adapters list based on user input text
     private fun updateAdapter(input: String)

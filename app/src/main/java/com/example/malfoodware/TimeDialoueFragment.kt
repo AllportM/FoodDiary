@@ -9,25 +9,20 @@ import android.util.Log
 import android.widget.TimePicker
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
+import kotlinx.android.synthetic.main.diary_entry_row.*
 import java.util.*
 import kotlin.math.min
 
-class TimeDialoueFragment : DialogFragment(), TimePickerDialog.OnTimeSetListener {
+class TimeDialoueFragment(var timeMilli: Long, val useIF: TimeDialogueUseIF) : DialogFragment(), TimePickerDialog.OnTimeSetListener {
 
     companion object
     {
         val FRAGMENT_TAG = "timeDialogueFrag"
     }
 
-    interface TimeDialogueInterface
-    {
-        fun onTimeClicked(hourOfDay: Int, minute: Int)
-    }
-
-    private lateinit var activityApp: TimeDialogueInterface
-
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        val c = CreateEntryFinalFragment.CALENDAR
+        val c = Calendar.getInstance()
+        c.timeInMillis = timeMilli
         val hour = c.get(Calendar.HOUR_OF_DAY)
         val minute = c.get(Calendar.MINUTE)
 
@@ -37,13 +32,9 @@ class TimeDialoueFragment : DialogFragment(), TimePickerDialog.OnTimeSetListener
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        if (context is TimeDialogueInterface)
-        {
-            activityApp = context
-        }
     }
 
     override fun onTimeSet(view: TimePicker, hourOfDay: Int, minute: Int) {
-        activityApp.onTimeClicked(hourOfDay, minute)
+        useIF.onTimeClicked(hourOfDay, minute)
     }
 }

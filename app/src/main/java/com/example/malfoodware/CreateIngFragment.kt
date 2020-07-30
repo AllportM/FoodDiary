@@ -10,12 +10,22 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import kotlinx.android.synthetic.main.create_ingredient_fragment.*
 
-class CreateIngFragment: Fragment() {
+class CreateIngFragment(): Fragment() {
+
+    // constructor will only ever be called when being called from viewIngredientsEdit
+    // which only has purpose to modify ingredient
+    constructor(food: Ingredient): this()
+    {
+        ing = food
+    }
 
     companion object
     {
         val FRAGMENT_ID = "createFoodFragment"
+        val BAR_TITLE = "Create Ingredient"
     }
+
+    var ing: Ingredient? = null
 
     interface CreateInredientActivityListener
     {
@@ -39,16 +49,35 @@ class CreateIngFragment: Fragment() {
         }
         viewIngredientFinalize.setOnClickListener {
             if(checkInputValid()) {
-                if (ingredientExists()) {
-                    createIngNameErrorDuplicate.visibility = TextView.VISIBLE
+                if (ing == null)
+                {
+                    if (ingredientExists())
+                    {
+                        createIngNameErrorDuplicate.visibility = TextView.VISIBLE
+                    }
+                    else
+                    {
+                        Log.d("LOG", "${this::class.java} ingredient created ${createIngredient()}")
+                        activityApp.onIngredientCreated()
+                    }
                 }
-                else {
-                    Log.d("LOG", "${this::class.java} ingredient created")
-                    activityApp.onIngredientCreated()
+                else
+                    // ammend ingredient as in is not null
+                {
+                    val activity = requireActivity() as MainActivity
+                    if (activity.app.dbHelper.ammendIngredient(ing!!, createIngredient()))
+                    {
+                        Log.d("LOG", "${this::class.java} ingredient ${createIngredient()}")
+                        activityApp.onIngredientCreated()
+                    }
                 }
             }
         }
         setFocusListeners()
+        if (ing != null)
+        {
+            setValues()
+        }
     }
 
     lateinit var activityApp: CreateInredientActivityListener
@@ -59,6 +88,18 @@ class CreateIngFragment: Fragment() {
             activityApp = context
         else
             Log.d("LOG", "${this::class} error attaching activity listener")
+    }
+
+    private fun setValues()
+    {
+        createIngCarbsVal.setText(ing!!.nut.carbs.toString())
+        createIngEnergyVal.setText(ing!!.nut.energy.toString())
+        createIngProteinVal.setText(ing!!.nut.protein.toString())
+        createIngSaltVal.setText(ing!!.nut.salt.toString())
+        createIngFatVal.setText(ing!!.nut.fat.toString())
+        createIngFibreVal.setText(ing!!.nut.fibre.toString())
+        createIngServingVal.setText(ing!!.nut.serving.toString())
+        createIngNameVal.setText(ing!!.name)
     }
 
     private fun setFocusListeners()
@@ -89,7 +130,7 @@ class CreateIngFragment: Fragment() {
         }
     }
 
-    private fun ingredientExists(): Boolean
+    private fun createIngredient(): Ingredient
     {
         val carbs = createIngCarbsVal.text.toString().toFloat()
         val energy = createIngEnergyVal.text.toString().toFloat()
@@ -100,6 +141,13 @@ class CreateIngFragment: Fragment() {
         val serving = createIngServingVal.text.toString().toFloat()
         val name = createIngNameVal.text.toString()
         val ingredient = Ingredient(name, energy, fat, carbs, fibre, protein, salt, serving)
+        Log.d("LOG", "${this::class.java} checking if ingredient exists with ing: $ingredient")
+        return Ingredient(name, energy, fat, carbs, fibre, protein, salt, serving)
+    }
+
+    private fun ingredientExists(): Boolean
+    {
+        val ingredient = createIngredient()
         Log.d("LOG", "${this::class.java} checking if ingredient exists with ing: $ingredient")
         return !activityApp.onCreateIngredient(ingredient)
     }
@@ -151,7 +199,7 @@ class CreateIngFragment: Fragment() {
         }
         if (createIngNameVal.text.toString().equals(""))
         {
-            createIngNameErrorEmpty.visibility = TextView.VISIBLE
+            userSetText.visibility = TextView.VISIBLE
             valid = false
         }
         return valid
@@ -168,7 +216,7 @@ class CreateIngFragment: Fragment() {
         createIngSaltErr.visibility = TextView.INVISIBLE
         createIngServingErr.visibility = TextView.INVISIBLE
         createIngNameErrorDuplicate.visibility = TextView.INVISIBLE
-        createIngNameErrorEmpty.visibility = TextView.INVISIBLE
+        userSetText.visibility = TextView.INVISIBLE
         createIngServingErrZero.visibility = TextView.INVISIBLE
     }
 }

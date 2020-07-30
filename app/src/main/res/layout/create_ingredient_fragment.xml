@@ -28,19 +28,19 @@
                     android:padding="10dp"
                     android:text="Serving" />
 
-            <EditText
-                    android:id="@+id/createIngServingVal"
-                    style="@style/textMain"
-                    android:layout_width="50dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_weight="1"
-                    android:autofillHints=""
-                    android:background="@drawable/text_field_border"
-                    android:focusable="true"
-                    android:inputType="number"
-                    android:paddingStart="10dp"
-                    android:paddingEnd="10dp" />
+                <EditText
+                        android:id="@+id/createIngServingVal"
+                        style="@style/textMain"
+                        android:layout_width="60dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_weight="1"
+                        android:autofillHints=""
+                        android:background="@drawable/text_field_border"
+                        android:focusable="true"
+                        android:inputType="number"
+                        android:paddingStart="10dp"
+                        android:paddingEnd="10dp" />
 
             <TextView
                     android:id="@+id/textView20"
@@ -374,7 +374,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/linearLayout9" />
 
         <TextView
-                android:id="@+id/createIngNameErrorEmpty"
+                android:id="@+id/userSetText"
                 style="@style/error"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

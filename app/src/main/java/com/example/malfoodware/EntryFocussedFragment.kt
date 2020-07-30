@@ -11,11 +11,10 @@ import android.widget.*
 import androidx.fragment.app.Fragment
 
 
-class EntryFocussedFragment(val entry: FoodDiaryEntry, val user: User) : Fragment() {
+class EntryFocussedFragment(val entry: FoodDiaryEntry, val user: User, var showButton: Boolean = true) : Fragment() {
 
     companion object {
         val FRAGMENT_TAG = "entry_focussed"
-        val BUNDLE_MILLI = "entry_millis"
         var LAST_ENTRY = FoodDiaryEntry()
         var LAST_USER = User("NA")
     }
@@ -109,13 +108,13 @@ class EntryFocussedFragment(val entry: FoodDiaryEntry, val user: User) : Fragmen
         button.setOnClickListener {
             activityApp.showEntryDetails(entry)
         }
+        if (!showButton)
+            hideButton()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         view1 = view
-        if (activity is CreateEntryActivity)
-            hideButton()
     }
 
     override fun onResume() {

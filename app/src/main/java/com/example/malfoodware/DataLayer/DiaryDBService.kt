@@ -43,9 +43,9 @@ class DiaryDBService {
                     "$KEY_SERVING REAL NOT NULL," +
                     "CONSTRAINT fk_ingredient FOREIGN KEY(${IngredientDBService.KEY_INGREDIENT_NAME})" +
                         " REFERENCES ${IngredientDBService.TABLE_INGREDIENTS}(${IngredientDBService.KEY_INGREDIENT_NAME}) " +
-                        "ON DELETE CASCADE, " +
+                        "ON DELETE CASCADE ON UPDATE CASCADE, " +
                     "CONSTRAINT fk_diaryID FOREIGN KEY($KEY_DIARY_ID) REFERENCES " +
-                        "$TABLE_DIARY_ENTRY($KEY_DIARY_ID) ON DELETE CASCADE, " +
+                        "$TABLE_DIARY_ENTRY($KEY_DIARY_ID) ON DELETE CASCADE ON UPDATE CASCADE, " +
                     "PRIMARY KEY($KEY_DIARY_ID, ${IngredientDBService.KEY_INGREDIENT_NAME}))")
             db?.execSQL(CREATE_CONTENTS_TABLE)
             CREATE_CONTENTS_TABLE = ("CREATE TABLE $TABLE_DIARY_ENTRY_RECIPES(" +
@@ -54,9 +54,9 @@ class DiaryDBService {
                     "$KEY_SERVING REAL NOT NULL," +
                     "CONSTRAINT fk_recipe2 FOREIGN KEY(${RecipeDBService.KEY_RECIP_NAME}) " +
                         "REFERENCES ${RecipeDBService.TABLE_RECIPE_NAMES}(${RecipeDBService.KEY_RECIP_NAME}) " +
-                        "ON DELETE CASCADE, " +
+                        "ON DELETE CASCADE ON UPDATE CASCADE, " +
                     "CONSTRAINT fk_diaryID FOREIGN KEY($KEY_DIARY_ID) REFERENCES " +
-                        "$TABLE_DIARY_ENTRY($KEY_DIARY_ID) ON DELETE CASCADE, " +
+                        "$TABLE_DIARY_ENTRY($KEY_DIARY_ID) ON DELETE CASCADE ON UPDATE CASCADE, " +
                     "PRIMARY KEY($KEY_DIARY_ID, ${RecipeDBService.KEY_RECIP_NAME}))")
             db?.execSQL(CREATE_CONTENTS_TABLE)
         }

@@ -13,19 +13,23 @@ import androidx.fragment.app.Fragment
 import kotlinx.android.synthetic.main.diary_entry_create_finalize.*
 import java.util.*
 
-class CreateEntryFinalFragment: Fragment() {
+class CreateEntryFinalFragment(val foodList: List<Pair<FoodAccess, Float>>):
+    Fragment(),
+        CalendarUseIF,
+        TimeDialogueUseIF
+{
 
     companion object
     {
         val FRAGMENT_TAG = "createEntryFinalFrag"
         var CALENDAR = Calendar.getInstance()
+        val BAR_TITLE = "Create Diary Entry"
     }
 
     interface CreateEntryFinalListener
     {
-        fun onDateClick()
-        fun onTimeClick()
-        fun onFinishEntry(entry: FoodDiaryEntry): Boolean
+        fun onLaunchCalendarFromCreateFinal(timeMilli: Long, frag: CreateEntryFinalFragment)
+        fun onLaunchTimeFromCreateFinal(timeMilli: Long, frag: CreateEntryFinalFragment)
         fun onFinish()
     }
 
@@ -78,12 +82,12 @@ class CreateEntryFinalFragment: Fragment() {
     private fun setRecommendedIns()
     {
         val insText = createEntryFinalRecIns
-        val activity = activity as CreateEntryActivity
-        if (activity.foodList.size == 0) insText.setText("0")
+        val activity = activity as MainActivity
+        if (foodList.size == 0) insText.setText("0")
         else
         {
             val nut: Nutrition = Nutrition()
-            for (ingRec in activity.foodList)
+            for (ingRec in foodList)
             {
                 when(ingRec.first.whatType())
                 {
@@ -123,10 +127,10 @@ class CreateEntryFinalFragment: Fragment() {
         val date = view1.findViewById<EditText>(R.id.createEntryFinalDate)
         val time = view1.findViewById<EditText>(R.id.createEntryFinalTime)
         date.setOnClickListener {
-            activityApp.onDateClick()
+            activityApp.onLaunchCalendarFromCreateFinal(CALENDAR.timeInMillis, this)
         }
         time.setOnClickListener {
-            activityApp.onTimeClick()
+            activityApp.onLaunchTimeFromCreateFinal(CALENDAR.timeInMillis, this)
         }
     }
 
@@ -157,11 +161,28 @@ class CreateEntryFinalFragment: Fragment() {
             val bloodSugar: Float? = if (bloodSugarString.equals("")) null else bloodSugarString.toFloat()
             val notes: String? = if (notesString.equals("")) null else notesString
             val foodEntry = FoodDiaryEntry(CALENDAR.timeInMillis)
+            val activity = requireActivity() as MainActivity
+            for (ingRec in foodList)
+            {
+                when (ingRec.first.whatType())
+                {
+                    FoodType.INGREDIENT ->
+                    {
+                        val ing = activity.app.dbHelper.getIngredient(ingRec.first.whatName())
+                        foodEntry.addIngredient(ing!!, ingRec.second)
+                    }
+                    FoodType.RECIPE ->
+                    {
+                        val rec = activity.app.dbHelper.getRecipe(ingRec.first.whatName())
+                        foodEntry.addRecipe(rec!!, ingRec.second)
+                    }
+                }
+            }
             foodEntry.bloodSugar = bloodSugar
             foodEntry.insulinTaken = insulinTaken
             foodEntry.notes = notes
             Log.d("LOG", "Food entry created in ${this::class}: $foodEntry")
-            val inserted = activityApp.onFinishEntry(foodEntry)
+            val inserted = activity.app.dbHelper.insertDiaryEntry(foodEntry, activity.app.user!!.uid)
             val insertedString = if (inserted) "Successculy inserted food entry" else
                 "Failed to insert food entry"
             Log.d("LOG", "Food entry database insertion '$insertedString' in ${this::class}\n$foodEntry")
@@ -216,5 +237,14 @@ class CreateEntryFinalFragment: Fragment() {
     override fun onDestroy() {
         super.onDestroy()
         Log.d("LOG", "")
+    }
+
+    override fun onDateSet(year: Int, month: Int, day: Int) {
+        val dateString = "$day/${month+1}/$year"
+        setDate(dateString)
+    }
+
+    override fun onTimeClicked(hourOfDay: Int, minute: Int) {
+        setTime(hourOfDay, minute)
     }
 }
