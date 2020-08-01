@@ -1,10 +1,12 @@
 package com.example.malfoodware
 
 import android.app.Dialog
+import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import androidx.fragment.app.Fragment
 import kotlinx.android.synthetic.main.menu_fragment.*
@@ -12,12 +14,19 @@ import kotlinx.android.synthetic.main.menu_fragment.*
 
 class MenuFragment: Fragment()  {
 
-    var contHeight: Int = 0
-
     companion object
     {
         val FRAG_TAG = "menuPopup"
     }
+
+    interface MenuActivityListener
+    {
+        fun onOpenSettings()
+        fun onExport()
+        fun onLogout()
+    }
+
+    lateinit var activityApp: MenuActivityListener
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,5 +48,22 @@ class MenuFragment: Fragment()  {
         menuBackDrop.setOnClickListener {
             activity.detachFragment(FRAG_TAG)
         }
+        menuSettingsBut.setOnClickListener {
+            activityApp.onOpenSettings()
+        }
+        menuExportBut.setOnClickListener {
+            activityApp.onExport()
+        }
+        menuLogoutBut.setOnClickListener {
+            activityApp.onLogout()
+        }
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        if (context is MenuActivityListener)
+            activityApp = context
+        else
+            Log.d("LOG", "${this::class} error attaching activity listener")
     }
 }

@@ -67,6 +67,14 @@ class Ingredient(var name:String, energy:Float = 0f, fat:Float = 0f, carbs:Float
         return "Ingredient[name: $name, nut: $nut]"
     }
 
+    fun toJSON(tabs: Int): String
+    {
+        val newTabs = tabs + 1
+        return "${addTabs(tabs)}{\n${addTabs(newTabs)}\"name\": \"$name\",\n${addTabs(newTabs)}" +
+                "\"hasBeenDeleted\": \"$hasBeenDeleted\",\n${addTabs(newTabs)}\"nutrition\": [\n" +
+                "${nut.toJSON(newTabs+1)}\n${addTabs(newTabs)}]\n${addTabs(tabs)}}"
+    }
+
     override fun compareTo(other: Ingredient): Int {
         if (this.name > other.name) return 1 else return -1
     }

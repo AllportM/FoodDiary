@@ -1,6 +1,7 @@
 package com.example.malfoodware.DataLayer
 
 import android.content.Context
+import android.util.Log
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.runner.AndroidJUnit4
 import com.example.malfoodware.*
@@ -26,6 +27,7 @@ class UserDBServiceTest {
         FileHelper.context = context1
         dbHelper.deleteAll()
         UserDBService.insertUser(dbHelper, USER1)
+        Log.d("LOG", "user json:\n${USER1.toJSON(1)}")
 //        Logger.last()
     }
 

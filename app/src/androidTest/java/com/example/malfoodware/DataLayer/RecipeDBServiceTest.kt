@@ -1,6 +1,7 @@
 package com.example.malfoodware.DataLayer
 
 import android.content.Context
+import android.util.Log
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.runner.AndroidJUnit4
 import com.example.malfoodware.FileHelper
@@ -45,6 +46,7 @@ class RecipeDBServiceTest {
         RecipeDBService.insertRecipe(dbHelper, REC1)
         RecipeDBService.insertRecipe(dbHelper, REC2)
         Logger.last()
+        Log.d("LOG", "recipe json:\n${REC1.toJSON(1)}")
     }
 
     @Test

@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import kotlinx.android.synthetic.main.login_fragment.*
 
 class LoginFragment: Fragment() {
 
@@ -55,12 +56,30 @@ class LoginFragment: Fragment() {
         createUserBut.setTransformationMethod(null)
         loginBut.setOnClickListener {
             var name: String = uidText.text.toString()
+            hideErrors()
             onLogin(name)
         }
         createUserBut.setOnClickListener {
-            var name: String = uidText.text.toString()
-            onCreateUser(name)
+            if (checkErrors())
+            {
+                var name: String = uidText.text.toString()
+                onCreateUser(name)
+            }
         }
+    }
+
+    private fun hideErrors()
+    {
+        loginErrorBlank.visibility = TextView.GONE
+    }
+
+    private fun checkErrors(): Boolean
+    {
+        if (unameInput.text.toString().equals("")) {
+            loginErrorBlank.visibility = TextView.VISIBLE
+            return false
+        }
+        return true
     }
 
     // sends login signal back to main activity

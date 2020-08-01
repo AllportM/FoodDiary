@@ -5,7 +5,6 @@ class Recipe (var recName:String, val portion: Int = 1, var hasDeleteIng: Boolea
 
     val type = FoodType.RECIPE
 
-
     override fun whatName(): String {
         return recName
     }
@@ -71,6 +70,27 @@ class Recipe (var recName:String, val portion: Int = 1, var hasDeleteIng: Boolea
         }
         output = output.substring(0, output.length-1)
         return output
+    }
+
+
+    fun toJSON(tabs: Int): String
+    {
+        var newTabs = tabs + 1
+        var result = "${addTabs(tabs)}{\n${addTabs(newTabs)}\"name\": \"$recName\",\n${addTabs(newTabs)}" +
+                "\"portion\": $portion,\n${addTabs(newTabs)}\"hasDeleteIng\": $hasDeleteIng,${addTabs(newTabs)}" +
+                "\n${addTabs(newTabs)}\"ingredients\": [\n"
+        val ingTabs = newTabs + 2
+        for (ing in ingList)
+        {
+            result += "${addTabs(newTabs+1)}{\n${addTabs(ingTabs)}\"ingName\": \"${ing.key.name}" +
+                    ",\n${addTabs(ingTabs)}\"qty\": ${ing.value}\n${addTabs(newTabs+1)}},\n"
+        }
+        if (!ingList.isEmpty())
+        {
+            result = result.substring(0,  result.length-2) + "\n"
+        }
+        result += "${addTabs(newTabs)}]\n${addTabs(tabs)}}"
+        return result
     }
 
     override fun toString(): String {

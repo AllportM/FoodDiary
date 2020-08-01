@@ -12,5 +12,5 @@ interface AppStateHandler {
     /**
      * setLoggedInUser updates the last user logged in
      */
-    fun setLoggedInUser(dbHelper: FoodDBHelper, name: String, date: String)
+    fun setLoggedInUser(dbHelper: FoodDBHelper, name: String?, date: String?)
 }

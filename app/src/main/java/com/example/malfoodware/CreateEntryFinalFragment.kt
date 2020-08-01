@@ -69,7 +69,7 @@ class CreateEntryFinalFragment(val foodList: List<Pair<FoodAccess, Float>>):
         super.onViewCreated(view, savedInstanceState)
         Log.d("LOG", "${this::class} view created")
         view1 = requireView()
-        createIngBackBut.setOnClickListener {
+        userSetBackBut.setOnClickListener {
             activity?.onBackPressed()
         }
         setCalendar()
@@ -83,6 +83,11 @@ class CreateEntryFinalFragment(val foodList: List<Pair<FoodAccess, Float>>):
     {
         val insText = createEntryFinalRecIns
         val activity = activity as MainActivity
+        if (activity.app.user!!.INSULIN_PER10G == 0f)
+        {
+            insText.setText("N/A")
+            return
+        }
         if (foodList.size == 0) insText.setText("0")
         else
         {

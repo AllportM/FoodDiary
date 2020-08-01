@@ -128,5 +128,18 @@ class UserDBService {
             return false
         }
 
+        override fun getUsers(dbHelper: FoodDBHelper): MutableList<String> {
+            val db = dbHelper.readableDatabase
+            val query = "SELECT $KEY_USER FROM $TABLE_USERS"
+            val cursor = db.rawQuery(query, null)
+            val result = mutableListOf<String>()
+            if (cursor.moveToFirst())
+            {
+                do {
+                    result.add(cursor.getString(cursor.getColumnIndex(KEY_USER)))
+                } while (cursor.moveToNext())
+            }
+            return result
+        }
     }
 }

@@ -78,6 +78,18 @@
                 app:layout_constraintEnd_toEndOf="@+id/unameInput"
                 app:layout_constraintStart_toStartOf="@+id/unameInput"
                 app:layout_constraintTop_toBottomOf="@+id/unameInput" />
+
+        <TextView
+                style="@style/error"
+                android:id="@+id/loginErrorBlank"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="9dp"
+                android:text="Username cannot be blank"
+                app:layout_constraintBottom_toTopOf="@+id/unameInput"
+                app:layout_constraintEnd_toEndOf="@+id/unameInput"
+                app:layout_constraintStart_toStartOf="@+id/unameInput" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.google.android.material.appbar.AppBarLayout

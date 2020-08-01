@@ -54,7 +54,7 @@ class AppDBService {
         /**
          * setLoggedInUser updates the last user logged in
          */
-        override fun setLoggedInUser(dbHelper: FoodDBHelper, name: String, date: String) {
+        override fun setLoggedInUser(dbHelper: FoodDBHelper, name: String?, date: String?) {
             val db = dbHelper.writableDatabase
             deleteTable(dbHelper.writableDatabase)
             onCreate(dbHelper.writableDatabase)

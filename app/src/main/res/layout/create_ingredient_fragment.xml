@@ -20,18 +20,18 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/linearLayout9">
 
-            <TextView
-                    android:id="@+id/createIngServText"
-                    style="@style/textMain"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="10dp"
-                    android:text="Serving" />
+                <TextView
+                        android:id="@+id/createIngServText"
+                        style="@style/textMain"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="10dp"
+                        android:text="Serving" />
 
                 <EditText
                         android:id="@+id/createIngServingVal"
-                        style="@style/textMain"
-                        android:layout_width="60dp"
+                        style="@style/textSmall"
+                        android:layout_width="70dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
                         android:layout_weight="1"
@@ -42,14 +42,14 @@
                         android:paddingStart="10dp"
                         android:paddingEnd="10dp" />
 
-            <TextView
-                    android:id="@+id/textView20"
-                    style="@style/textMain"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"
-                    android:layout_weight="1"
-                    android:text="(g)" />
+                <TextView
+                        android:id="@+id/textView20"
+                        style="@style/textMain"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:layout_weight="1"
+                        android:text="(g)" />
 
         </LinearLayout>
 
@@ -63,17 +63,17 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
-            <TextView
-                    android:id="@+id/createIngNameText"
-                    style="@style/textMain"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="10dp"
-                    android:text="Ingredient Name" />
+                <TextView
+                        android:id="@+id/createIngNameText"
+                        style="@style/textMain"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="10dp"
+                        android:text="Ingredient Name" />
 
                 <EditText
                         android:id="@+id/createIngNameVal"
-                        style="@style/textMain"
+                        style="@style/textSmall"
                         android:layout_width="150dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
@@ -118,17 +118,18 @@
                 style="@style/textMain"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
                 android:layout_weight="1"
                 android:text="Protein"
                 app:layout_constraintBottom_toBottomOf="@+id/createIngProteinVal"
-                app:layout_constraintEnd_toEndOf="@+id/createIngEnergyText"
+                app:layout_constraintEnd_toEndOf="@+id/createIngFatText"
                 app:layout_constraintEnd_toStartOf="@+id/createIngProteinVal"
                 app:layout_constraintTop_toTopOf="@+id/createIngProteinVal" />
 
         <EditText
                 android:id="@+id/createIngEnergyVal"
-                style="@style/textMain"
-                android:layout_width="60dp"
+                style="@style/textSmall"
+                android:layout_width="65dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="20dp"
@@ -142,8 +143,8 @@
 
         <EditText
                 android:id="@+id/createIngFatVal"
-                style="@style/textMain"
-                android:layout_width="60dp"
+                style="@style/textSmall"
+                android:layout_width="65dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
                 android:layout_weight="1"
@@ -157,8 +158,8 @@
 
         <EditText
                 android:id="@+id/createIngProteinVal"
-                style="@style/textMain"
-                android:layout_width="60dp"
+                style="@style/textSmall"
+                android:layout_width="65dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
                 android:layout_weight="1"
@@ -173,8 +174,8 @@
 
         <EditText
                 android:id="@+id/createIngFibreVal"
-                style="@style/textMain"
-                android:layout_width="60dp"
+                style="@style/textSmall"
+                android:layout_width="65dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="5dp"
                 android:layout_weight="1"
@@ -191,8 +192,8 @@
 
         <EditText
                 android:id="@+id/createIngSaltVal"
-                style="@style/textMain"
-                android:layout_width="60dp"
+                style="@style/textSmall"
+                android:layout_width="65dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:autofillHints=""
@@ -280,8 +281,8 @@
 
         <EditText
                 android:id="@+id/createIngCarbsVal"
-                style="@style/textMain"
-                android:layout_width="60dp"
+                style="@style/textSmall"
+                android:layout_width="65dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="5dp"
                 android:layout_weight="1"
@@ -339,27 +340,27 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 tools:layout_editor_absoluteX="0dp">
 
-            <Button
-                    android:id="@+id/createIngBackBut"
-                    style="@style/buttonMain"
-                    android:layout_width="0dp"
-                    android:layout_marginStart="2dp"
-                    android:layout_marginTop="2dp"
-                    android:layout_marginEnd="1dp"
-                    android:layout_marginBottom="2dp"
-                    android:layout_weight="1"
-                    android:text="Back" />
+                <Button
+                        android:id="@+id/createIngBackBut"
+                        style="@style/buttonMain"
+                        android:layout_width="0dp"
+                        android:layout_marginStart="2dp"
+                        android:layout_marginTop="2dp"
+                        android:layout_marginEnd="1dp"
+                        android:layout_marginBottom="2dp"
+                        android:layout_weight="1"
+                        android:text="Back" />
 
-            <Button
-                    android:id="@+id/viewIngredientFinalize"
-                    style="@style/buttonMain"
-                    android:layout_width="0dp"
-                    android:layout_marginStart="1dp"
-                    android:layout_marginTop="2dp"
-                    android:layout_marginEnd="2dp"
-                    android:layout_marginBottom="2dp"
-                    android:layout_weight="1"
-                    android:text="Finish" />
+                <Button
+                        android:id="@+id/viewIngredientFinalize"
+                        style="@style/buttonMain"
+                        android:layout_width="0dp"
+                        android:layout_marginStart="1dp"
+                        android:layout_marginTop="2dp"
+                        android:layout_marginEnd="2dp"
+                        android:layout_marginBottom="2dp"
+                        android:layout_weight="1"
+                        android:text="Finish" />
         </LinearLayout>
 
         <TextView
@@ -374,7 +375,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/linearLayout9" />
 
         <TextView
-                android:id="@+id/userSetText"
+                android:id="@+id/createIngNameErrorEmpty"
                 style="@style/error"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -396,11 +397,33 @@
                 app:layout_constraintTop_toBottomOf="@+id/createIngEnergyVal" />
 
         <TextView
+                android:id="@+id/createIngEnergyErrRealistic"
+                style="@style/error"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Must be less than 2000"
+                app:layout_constraintBottom_toTopOf="@+id/createIngFatVal"
+                app:layout_constraintEnd_toEndOf="@+id/textView22"
+                app:layout_constraintStart_toStartOf="@+id/createIngEnergyText"
+                app:layout_constraintTop_toBottomOf="@+id/createIngEnergyVal" />
+
+        <TextView
                 android:id="@+id/createIngFatErr"
                 style="@style/error"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Must have value"
+                app:layout_constraintBottom_toTopOf="@+id/createIngProteinVal"
+                app:layout_constraintEnd_toEndOf="@+id/textView22"
+                app:layout_constraintStart_toStartOf="@+id/createIngEnergyText"
+                app:layout_constraintTop_toBottomOf="@+id/createIngFatVal" />
+
+        <TextView
+                android:id="@+id/createIngFatErrRealistic"
+                style="@style/error"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Must be less than 200"
                 app:layout_constraintBottom_toTopOf="@+id/createIngProteinVal"
                 app:layout_constraintEnd_toEndOf="@+id/textView22"
                 app:layout_constraintStart_toStartOf="@+id/createIngEnergyText"
@@ -417,11 +440,33 @@
                 app:layout_constraintTop_toBottomOf="@+id/createIngProteinVal" />
 
         <TextView
+                android:id="@+id/createIngProteinErrRealistic"
+                style="@style/error"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Must be less than 5000"
+                app:layout_constraintEnd_toEndOf="@+id/textView22"
+                app:layout_constraintStart_toStartOf="@+id/createIngEnergyText"
+                app:layout_constraintTop_toBottomOf="@+id/createIngProteinVal" />
+
+        <TextView
                 android:id="@+id/createIngCarbError"
                 style="@style/error"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Must have value"
+                app:layout_constraintBottom_toTopOf="@+id/createIngFatVal"
+                app:layout_constraintEnd_toEndOf="@+id/textView21"
+                app:layout_constraintStart_toEndOf="@+id/createIngEnergyErr"
+                app:layout_constraintStart_toStartOf="@+id/createIngCarbText"
+                app:layout_constraintTop_toBottomOf="@+id/createIngEnergyVal" />
+
+        <TextView
+                android:id="@+id/createIngCarbErrorRealistic"
+                style="@style/error"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Must be less than 1000"
                 app:layout_constraintBottom_toTopOf="@+id/createIngFatVal"
                 app:layout_constraintEnd_toEndOf="@+id/textView21"
                 app:layout_constraintStart_toEndOf="@+id/createIngEnergyErr"
@@ -453,6 +498,18 @@
                 app:layout_constraintTop_toBottomOf="@+id/linearLayout8" />
 
         <TextView
+                android:id="@+id/createIngServingErrRealistic"
+                style="@style/error"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Must be less than 10000"
+                app:layout_constraintBottom_toTopOf="@+id/createIngCarbsVal"
+                app:layout_constraintEnd_toEndOf="@+id/linearLayout8"
+                app:layout_constraintStart_toEndOf="@+id/createIngEnergyErr"
+                app:layout_constraintStart_toStartOf="@+id/linearLayout8"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout8" />
+
+        <TextView
                 android:id="@+id/createIngFribreErr"
                 style="@style/error"
                 android:layout_width="wrap_content"
@@ -465,11 +522,34 @@
                 app:layout_constraintTop_toBottomOf="@+id/createIngFibreVal" />
 
         <TextView
+                android:id="@+id/createIngFribreErrRealistic"
+                style="@style/error"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Must be less than 200"
+                app:layout_constraintBottom_toTopOf="@+id/createIngSaltVal"
+                app:layout_constraintEnd_toEndOf="@+id/textView21"
+                app:layout_constraintStart_toEndOf="@+id/createIngEnergyErr"
+                app:layout_constraintStart_toStartOf="@+id/createIngCarbText"
+                app:layout_constraintTop_toBottomOf="@+id/createIngFibreVal" />
+
+        <TextView
                 android:id="@+id/createIngSaltErr"
                 style="@style/error"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Must have value"
+                app:layout_constraintEnd_toEndOf="@+id/textView21"
+                app:layout_constraintStart_toEndOf="@+id/createIngEnergyErr"
+                app:layout_constraintStart_toStartOf="@+id/createIngCarbText"
+                app:layout_constraintTop_toBottomOf="@+id/createIngSaltVal" />
+
+        <TextView
+                android:id="@+id/createIngSaltErrRealistic"
+                style="@style/error"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Must be less than 50"
                 app:layout_constraintEnd_toEndOf="@+id/textView21"
                 app:layout_constraintStart_toEndOf="@+id/createIngEnergyErr"
                 app:layout_constraintStart_toStartOf="@+id/createIngCarbText"

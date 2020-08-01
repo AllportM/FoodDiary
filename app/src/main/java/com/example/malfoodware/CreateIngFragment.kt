@@ -62,7 +62,7 @@ class CreateIngFragment(): Fragment() {
                     }
                 }
                 else
-                    // ammend ingredient as in is not null
+                // ammend ingredient as in is not null
                 {
                     val activity = requireActivity() as MainActivity
                     if (activity.app.dbHelper.ammendIngredient(ing!!, createIngredient()))
@@ -162,9 +162,19 @@ class CreateIngFragment(): Fragment() {
             createIngCarbError.visibility = TextView.VISIBLE
             valid = false
         }
+        else if (createIngCarbsVal.text.toString().toFloat() >= 1000)
+        {
+            createIngCarbErrorRealistic.visibility = TextView.VISIBLE
+            valid = false
+        }
         if (createIngEnergyVal.text.toString().equals(""))
         {
             createIngEnergyErr.visibility = TextView.VISIBLE
+            valid = false
+        }
+        else if (createIngEnergyVal.text.toString().toFloat() >= 2000)
+        {
+            createIngEnergyErrRealistic.visibility = TextView.VISIBLE
             valid = false
         }
         if (createIngProteinVal.text.toString().equals(""))
@@ -172,9 +182,19 @@ class CreateIngFragment(): Fragment() {
             createIngProteinErr.visibility = TextView.VISIBLE
             valid = false
         }
+        else if (createIngProteinVal.text.toString().toFloat() >= 5000)
+        {
+            createIngProteinErrRealistic.visibility = TextView.VISIBLE
+            valid = false
+        }
         if (createIngFatVal.text.toString().equals(""))
         {
             createIngFatErr.visibility = TextView.VISIBLE
+            valid = false
+        }
+        else if (createIngFatVal.text.toString().toFloat() >= 200)
+        {
+            createIngFatErrRealistic.visibility = TextView.VISIBLE
             valid = false
         }
         if (createIngFibreVal.text.toString().equals(""))
@@ -182,9 +202,19 @@ class CreateIngFragment(): Fragment() {
             createIngFribreErr.visibility = TextView.VISIBLE
             valid = false
         }
+        else if (createIngFibreVal.text.toString().toFloat() >= 200)
+        {
+            createIngFribreErrRealistic.visibility = TextView.VISIBLE
+            valid = false
+        }
         if (createIngSaltVal.text.toString().equals(""))
         {
             createIngSaltErr.visibility = TextView.VISIBLE
+            valid = false
+        }
+        else if (createIngSaltVal.text.toString().toFloat() >= 50)
+        {
+            createIngSaltErrRealistic.visibility = TextView.VISIBLE
             valid = false
         }
         if (createIngServingVal.text.toString().equals(""))
@@ -197,9 +227,14 @@ class CreateIngFragment(): Fragment() {
             createIngServingErrZero.visibility = TextView.VISIBLE
             valid = false
         }
+        else if (createIngServingVal.text.toString().toFloat() >= 10000)
+        {
+            createIngServingErrRealistic.visibility = TextView.VISIBLE
+            valid = false
+        }
         if (createIngNameVal.text.toString().equals(""))
         {
-            userSetText.visibility = TextView.VISIBLE
+            createIngNameErrorEmpty.visibility = TextView.VISIBLE
             valid = false
         }
         return valid
@@ -216,7 +251,14 @@ class CreateIngFragment(): Fragment() {
         createIngSaltErr.visibility = TextView.INVISIBLE
         createIngServingErr.visibility = TextView.INVISIBLE
         createIngNameErrorDuplicate.visibility = TextView.INVISIBLE
-        userSetText.visibility = TextView.INVISIBLE
+        createIngNameErrorEmpty.visibility = TextView.INVISIBLE
         createIngServingErrZero.visibility = TextView.INVISIBLE
+        createIngCarbErrorRealistic.visibility = TextView.INVISIBLE
+        createIngEnergyErrRealistic.visibility = TextView.INVISIBLE
+        createIngFatErrRealistic.visibility = TextView.INVISIBLE
+        createIngFribreErrRealistic.visibility = TextView.INVISIBLE
+        createIngProteinErrRealistic.visibility = TextView.INVISIBLE
+        createIngSaltErrRealistic.visibility = TextView.INVISIBLE
+        createIngServingErrRealistic.visibility = TextView.VISIBLE
     }
 }

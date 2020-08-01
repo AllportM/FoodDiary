@@ -2,21 +2,20 @@ package com.example.malfoodware
 
 import EntriesAdapter
 import android.content.Context
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.view.inputmethod.InputMethodManager
-import android.widget.*
+import android.widget.Button
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
-import kotlinx.android.synthetic.main.content_main.*
 import kotlinx.android.synthetic.main.my_toolbar.*
-import kotlinx.coroutines.internal.artificialFrame
-import java.lang.Exception
 import java.util.*
+
 
 class MainActivity :
         AppCompatActivity(),
@@ -36,7 +35,9 @@ class MainActivity :
         CreateEntryViewAdapter.CreateEntryViewListener,
         CreateEntryFinalFragment.CreateEntryFinalListener,
         CreateRecipeFragment.CreateRecipeActivityListener,
-        CreateIngFragment.CreateInredientActivityListener
+        CreateIngFragment.CreateInredientActivityListener,
+        MenuFragment.MenuActivityListener,
+        UserSettingsFragment.CreateInredientActivityListener
 {
     lateinit var app:  App
     private val LOGIN_FRAGMENT_ENTRY = R.id.fragmentEntryPoint
@@ -48,6 +49,7 @@ class MainActivity :
     lateinit var loginfrag: LoginFragment
     lateinit var entryFrag: EntryFragmentMain
     private val titleStack = mutableListOf<String>()
+    private var creatingUser: Boolean = false
 
     companion object {
         var COL_LIST_LIGHT = 0
@@ -56,7 +58,7 @@ class MainActivity :
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Log.d("LOG", "Main activity created")
+        Log.d("LOG", "Main activity createdHey")
         app = App(applicationContext)
         setContentView(R.layout.content_main)
         setToolBarEmpty()
@@ -79,16 +81,56 @@ class MainActivity :
             app.login(uid)
             setContentView(R.layout.my_toolbar)
             launchEntryView()
+//            app.parseJSON(app.getUsersJSON())
             return true
         }
         else {
             launchLoginView()
             return false
         }
-
-
     }
 
+    /**
+     * Login Stuffs
+     */
+    override fun onLogin(uid: String) {
+        creatingUser = false
+        if (!app.login(uid)) {
+            Log.d("LOG", "${this::class} failed to login with uid: $uid")
+            Toast.makeText(
+                this, "Failed to login with $uid, no such user",
+                Toast.LENGTH_SHORT
+            ).show()
+        }
+        else
+        {
+            Log.d("LOG", "${this::class} logging in with uid: $uid")
+            setUserClickedDateToday()
+            checkUserSignedIn()
+        }
+    }
+
+    fun launchLoginView()
+    {
+        Log.d("LOG", "${this::class.java} launching login fragment")
+        val transaction = supportFragmentManager.beginTransaction()
+        transaction.replace(LOGIN_FRAGMENT_ENTRY, loginfrag, LoginFragment.FRAGMENT_TAG)
+        transaction.commit()
+    }
+
+    override fun onCreateUser(uid: String) {
+        Log.d("LOG", "${this::class.java} creating user $uid")
+        val user: User = User(uid)
+        creatingUser = true
+        val transaction = supportFragmentManager.beginTransaction()
+        transaction.replace(LOGIN_FRAGMENT_ENTRY, UserSettingsFragment(user), UserSettingsFragment.FRAGMENT_ID)
+            .addToBackStack(UserSettingsFragment.FRAGMENT_ID)
+        transaction.commit()
+    }
+
+    /**
+     * Utility functions and stuffs
+     */
     private fun clearBackStack()
     {
         for (fragment in supportFragmentManager.fragments)
@@ -133,7 +175,10 @@ class MainActivity :
             Log.d("LOG", "${this::class.java} only 1 item on back stack, setting main entry")
             resetToolBarToEntryView()
             clearEntryFragSelection()
-            super.onBackPressed()
+            var fragtopStackTag =
+                supportFragmentManager.getBackStackEntryAt(backStackCount - 1)
+                    .name
+            detachFragment(fragtopStackTag!!)
             return
         }
         if (backStackCount > 1)
@@ -170,6 +215,13 @@ class MainActivity :
                     val frag = supportFragmentManager.fragments.get(backStackCount-1)
                             as CreateRecipeFragment
                     setTitleFragmentTag(frag, CreateRecipeFragment.FRAGMENT_ID)
+                }
+
+                CreateIngFragment.FRAGMENT_ID ->
+                {
+                    val frag = supportFragmentManager.fragments.get(backStackCount-1)
+                            as CreateIngFragment
+                    setTitleFragmentTag(frag, CreateIngFragment.FRAGMENT_ID)
                 }
             }
         }
@@ -222,7 +274,7 @@ class MainActivity :
                     } catch (ignore: Exception){}
                 }
             }
-            super.onBackPressed()
+            detachFragment(fragTopStackTag!!)
         }
         else {
             super.onBackPressed()
@@ -241,10 +293,11 @@ class MainActivity :
 
         transaction.setCustomAnimations(R.anim.fragment_fade_enter, R.anim.fragment_fade_exit)
         transaction.add(ENTRY_FRAGMENT_ENTRY, fragment, tag)
-            .addToBackStack(tag)
+        if (!tag.equals(MenuFragment.FRAG_TAG))
+            transaction.addToBackStack(tag)
         transaction.show(fragment)
         transaction.commit()
-        if (!tag.equals(MenuFragment.FRAG_TAG))
+        if (!tag.equals(MenuFragment.FRAG_TAG) && (!creatingUser))
             setTitleFragmentTag(fragment, tag)
     }
 
@@ -301,6 +354,11 @@ class MainActivity :
                     FoodType.RECIPE -> supportActionBar?.setTitle("View Recipes")
                     FoodType.INGREDIENT -> supportActionBar?.setTitle("View Ingredients")
                 }
+            }
+
+            UserSettingsFragment.FRAGMENT_ID ->
+            {
+                supportActionBar?.setTitle("User Settings")
             }
         }
     }
@@ -386,37 +444,6 @@ class MainActivity :
     }
 
     /**
-     * Login Stuffs
-     */
-    override fun onLogin(uid: String) {
-        if (!app.login(uid)) {
-            Log.d("LOG", "${this::class} failed to login with uid: $uid")
-            Toast.makeText(
-                this, "Failed to login with $uid, no such user",
-                Toast.LENGTH_SHORT
-            ).show()
-        }
-        else
-        {
-            Log.d("LOG", "${this::class} logging in with uid: $uid")
-            setUserClickedDateToday()
-            checkUserSignedIn()
-        }
-    }
-
-    fun launchLoginView()
-    {
-        Log.d("LOG", "${this::class.java} launching login fragment")
-        val transaction = supportFragmentManager.beginTransaction()
-        transaction.replace(LOGIN_FRAGMENT_ENTRY, loginfrag, LoginFragment.FRAGMENT_TAG)
-        transaction.commit()
-    }
-
-    override fun onCreateUser(uid: String) {
-        TODO("Not yet implemented")
-    }
-
-    /**
      * Food Entry stuffs
      */
     fun launchEntryView()
@@ -427,6 +454,7 @@ class MainActivity :
         transaction.replace(ENTRY_FRAGMENT_ENTRY, entryFrag)
         transaction.commit()
         showMenuButtons()
+        setToolBarEntryView()
     }
 
     override fun onEntryCreated() {
@@ -520,6 +548,7 @@ class MainActivity :
         val calDate = Calendar.getInstance()
         calDate.set(date.get(2).toInt(), date.get(1).toInt()-1, date.get(0).toInt())
         val timMilli = calDate.timeInMillis
+        supportFragmentManager.popBackStack(MenuFragment.FRAG_TAG, FragmentManager.POP_BACK_STACK_INCLUSIVE)
         CalendarViewFragment(timMilli, this).show(supportFragmentManager, CalendarViewFragment.CALENDAR_FRAGMENT_TAG)
     }
 
@@ -614,11 +643,11 @@ class MainActivity :
 
     // final frag stuffs
     override fun onLaunchCalendarFromCreateFinal(timeMilli: Long, frag: CreateEntryFinalFragment) {
-        CalendarViewFragment(timeMilli, frag)
+        CalendarViewFragment(timeMilli, frag).show(supportFragmentManager, CalendarViewFragment.CALENDAR_FRAGMENT_TAG)
     }
 
     override fun onLaunchTimeFromCreateFinal(timeMilli: Long, frag: CreateEntryFinalFragment) {
-        TimeDialoueFragment(timeMilli, frag)
+        TimeDialoueFragment(timeMilli, frag).show(supportFragmentManager, TimeDialoueFragment.FRAGMENT_TAG)
     }
 
     override fun onFinish() {
@@ -679,6 +708,78 @@ class MainActivity :
             supportFragmentManager.getBackStackEntryAt(backStackCount - 1)
                 .name
         return fragTopStackTag.equals(tag)
+    }
+
+    /**
+     * Menu fragment stuffs
+     */
+
+    private fun removeMenu()
+    {
+        detachFragment(MenuFragment.FRAG_TAG)
+    }
+    override fun onOpenSettings() {
+        attachFragment(UserSettingsFragment(app.user!!), UserSettingsFragment.FRAGMENT_ID)
+        removeMenu()
+    }
+
+    override fun onExport() {
+        TODO("Not yet implemented")
+    }
+
+    override fun onLogout() {
+        app.dbHelper.setLoggedInUser(null, null)
+        relaunch()
+    }
+
+    private fun relaunch()
+    {
+        val intent = intent
+        finish()
+        startActivity(intent)
+    }
+
+    /**
+     * UserSettingsFragment stuffs
+     */
+    override fun onSaveUserSettings(user: User) {
+        if (creatingUser)
+        {
+            if (app.dbHelper.insertUser(user))
+            {
+                Log.d("LOG", "${this::class.java} successfully created user $user")
+                clearBackStack()
+                app.login(user.uid)
+                setUserClickedDateToday()
+                relaunch()
+                return
+            }
+            else
+            {
+                Toast.makeText(
+                    this, "User with ${user.uid} already exists",
+                    Toast.LENGTH_SHORT
+                ).show()
+                detachFragment(UserSettingsFragment.FRAGMENT_ID)
+                creatingUser = false
+                return
+            }
+        }
+        if (!app.dbHelper.ammendUser(user)) {
+            Log.d("LOG", "${this::class.java} failed to ammend user $user")
+            Toast.makeText(
+                this, "Failed to ammend user ${user.uid}",
+                Toast.LENGTH_SHORT
+            ).show()
+            detachFragment(UserSettingsFragment.FRAGMENT_ID)
+            return
+        }
+        else
+        {
+            Log.d("LOG", "${this::class.java} successfully ammended user $user")
+            detachFragment(UserSettingsFragment.FRAGMENT_ID)
+            return
+        }
     }
 }
 

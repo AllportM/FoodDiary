@@ -1,7 +1,7 @@
 package com.example.malfoodware
 
 import android.content.Context
-import android.opengl.Visibility
+import kotlin.math.round
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -9,7 +9,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.fragment.app.Fragment
+import kotlin.math.roundToInt
 
+fun Float.round(decimals: Int): Double {
+    var multiplier = 1.0
+    repeat(decimals) { multiplier *= 10 }
+    return round(this * multiplier) / multiplier
+}
 
 class EntryFocussedFragment(val entry: FoodDiaryEntry, val user: User, var showButton: Boolean = true) : Fragment() {
 
@@ -91,18 +97,18 @@ class EntryFocussedFragment(val entry: FoodDiaryEntry, val user: User, var showB
         }
         if (nutrition == null) nutrition = Nutrition(0f,0f,0f,0f,
             0f,0f,0.1f)
-        progProtein.progress = (nutrition.protein / user.nutritionPerDay.protein * 100).toInt()
-        progCarbs.progress = (nutrition.carbs / user.nutritionPerDay.carbs * 100).toInt()
-        progEnergy.progress = (nutrition.energy / user.nutritionPerDay.energy * 100).toInt()
-        progFat.progress = (nutrition.fat /user.nutritionPerDay.fat * 100).toInt()
-        progFribre.progress = (nutrition.fibre / user.nutritionPerDay.fibre * 100).toInt()
-        progSalt.progress = (nutrition.salt / user.nutritionPerDay.salt * 100).toInt()
-        qtyCarbs.text = "${nutrition.carbs.toInt()}g"
-        qtyEnergy.text = "${nutrition.energy.toInt()}g"
-        qtyFat.text = "${nutrition.fat.toInt()}g"
-        qtyFibre.text = "${nutrition.fibre.toInt()}g"
-        qtyProtein.text = "${nutrition.protein.toInt()}g"
-        qtySalt.text = "${nutrition.salt.toInt()}g"
+        progProtein.progress = (nutrition.protein / user.nutritionPerDay.protein * 100).roundToInt()
+        progCarbs.progress = (nutrition.carbs / user.nutritionPerDay.carbs * 100).roundToInt()
+        progEnergy.progress = (nutrition.energy / user.nutritionPerDay.energy * 100).roundToInt()
+        progFat.progress = (nutrition.fat /user.nutritionPerDay.fat * 100).roundToInt()
+        progFribre.progress = (nutrition.fibre / user.nutritionPerDay.fibre * 100).roundToInt()
+        progSalt.progress = (nutrition.salt / user.nutritionPerDay.salt * 100).roundToInt()
+        qtyCarbs.text = "${nutrition.carbs.roundToInt()}g"
+        qtyEnergy.text = "${nutrition.energy.roundToInt()}g"
+        qtyFat.text = "${nutrition.fat.round(1)}g"
+        qtyFibre.text = "${nutrition.fibre.round(1)}g"
+        qtyProtein.text = "${nutrition.protein.round(1)}g"
+        qtySalt.text = "${nutrition.salt.round(2)}g"
 
         var button = view1.findViewById<Button>(R.id.foodEntryMoreDetails)
         button.setOnClickListener {

@@ -1,6 +1,7 @@
 package com.example.malfoodware.DataLayer
 
 import android.content.Context
+import android.util.Log
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.runner.AndroidJUnit4
 import com.example.malfoodware.FileHelper
@@ -39,6 +40,8 @@ class IngredientDBServiceTest {
         dbHelper.deleteAll()
         IngredientDBService.insertIngredient(dbHelper, ING1)
         IngredientDBService.insertIngredient(dbHelper, ING2)
+        Log.d("LOG", "nut json:\n${ING1.nut.toJSON(3)}")
+        Log.d("LOG", "ing json:\n${ING1.toJSON(1)}")
 //        Logger.last()
     }
 

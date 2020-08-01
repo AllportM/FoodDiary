@@ -71,7 +71,7 @@ class ViewInredientsFragment(val ingListIF: ViewIngredientsListInterface): Fragm
             if (!b)
                 view.hideKeyboard()
         }
-        createIngBackBut.setOnClickListener {
+        userSetBackBut.setOnClickListener {
             activity?.onBackPressed()
         }
         viewIngredientCreateBut.setOnClickListener {

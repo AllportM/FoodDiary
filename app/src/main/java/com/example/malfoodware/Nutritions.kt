@@ -4,6 +4,12 @@ enum class Nutritions {
     ENERGY, FAT, CARBS, FIBRE, PROTEIN, SALT
 }
 
+fun addTabs(times: Int): String{
+    var output = ""
+    repeat(times) { output += "\t" }
+    return output
+}
+
 /**
  * Nutrition's purpose is to contain data members and functions relating to the nutritional values
  * of an ingredient/recipe, incluse of +, +=, /, /= operators and a member function to return
@@ -72,6 +78,20 @@ data class Nutrition(var energy: Float = 0f, var fat:Float = 0f, var carbs:Float
 
     fun toCSVString(): String {
         return "$energy,$fat,$carbs,$fibre,$protein,$salt,$serving"
+    }
+
+    fun toJSON(tabs: Int): String
+    {
+        var output = ""
+        output += addTabs(tabs)
+        output += "{\n"
+        val newTabs = tabs + 1
+        output += addTabs(newTabs)
+        output += "\"energy\": $energy,\n${addTabs(newTabs)}\"fat\": $fat,\n${addTabs(newTabs)}" +
+                "\"carbs\": $carbs,\n${addTabs(newTabs)}" +
+                "\"fibre\": $fibre,\n${addTabs(newTabs)}\"protein\": $protein,\n${addTabs(newTabs)}" +
+                "\"salt\": $salt,\n${addTabs(newTabs)}\"serving\": $serving\n${addTabs(tabs)}}"
+        return output
     }
 
     override fun toString(): String {

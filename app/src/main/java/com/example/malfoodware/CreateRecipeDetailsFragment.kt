@@ -9,6 +9,7 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import kotlinx.android.synthetic.main.create_recipe_nutrition_view.*
+import kotlin.math.roundToInt
 
 class CreateRecipeDetailsFragment(val ingList: MutableList<Pair<FoodAccess, Float>>):
         Fragment()
@@ -108,12 +109,12 @@ class CreateRecipeDetailsFragment(val ingList: MutableList<Pair<FoodAccess, Floa
             Math.round(nutrition.fibre / user.nutritionPerDay.fibre * 100)
         progSalt.progress =
             Math.round(nutrition.salt / user.nutritionPerDay.salt * 100)
-        qtyCarbs.text = "${nutrition.carbs.toInt()} / ${user.nutritionPerDay.carbs.toInt()}g"
-        qtyEnergy.text = "${nutrition.energy.toInt()} / ${user.nutritionPerDay.energy.toInt()}g"
-        qtyFat.text = "${nutrition.fat.toInt()} / ${user.nutritionPerDay.fat.toInt()}g"
-        qtyFibre.text = "${nutrition.fibre.toInt()} / ${user.nutritionPerDay.fibre.toInt()}g"
-        qtyProtein.text = "${nutrition.protein.toInt()} / ${user.nutritionPerDay.protein.toInt()}g"
-        qtySalt.text = "${nutrition.salt.toInt()} / ${user.nutritionPerDay.salt.toInt()}g"
+        qtyCarbs.text = "${nutrition.carbs.roundToInt()}g"
+        qtyEnergy.text = "${nutrition.energy.roundToInt()}g"
+        qtyFat.text = "${nutrition.fat.round(1)}g"
+        qtyFibre.text = "${nutrition.fibre.round(1)}g"
+        qtyProtein.text = "${nutrition.protein.round(1)}g"
+        qtySalt.text = "${nutrition.salt.round(2)}g"
     }
 
 }

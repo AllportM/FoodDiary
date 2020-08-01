@@ -42,4 +42,6 @@ interface UserDataHandler {
      *          class
      */
     fun ammendUser(dbHelper: FoodDBHelper, user: User): Boolean
+
+    fun getUsers(dbHelper: FoodDBHelper) : MutableList<String>
 }

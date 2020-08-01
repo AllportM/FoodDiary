@@ -1,6 +1,7 @@
 package com.example.malfoodware.DataLayer
 
 import android.content.Context
+import android.util.Log
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.runner.AndroidJUnit4
 import com.example.malfoodware.*
@@ -117,7 +118,11 @@ class DiaryDBServiceTest                 {
         ENTRY2.addIngredient(ING1, 10f)
         ENTRY2.addRecipe(REC1, 10f)
         ENTRY2.addRecipe(REC2, 10f)
+        ENTRY1.addIngredient(ING1, 10f)
+        ENTRY1.addIngredient(ING3, 10f)
+        ENTRY1.addIngredient(ING6, 10f)
         DiaryDBService.insertDiaryEntry(dbHelper, ENTRY2, USER.uid)
+        Log.d("LOG", "diary entry json:\n${ENTRY1.toJSON(1)}")
     }
 
     @Test

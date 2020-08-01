@@ -19,6 +19,40 @@ class FoodDiaryEntry(var timeMillis: Long = Calendar.getInstance().timeInMillis)
         dateString = "$day/$month/$year"
     }
 
+    fun toJSON(tabs: Int): String
+    {
+        val newTabs = tabs + 1
+        var result = "${addTabs(tabs)}{\n${addTabs(newTabs)}\"bloodSugar\": $bloodSugar,\n${addTabs(newTabs)}" +
+                "\"insulinTaken\": $insulinTaken,\n${addTabs(newTabs)}\"notes\": "
+        result += if (notes == null) "" else "\""
+        result += "$notes"
+        result += if (notes == null) "" else "\""
+        result += "\n${addTabs(newTabs)}\"timeMillis\": $timeMillis,\n${addTabs(newTabs)}\"ingredients\": " +
+                "[\n"
+        val listTabs = tabs + 2
+        for (ing in ingredients)
+        {
+            result += "${addTabs(newTabs+1)}{\n${addTabs(listTabs)}\"ingName\": \"${ing.key.name}\"," +
+                    "\n${addTabs(listTabs)}\"qty\": ${ing.value}\n${addTabs(newTabs+1)}},\n"
+        }
+        if (!ingredients.isEmpty())
+        {
+            result = result.substring(0,  result.length-2) + "\n"
+        }
+        result += "${addTabs(newTabs)}],\n${addTabs(newTabs)}\"recipes\": [\n"
+        for (recipe in recipes)
+        {
+            result += "${addTabs(newTabs+1)}{\n${addTabs(listTabs)}\"recName\": \"${recipe.key.recName}," +
+                    "\n${addTabs(listTabs)}\"qty\": ${recipe.value}\n${addTabs(newTabs+1)}},\n"
+        }
+        if (!recipes.isEmpty())
+        {
+            result = result.substring(0,  result.length-2) + "\n"
+        }
+        result += "${addTabs(newTabs)}]\n${addTabs(tabs)}}"
+        return result
+    }
+
     fun addRecipe(rec: Recipe, qty: Float): Boolean
     {
         if (recipes.containsKey(rec)) return false

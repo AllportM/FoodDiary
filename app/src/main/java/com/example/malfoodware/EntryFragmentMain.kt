@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.diary_entry_bottom_buttons.*
+import kotlin.math.roundToInt
 
 
 class EntryFragmentMain: Fragment() {
@@ -173,18 +174,18 @@ class EntryFragmentMain: Fragment() {
         }
         if (nutrition == null) nutrition = Nutrition(0f,0f,0f,0f,
             0f,0f,0.1f)
-        progProtein.progress = (nutrition.protein / user.nutritionPerDay.protein * 100).toInt()
-        progCarbs.progress = (nutrition.carbs / user.nutritionPerDay.carbs * 100).toInt()
-        progEnergy.progress = (nutrition.energy / user.nutritionPerDay.energy * 100).toInt()
-        progFat.progress = (nutrition.fat /user.nutritionPerDay.fat * 100).toInt()
-        progFribre.progress = (nutrition.fibre / user.nutritionPerDay.fibre * 100).toInt()
-        progSalt.progress = (nutrition.salt / user.nutritionPerDay.salt * 100).toInt()
-        qtyCarbs.text = "${nutrition.carbs.toInt()} / ${user.nutritionPerDay.carbs.toInt()}g"
-        qtyEnergy.text = "${nutrition.energy.toInt()} / ${user.nutritionPerDay.energy.toInt()}g"
-        qtyFat.text = "${nutrition.fat.toInt()} / ${user.nutritionPerDay.fat.toInt()}g"
-        qtyFibre.text = "${nutrition.fibre.toInt()} / ${user.nutritionPerDay.fibre.toInt()}g"
-        qtyProtein.text = "${nutrition.protein.toInt()} / ${user.nutritionPerDay.protein.toInt()}g"
-        qtySalt.text = "${nutrition.salt.toInt()} / ${user.nutritionPerDay.salt.toInt()}g"
+        progProtein.progress = (nutrition.protein / user.nutritionPerDay.protein * 100).roundToInt()
+        progCarbs.progress = (nutrition.carbs / user.nutritionPerDay.carbs * 100).roundToInt()
+        progEnergy.progress = (nutrition.energy / user.nutritionPerDay.energy * 100).roundToInt()
+        progFat.progress = (nutrition.fat /user.nutritionPerDay.fat * 100).roundToInt()
+        progFribre.progress = (nutrition.fibre / user.nutritionPerDay.fibre * 100).roundToInt()
+        progSalt.progress = (nutrition.salt / user.nutritionPerDay.salt * 100).roundToInt()
+        qtyCarbs.text = "${nutrition.carbs.roundToInt()} / ${user.nutritionPerDay.carbs.roundToInt()}g"
+        qtyEnergy.text = "${nutrition.energy.roundToInt()} / ${user.nutritionPerDay.energy.roundToInt()}g"
+        qtyFat.text = "${nutrition.fat.roundToInt()} / ${user.nutritionPerDay.fat.roundToInt()}g"
+        qtyFibre.text = "${nutrition.fibre.roundToInt()} / ${user.nutritionPerDay.fibre.roundToInt()}g"
+        qtyProtein.text = "${nutrition.protein.roundToInt()} / ${user.nutritionPerDay.protein.roundToInt()}g"
+        qtySalt.text = "${nutrition.salt.round(2)} / ${user.nutritionPerDay.salt.round(2)}g"
     }
 
 }

@@ -20,7 +20,7 @@
             tools:layout_editor_absoluteX="0dp">
 
         <Button
-                android:id="@+id/createIngBackBut"
+                android:id="@+id/userSetBackBut"
                 style="@style/buttonMain"
                 android:layout_width="0dp"
                 android:layout_marginStart="2dp"

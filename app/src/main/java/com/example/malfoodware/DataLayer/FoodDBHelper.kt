@@ -288,11 +288,16 @@ class FoodDBHelper(context: Context): SQLiteOpenHelper(context, DATABASE_NAME, n
     /**
      * setLoggedInUser updates the last user logged in
      */
-    fun setLoggedInUser(name: String, date: String) {
+    fun setLoggedInUser(name: String?, date: String?) {
         return AppDBService.setLoggedInUser(this, name, date)
     }
 
     fun getLoggedInSelectedDate(): String? {
         return AppDBService.getLoggedInSelectedDate(this)
+    }
+    
+    fun getUsers(): MutableList<String>
+    {
+        return UserDBService.getUsers(this)
     }
 }

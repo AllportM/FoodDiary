@@ -77,7 +77,7 @@ class EntryFocussedDetailsFragment(val entry: FoodDiaryEntry, val user: User) : 
             else
                 nutrition.plusAssign( ingredient.key.nut / ingredient.value)
         }
-        val recInsStr = if (entry.ingredients.size == 0 && entry.recipes.size == 0) "N/A" else
+        val recInsStr = if (entry.ingredients.size == 0 && entry.recipes.size == 0 || user.INSULIN_PER10G == 0f) "N/A" else
             Math.round(nutrition!!.carbs / user.INSULIN_PER10G).toString()
         recIns.setText(recInsStr)
 
