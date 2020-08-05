@@ -223,7 +223,7 @@
                 android:id="@+id/createEntryError"
                 android:layout_width="104dp"
                 android:layout_height="55dp"
-                android:layout_marginTop="2dp"
+                android:layout_marginTop="10dp"
                 android:text="An entry for this date/time already exists"
                 android:textColor="@color/error"
                 android:textStyle="bold"

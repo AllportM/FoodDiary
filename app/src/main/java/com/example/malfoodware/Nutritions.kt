@@ -80,6 +80,11 @@ data class Nutrition(var energy: Float = 0f, var fat:Float = 0f, var carbs:Float
         return "$energy,$fat,$carbs,$fibre,$protein,$salt,$serving"
     }
 
+    override fun toString(): String {
+        return "Nutrition[energy: $energy, fat: $fat, carbs: $carbs, fibre: $fibre," +
+                " protein: $protein, salt: $salt, serving: $serving g ]"
+    }
+
     fun toJSON(tabs: Int): String
     {
         var output = ""
@@ -94,8 +99,4 @@ data class Nutrition(var energy: Float = 0f, var fat:Float = 0f, var carbs:Float
         return output
     }
 
-    override fun toString(): String {
-        return "Nutrition[energy: $energy, fat: $fat, carbs: $carbs, fibre: $fibre," +
-                " protein: $protein, salt: $salt, serving: $serving g ]"
-    }
 }

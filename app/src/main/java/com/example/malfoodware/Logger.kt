@@ -6,6 +6,7 @@ class Logger {
         var logs: MutableList<String> = mutableListOf()
 
         init {
+            FileHelper.type = FileHelper.Type.TEMP
             FileHelper.loadFile(LOGGER_FILE, "res/")
             logs = FileHelper.getFileContentsArr(LOGGER_FILE)
         }

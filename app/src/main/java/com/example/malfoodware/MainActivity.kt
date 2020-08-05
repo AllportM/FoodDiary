@@ -1,7 +1,10 @@
 package com.example.malfoodware
 
 import EntriesAdapter
+import android.R.attr.path
 import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -37,7 +40,8 @@ class MainActivity :
         CreateRecipeFragment.CreateRecipeActivityListener,
         CreateIngFragment.CreateInredientActivityListener,
         MenuFragment.MenuActivityListener,
-        UserSettingsFragment.CreateInredientActivityListener
+        UserSettingsFragment.CreateInredientActivityListener,
+        ExportFragment.ExportActivityListener
 {
     lateinit var app:  App
     private val LOGIN_FRAGMENT_ENTRY = R.id.fragmentEntryPoint
@@ -81,7 +85,6 @@ class MainActivity :
             app.login(uid)
             setContentView(R.layout.my_toolbar)
             launchEntryView()
-//            app.parseJSON(app.getUsersJSON())
             return true
         }
         else {
@@ -157,6 +160,9 @@ class MainActivity :
     override fun onResume() {
         super.onResume()
         Log.d("LOG", "Main Activity resumed")
+        if (isTopFragStack(ExportFragment.FRAGMENT_TAG)) {
+            onBackPressed()
+        }
     }
 
     override fun onDestroy() {
@@ -169,6 +175,11 @@ class MainActivity :
     // updating adapter lists
     override fun onBackPressed() {
         Log.d("LOG", "${this::class.java} back pressed")
+        if (app.user == null)
+        {
+            super.onBackPressed()
+            return
+        }
         val backStackCount = supportFragmentManager.backStackEntryCount
         if (backStackCount == 1)
         {
@@ -272,6 +283,11 @@ class MainActivity :
                                 as ViewInredientsFragment
                         inViewFrag.onResume()
                     } catch (ignore: Exception){}
+                }
+
+                MenuFragment.FRAG_TAG ->
+                {
+                    detachFragment(MenuFragment.FRAG_TAG)
                 }
             }
             detachFragment(fragTopStackTag!!)
@@ -721,10 +737,13 @@ class MainActivity :
     override fun onOpenSettings() {
         attachFragment(UserSettingsFragment(app.user!!), UserSettingsFragment.FRAGMENT_ID)
         removeMenu()
+        supportActionBar?.setTitle("Settings")
     }
 
     override fun onExport() {
-        TODO("Not yet implemented")
+        attachFragment(ExportFragment(), ExportFragment.FRAGMENT_TAG)
+        removeMenu()
+        supportActionBar?.setTitle("Export")
     }
 
     override fun onLogout() {
@@ -771,15 +790,74 @@ class MainActivity :
                 this, "Failed to ammend user ${user.uid}",
                 Toast.LENGTH_SHORT
             ).show()
-            detachFragment(UserSettingsFragment.FRAGMENT_ID)
+            onBackPressed()
             return
         }
         else
         {
             Log.d("LOG", "${this::class.java} successfully ammended user $user")
-            detachFragment(UserSettingsFragment.FRAGMENT_ID)
+            onBackPressed()
             return
         }
+    }
+
+    /**
+     * Export fragment stuffs
+     */
+    override fun onLaunchCalendarFromExport(timeMilli: Long, frag: ExportFragment) {
+        CalendarViewFragment(Calendar.getInstance().timeInMillis, frag)
+            .show(supportFragmentManager, CalendarViewFragment.CALENDAR_FRAGMENT_TAG)
+    }
+
+    override fun onExportData(from: String, to: String) {
+        var dateFromMilli: Long = 0
+        var dateToMilli: Long = Long.MAX_VALUE
+        var cal = Calendar.getInstance()
+        if (!from.equals(""))
+        {
+            val fromArr = from.split('/')
+            val fromDay = fromArr[0].toInt()
+            val fromMonth = fromArr[1].toInt() -1
+            val fromYear = fromArr[2].toInt()
+            cal.set(fromYear, fromMonth, fromDay, 0, 0, 0)
+            dateFromMilli = cal.timeInMillis
+        }
+        if (!to.equals(""))
+        {
+            val toArr = to.split('/')
+            val toDay = toArr[0].toInt()
+            val toMonth = toArr[1].toInt() -1
+            val toYear = toArr[2].toInt()
+            cal.set(toYear, toMonth, toDay, 23, 59, 59)
+            dateToMilli = cal.timeInMillis
+        }
+        var output = ""
+        val list = app.dbHelper.getDiaryEntriesDateRange(app.user!!.uid, dateFromMilli, dateToMilli)
+
+        // writes the output string
+        for (entry in list)
+        {
+            output += entry.toCSV() + "\n"
+        }
+        if (list.size > 0)
+        {
+            output = output.substring(0, output.length-1)
+        }
+
+        // sets up files
+        FileHelper.type = FileHelper.Type.TEMP
+        val filename = "entryData-from'$from'-to'$to' .csv"
+        FileHelper.loadFile(filename, "")
+        FileHelper.writeContents(filename, output)
+
+        // opens email activity
+        val emailIntent = Intent(Intent.ACTION_SEND)
+        val file = FileHelper.files[filename]
+        val uri = Uri.fromFile(file)
+        emailIntent.type = "vnd.android.cursor.dir/email"
+        emailIntent.putExtra(Intent.EXTRA_STREAM, uri)
+        emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Food diary entries $filename")
+        startActivity(Intent.createChooser(emailIntent, "Send email..."))
     }
 }
 

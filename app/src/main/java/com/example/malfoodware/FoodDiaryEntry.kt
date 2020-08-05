@@ -1,6 +1,7 @@
 package com.example.malfoodware
 
 import java.util.*
+import kotlin.math.roundToInt
 
 class FoodDiaryEntry(var timeMillis: Long = Calendar.getInstance().timeInMillis): Comparable<FoodDiaryEntry>
 {
@@ -19,38 +20,70 @@ class FoodDiaryEntry(var timeMillis: Long = Calendar.getInstance().timeInMillis)
         dateString = "$day/$month/$year"
     }
 
-    fun toJSON(tabs: Int): String
+    fun toCSV(): String
     {
-        val newTabs = tabs + 1
-        var result = "${addTabs(tabs)}{\n${addTabs(newTabs)}\"bloodSugar\": $bloodSugar,\n${addTabs(newTabs)}" +
-                "\"insulinTaken\": $insulinTaken,\n${addTabs(newTabs)}\"notes\": "
-        result += if (notes == null) "" else "\""
-        result += "$notes"
-        result += if (notes == null) "" else "\""
-        result += "\n${addTabs(newTabs)}\"timeMillis\": $timeMillis,\n${addTabs(newTabs)}\"ingredients\": " +
-                "[\n"
-        val listTabs = tabs + 2
-        for (ing in ingredients)
+        var output = ""
+
+        // adds time/date
+        val date = Calendar.getInstance()
+        date.timeInMillis = timeMillis
+        var timeString = "${date.get(Calendar.HOUR_OF_DAY)}:"
+        var minute = date.get(Calendar.MINUTE)
+        if (minute < 10)
+            timeString += "0$minute"
+        else
+            timeString += minute
+        output += "\"$dateString\n$timeString\","
+
+        // adds blood sugar
+        val bs = if (bloodSugar == null) "N/A" else bloodSugar!!.round(2).toString()
+        output += "$bs,"
+
+        // adds recipe/ingredients
+        output += "\""
+        var carbs = 0f
+        if (recipes.size > 0 || ingredients.size > 0)
         {
-            result += "${addTabs(newTabs+1)}{\n${addTabs(listTabs)}\"ingName\": \"${ing.key.name}\"," +
-                    "\n${addTabs(listTabs)}\"qty\": ${ing.value}\n${addTabs(newTabs+1)}},\n"
+            for (recipe in recipes)
+            {
+                output += recipe.key.recName
+                output += " "
+                output += "${recipe.value.roundToInt()}g "
+                val carb = (recipe.key.whatNutirion() / recipe.value).carbs
+                output += "(${carb.round(2)}g)\n"
+                carbs += carb
+            }
+            for (ing in ingredients)
+            {
+                output += ing.key.name
+                output += " "
+                val carb = (ing.key.whatNutirion() / ing.value).carbs
+                output += "${ing.value.roundToInt()}g "
+                output += "(${carb.round(2)}g)\n"
+                carbs += carb
+            }
+            output = output.substring(0, output.length-1)
         }
-        if (!ingredients.isEmpty())
-        {
-            result = result.substring(0,  result.length-2) + "\n"
-        }
-        result += "${addTabs(newTabs)}],\n${addTabs(newTabs)}\"recipes\": [\n"
-        for (recipe in recipes)
-        {
-            result += "${addTabs(newTabs+1)}{\n${addTabs(listTabs)}\"recName\": \"${recipe.key.recName}," +
-                    "\n${addTabs(listTabs)}\"qty\": ${recipe.value}\n${addTabs(newTabs+1)}},\n"
-        }
-        if (!recipes.isEmpty())
-        {
-            result = result.substring(0,  result.length-2) + "\n"
-        }
-        result += "${addTabs(newTabs)}]\n${addTabs(tabs)}}"
-        return result
+        else
+            output += "N/A"
+        output += "\","
+
+        // adds carbs
+        output += carbs.round(2)
+        output += ","
+
+        // adds insulin taken
+        if (insulinTaken == null)
+            output += "N/A,"
+        else
+            output += "$insulinTaken,"
+
+        //adds notes
+        if (notes == null)
+            output += "N/A,,"
+        else
+            output += "\"$notes\",,"
+        return output
     }
 
     fun addRecipe(rec: Recipe, qty: Float): Boolean
@@ -106,5 +139,39 @@ class FoodDiaryEntry(var timeMillis: Long = Calendar.getInstance().timeInMillis)
         return "DiaryEntry[timeMillis: $timeMillis, date: $dateString, bloodsugar: $bloodSugar, " +
                 "insulinTaken: $insulinTaken, notes: $notes, ingredientsNo: ${ingredients.size}, " +
                 "recipeNo: ${recipes.size}]"
+    }
+
+    fun toJSON(tabs: Int): String
+    {
+        val newTabs = tabs + 1
+        var result = "${addTabs(tabs)}{\n${addTabs(newTabs)}\"bloodSugar\": $bloodSugar,\n${addTabs(newTabs)}" +
+                "\"insulinTaken\": $insulinTaken,\n${addTabs(newTabs)}\"notes\": "
+        result += if (notes == null) "" else "\""
+        result += "$notes"
+        result += if (notes == null) "" else "\""
+        result += "\n${addTabs(newTabs)}\"timeMillis\": $timeMillis,\n${addTabs(newTabs)}\"ingredients\": " +
+                "[\n"
+        val listTabs = tabs + 2
+        for (ing in ingredients)
+        {
+            result += "${addTabs(newTabs+1)}{\n${addTabs(listTabs)}\"ingName\": \"${ing.key.name}\"," +
+                    "\n${addTabs(listTabs)}\"qty\": ${ing.value}\n${addTabs(newTabs+1)}},\n"
+        }
+        if (!ingredients.isEmpty())
+        {
+            result = result.substring(0,  result.length-2) + "\n"
+        }
+        result += "${addTabs(newTabs)}],\n${addTabs(newTabs)}\"recipes\": [\n"
+        for (recipe in recipes)
+        {
+            result += "${addTabs(newTabs+1)}{\n${addTabs(listTabs)}\"recName\": \"${recipe.key.recName}," +
+                    "\n${addTabs(listTabs)}\"qty\": ${recipe.value}\n${addTabs(newTabs+1)}},\n"
+        }
+        if (!recipes.isEmpty())
+        {
+            result = result.substring(0,  result.length-2) + "\n"
+        }
+        result += "${addTabs(newTabs)}]\n${addTabs(tabs)}}"
+        return result
     }
 }

@@ -9,10 +9,16 @@ import java.io.FileNotFoundException
  */
 class FileHelper
 {
+    enum class Type
+    {
+        TEMP, PERM
+    }
     companion object {
         var files: MutableMap<String, File> = mutableMapOf() // static map of file references
         var context:Context? = null // app context, used to decide whether to use app directory
                                 // if running in android environment
+        var type = Type.PERM
+        var path = ""
 
         /**
          * Opens existing file/directory, or creates new file/directory if does not exist
@@ -31,7 +37,14 @@ class FileHelper
                 dir = File("test/" + directory)
             }
             // directory equals apps local data
-            else dir = File(context?.filesDir?.absolutePath + "/" + directory)
+            else if (type == Type.PERM) {
+                path = context!!.filesDir!!.absolutePath
+                dir = File("$path/$directory/")
+            }
+            else {
+                path = context!!.externalCacheDir!!.absolutePath
+                dir = File("$path/$directory/")
+            }
 
             // checks if directory exists, if not attempts to create
             if (!(dir.exists())) {

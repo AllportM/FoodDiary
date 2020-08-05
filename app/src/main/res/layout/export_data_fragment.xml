@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent" android:layout_height="match_parent"
+        android:background="@color/list_dark_grey"
+        android:clickable="true"
+        android:focusable="true"
+        android:focusableInTouchMode="true">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            app:layout_constraintBottom_toTopOf="@+id/exportButcont"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+                style="@style/textSmall"
+                android:textStyle="italic"
+                android:textAlignment="center"
+                android:id="@+id/textView18"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Leaving date from or date to as blank will select results from the beginning of creation or the end of time respectively"
+                app:layout_constraintEnd_toEndOf="@+id/linearLayout11"
+                app:layout_constraintStart_toStartOf="@+id/linearLayout11"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout11" />
+
+        <LinearLayout
+                android:id="@+id/linearLayout11"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="10dp">
+
+                <TextView
+                        android:id="@+id/textView14"
+                        style="@style/textMain"
+                        android:layout_width="95dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:padding="10dp"
+                        android:text="Date From"
+                        android:textAlignment="textEnd" />
+
+                <EditText
+                        android:id="@+id/exportDateFrom"
+                        style="@style/textMain"
+                        android:layout_width="110dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="10dp"
+                        android:layout_weight="1"
+                        android:autofillHints=""
+                        android:background="@drawable/text_field_border"
+                        android:ems="10"
+                        android:focusable="false"
+                        android:inputType="date"
+                        android:paddingStart="10dp"
+                        android:paddingEnd="10dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                <TextView
+                        android:id="@+id/textView16"
+                        style="@style/textMain"
+                        android:layout_width="95dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:padding="10dp"
+                        android:text="Date To"
+                        android:textAlignment="textEnd" />
+
+                <EditText
+                        android:id="@+id/exportDateTo"
+                        style="@style/textMain"
+                        android:layout_width="110dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="10dp"
+                        android:layout_weight="1"
+                        android:autofillHints=""
+                        android:background="@drawable/text_field_border"
+                        android:ems="10"
+                        android:focusable="false"
+                        android:inputType="date"
+                        android:paddingStart="10dp"
+                        android:paddingEnd="10dp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                <TextView
+                        android:id="@+id/exportDateError"
+                        style="@style/error"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Date To must be set to after Date From" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <LinearLayout
+            android:id="@+id/exportButcont"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:layout_editor_absoluteX="0dp">
+
+        <Button
+                android:id="@+id/exportBack"
+                style="@style/buttonMain"
+                android:layout_width="0dp"
+                android:layout_marginStart="2dp"
+                android:layout_marginTop="2dp"
+                android:layout_marginEnd="1dp"
+                android:layout_marginBottom="2dp"
+                android:layout_weight="1"
+                android:text="Back" />
+
+        <Button
+                android:id="@+id/exportFinalize"
+                style="@style/buttonMain"
+                android:layout_width="0dp"
+                android:layout_marginStart="1dp"
+                android:layout_marginTop="2dp"
+                android:layout_marginEnd="2dp"
+                android:layout_marginBottom="2dp"
+                android:layout_weight="1"
+                android:text="Finish" />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

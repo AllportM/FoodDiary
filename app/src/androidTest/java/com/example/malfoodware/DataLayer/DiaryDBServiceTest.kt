@@ -149,7 +149,16 @@ class DiaryDBServiceTest                 {
     @Test
     fun testGetDiaryRange1Success()
     {
-        var set = DiaryDBService.getDiaryEntriesDateRange(dbHelper, USER.uid, ENTRY1.dateString, "2/7/2020")
+        var cal = Calendar.getInstance()
+        val fromArr = ENTRY1.dateString.split('/')
+        var day = fromArr[0].toInt()
+        var month = fromArr[1].toInt() -1
+        var year = fromArr[2].toInt()
+        cal.set(year, month, day, 0, 0, 0)
+        val fromMilli = cal.timeInMillis
+        cal.set(2020, 6, 2, 23, 59, 59)
+        val toMilli = cal.timeInMillis
+        var set = DiaryDBService.getDiaryEntriesDateRange(dbHelper, USER.uid, fromMilli, toMilli)
         println("--------getTestRange1------\n$set")
         assertTrue(set.size == 1)
     }
@@ -157,7 +166,20 @@ class DiaryDBServiceTest                 {
     @Test
     fun testGetDiaryRange2Success()
     {
-        var set = DiaryDBService.getDiaryEntriesDateRange(dbHelper, USER.uid, ENTRY1.dateString, ENTRY2.dateString)
+        var cal = Calendar.getInstance()
+        val fromArr = ENTRY1.dateString.split('/')
+        var day = fromArr[0].toInt()
+        var month = fromArr[1].toInt() -1
+        var year = fromArr[2].toInt()
+        cal.set(year, month, day, 0, 0, 0)
+        val fromMilli = cal.timeInMillis
+        val toArr = ENTRY2.dateString.split('/')
+        day = toArr[0].toInt()
+        month = toArr[1].toInt() - 1
+        year = toArr[2].toInt()
+        cal.set(year, month, day, 23, 59, 59)
+        val toMilli = cal.timeInMillis
+        var set = DiaryDBService.getDiaryEntriesDateRange(dbHelper, USER.uid, fromMilli, toMilli)
         println("--------getTest------\n$set")
         assertTrue(set.size == 3)
     }

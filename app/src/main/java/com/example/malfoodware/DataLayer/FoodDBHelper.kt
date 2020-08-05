@@ -94,8 +94,8 @@ class FoodDBHelper(context: Context): SQLiteOpenHelper(context, DATABASE_NAME, n
      */
     fun getDiaryEntriesDateRange(
         uid: String,
-        from: String,
-        to: String
+        from: Long,
+        to: Long
     ): SortedSet<FoodDiaryEntry> {
         return DiaryDBService.getDiaryEntriesDateRange(this, uid,  from, to)
     }
@@ -295,7 +295,7 @@ class FoodDBHelper(context: Context): SQLiteOpenHelper(context, DATABASE_NAME, n
     fun getLoggedInSelectedDate(): String? {
         return AppDBService.getLoggedInSelectedDate(this)
     }
-    
+
     fun getUsers(): MutableList<String>
     {
         return UserDBService.getUsers(this)

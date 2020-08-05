@@ -49,7 +49,7 @@ class CalendarViewFragment(val time: Long, val intF: CalendarUseIF) : AppCompatD
 
     override fun onDismiss(dialog: DialogInterface) {
         super.dismiss()
-        activityApp.onCalDismiss()
+//        activityApp.onCalDismiss()
     }
 
     fun setCalendar()
@@ -58,8 +58,12 @@ class CalendarViewFragment(val time: Long, val intF: CalendarUseIF) : AppCompatD
         val calendarView = requireView().findViewById<CalendarView>(R.id.my_date_picker)
         calendarView.date = time
         calendarView?.setOnDateChangeListener { calendarView, i, i2, i3 ->
+            Log.d("LOG", "${this::class.java} calendar set, sending response to ${intF::class.java}")
             intF.onDateSet(i, i2, i3)
-            dismiss()
+            if (intF is CreateEntryFinalFragment)
+                super.dismiss()
+            else
+                dismiss()
         }
     }
 

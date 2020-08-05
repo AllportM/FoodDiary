@@ -245,6 +245,7 @@ class CreateEntryFinalFragment(val foodList: List<Pair<FoodAccess, Float>>):
     }
 
     override fun onDateSet(year: Int, month: Int, day: Int) {
+        Log.d("LOG", "${this::class.java} recieved response from calendar, setting date")
         val dateString = "$day/${month+1}/$year"
         setDate(dateString)
     }

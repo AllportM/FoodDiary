@@ -259,6 +259,6 @@ class CreateIngFragment(): Fragment() {
         createIngFribreErrRealistic.visibility = TextView.INVISIBLE
         createIngProteinErrRealistic.visibility = TextView.INVISIBLE
         createIngSaltErrRealistic.visibility = TextView.INVISIBLE
-        createIngServingErrRealistic.visibility = TextView.VISIBLE
+        createIngServingErrRealistic.visibility = TextView.INVISIBLE
     }
 }

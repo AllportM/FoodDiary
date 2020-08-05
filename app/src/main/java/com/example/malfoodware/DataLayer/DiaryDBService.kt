@@ -219,10 +219,10 @@ class DiaryDBService {
             return result
         }
 
-        override fun getDiaryEntriesDateRange(dbHelper: FoodDBHelper, uid: String, from: String, to: String): SortedSet<FoodDiaryEntry> {
+        override fun getDiaryEntriesDateRange(dbHelper: FoodDBHelper, uid: String, from: Long, to: Long): SortedSet<FoodDiaryEntry> {
             val db = dbHelper.readableDatabase
             var result: SortedSet<FoodDiaryEntry> = sortedSetOf()
-            val query = "SELECT * FROM $TABLE_DIARY_ENTRY WHERE $KEY_DATE>='$from' AND $KEY_DATE<='$to' " +
+            val query = "SELECT * FROM $TABLE_DIARY_ENTRY WHERE $KEY_TIME_MILLIS>='$from' AND $KEY_TIME_MILLIS<='$to' " +
                     "AND $KEY_UID='$uid'"
             var cursor = db.rawQuery(query, null)
             if (cursor.moveToFirst()) {

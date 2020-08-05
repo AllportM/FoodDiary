@@ -5,7 +5,6 @@ import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteException
 import com.example.malfoodware.Logger
-import kotlin.coroutines.Continuation
 
 class AppDBService {
     companion object: AppStateHandler, DBInterface

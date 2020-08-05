@@ -72,6 +72,19 @@ class Recipe (var recName:String, val portion: Int = 1, var hasDeleteIng: Boolea
         return output
     }
 
+    override fun toString(): String {
+        var output: String= "Recipe[name: $recName, Ingredients: ["
+        for (i in ingList)
+        {
+            output += "(ing: ${i.key}, qty: ${i.value}), "
+        }
+        if (ingList.size > 0)
+        {
+            output = output.substring(0, output.length - 2)
+        }
+        output += "]"
+        return output
+    }
 
     fun toJSON(tabs: Int): String
     {
@@ -93,17 +106,4 @@ class Recipe (var recName:String, val portion: Int = 1, var hasDeleteIng: Boolea
         return result
     }
 
-    override fun toString(): String {
-        var output: String= "Recipe[name: $recName, Ingredients: ["
-        for (i in ingList)
-        {
-            output += "(ing: ${i.key}, qty: ${i.value}), "
-        }
-        if (ingList.size > 0)
-        {
-            output = output.substring(0, output.length - 2)
-        }
-        output += "]"
-        return output
-    }
 }
