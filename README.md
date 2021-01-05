@@ -1,4 +1,4 @@
-# FoodDiary - Android/Kotlin meal logger, nutirional information and blood sugar for diabetes
+## FoodDiary - Android/Kotlin meal logger, nutirional information and blood sugar for diabetes
 
 Android application to journal daily meals and snacks advising recommended insulin dosages per entry.  
 
