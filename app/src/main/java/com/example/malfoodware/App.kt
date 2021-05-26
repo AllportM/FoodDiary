@@ -32,7 +32,7 @@ class App (val context:Context){
     fun getListOfEntries(date: String): MutableList<FoodDiaryEntry>
     {
         var result: MutableList<FoodDiaryEntry> = mutableListOf()
-        val entries = dbHelper.getDiaryEntriesDate(user!!.uid!!, date)
+        val entries = dbHelper.getDiaryEntriesDate(user!!.uid, date)
         result.addAll(entries)
         return result
     }
